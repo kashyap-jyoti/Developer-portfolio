@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JK | Java Developer &amp; CS Student</title>
+  <meta name="description" content="JK - Aspiring Java Developer, DSA Enthusiast, and Software Engineer. BCA student passionate about building real-world software." />
+  <meta name="keywords" content="Java developer, DSA, portfolio, software engineer, BCA, React, Spring Boot, Jyoti Kashyap" />
+  <meta name="author" content="Jyoti Kashyap" />
+  <meta property="og:title" content="JK | Java Developer &amp; CS Student" />
+  <meta property="og:description" content="Aspiring Java Developer | DSA Enthusiast | Software Engineer" />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            dark: {
+              900: '#030712',
+              800: '#0a0f1e',
+              700: '#0d1427',
+            }
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #030712;
+      color: #e2e8f0;
+      overflow-x: hidden;
+      cursor: none;
+      margin: 0; padding: 0;
+    }
+
+    /* ============================================================
+       CUSTOM CURSOR
+    ============================================================ */
+    #cursor-dot {
+      width: 8px; height: 8px;
+      background: #60a5fa;
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.2s, height 0.2s;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(96,165,250,0.5);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
+    }
+    .cursor-hover #cursor-dot { transform: translate(-50%,-50%) scale(2.2); }
+    .cursor-hover #cursor-ring { width: 56px; height: 56px; border-color: rgba(168,85,247,0.6); }
+
+    @media (max-width: 768px) {
+      body { cursor: auto; }
+      #cursor-dot, #cursor-ring { display: none; }
+    }
+
+    /* ============================================================
+       SCROLL PROGRESS BAR
+    ============================================================ */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0;
+      height: 3px; width: 0%;
+      background: linear-gradient(90deg, #3b82f6, #a855f7);
+      z-index: 9997;
+      transition: width 0.05s linear;
+    }
+
+    /* ============================================================
+       LOADING SCREEN
+    ============================================================ */
+    #loading-screen {
+      position: fixed; inset: 0;
+      background: #030712;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 99999;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loading-screen.hidden-screen {
+      opacity: 0; visibility: hidden;
+    }
+    .loader-ring {
+      width: 56px; height: 56px;
+      border: 3px solid rgba(96,165,250,0.15);
+      border-top-color: #60a5fa;
+      border-right-color: #a855f7;
+      border-radius: 50%;
+      animation: spinRing 0.8s linear infinite;
+    }
+    @keyframes spinRing { to { transform: rotate(360deg); } }
+
+    /* ============================================================
+       GLASS EFFECT
+    ============================================================ */
+    .glass {
+      background: rgba(13, 20, 39, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(96,165,250,0.1);
+    }
+    .glass-card {
+      background: rgba(14, 22, 42, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(96,165,250,0.14);
+      border-radius: 16px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(96,165,250,0.38);
+      background: rgba(20, 32, 60, 0.82);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(59,130,246,0.11), 0 0 0 1px rgba(96,165,250,0.18);
+    }
+
+    /* ============================================================
+       GRADIENT TEXT
+    ============================================================ */
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa 0%, #a855f7 50%, #60a5fa 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientFlow 4s linear infinite;
+    }
+    .gradient-text-static {
+      background: linear-gradient(135deg, #60a5fa, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    @keyframes gradientFlow {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* ============================================================
+       GRADIENT BORDER CARD
+    ============================================================ */
+    .gradient-border-card {
+      position: relative;
+      border-radius: 16px;
+      background: rgba(14, 22, 42, 0.72);
+      backdrop-filter: blur(16px);
+    }
+    .gradient-border-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      padding: 1.5px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #3b82f6, #a855f7);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #7e22ce);
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+      position: relative; overflow: hidden;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #3b82f6, #a855f7);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .btn-primary:hover::after { opacity: 1; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.35); }
+    .btn-primary > * { position: relative; z-index: 1; }
+
+    .btn-outline {
+      background: transparent;
+      color: #60a5fa;
+      padding: 13px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1.5px solid rgba(96,165,250,0.35);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .btn-outline:hover {
+      background: rgba(96,165,250,0.1);
+      border-color: #60a5fa;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(96,165,250,0.14);
+    }
+
+    /* ============================================================
+       PARTICLES CANVAS
+    ============================================================ */
+    #particles-canvas {
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ============================================================
+       TYPING CURSOR
+    ============================================================ */
+    .type-cursor {
+      display: inline-block; width: 2.5px; height: 1.15em;
+      background: #60a5fa; margin-left: 3px;
+      vertical-align: middle;
+      animation: blinkCursor 1s step-end infinite;
+    }
+    @keyframes blinkCursor { 50% { opacity: 0; } }
+
+    /* ============================================================
+       SKILL BAR
+    ============================================================ */
+    .skill-bar-fill {
+      height: 100%; border-radius: 9999px;
+      background: linear-gradient(90deg, #3b82f6, #a855f7);
+      width: 0%;
+      transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative; overflow: hidden;
+    }
+    .skill-bar-fill::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      animation: shimmer 2.2s infinite;
+    }
+    @keyframes shimmer {
+      from { transform: translateX(-150%); }
+      to   { transform: translateX(200%); }
+    }
+
+    /* ============================================================
+       TIMELINE
+    ============================================================ */
+    .tl-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #a855f7);
+      border: 2px solid #030712;
+      box-shadow: 0 0 12px rgba(96,165,250,0.55);
+      flex-shrink: 0;
+    }
+    .tl-line {
+      width: 2px; flex: 1; min-height: 48px;
+      background: linear-gradient(to bottom, rgba(96,165,250,0.35), transparent);
+    }
+
+    /* ============================================================
+       NAV LINKS
+    ============================================================ */
+    .nav-link {
+      color: #94a3b8; font-size: 0.875rem; font-weight: 500;
+      text-decoration: none;
+      position: relative; padding-bottom: 3px;
+      transition: color 0.2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1.5px;
+      background: linear-gradient(90deg, #3b82f6, #a855f7);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: #e2e8f0; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ============================================================
+       MOBILE NAV
+    ============================================================ */
+    #mobile-menu {
+      display: none; flex-direction: column;
+      padding: 12px 0 8px; gap: 2px;
+    }
+    #mobile-menu.open { display: flex; }
+    .mobile-link {
+      color: #94a3b8; font-size: 0.9rem; font-weight: 500;
+      text-decoration: none; padding: 10px 16px;
+      border-radius: 8px; transition: all 0.2s;
+    }
+    .mobile-link:hover { color: #e2e8f0; background: rgba(96,165,250,0.08); }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-left {
+      opacity: 0; transform: translateX(-36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+    .reveal-right {
+      opacity: 0; transform: translateX(36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ============================================================
+       BACK TO TOP
+    ============================================================ */
+    #back-to-top {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #2563eb, #7e22ce);
+      border-radius: 12px; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 20px rgba(59,130,246,0.28);
+    }
+    #back-to-top.show { opacity: 1; transform: translateY(0); }
+    #back-to-top:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(59,130,246,0.42); }
+
+    /* ============================================================
+       SECTION HEADINGS
+    ============================================================ */
+    .section-heading {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
+    }
+    .section-lead {
+      color: #94a3b8; font-size: 0.95rem; line-height: 1.75; max-width: 520px;
+    }
+
+    /* ============================================================
+       TAGS / BADGES
+    ============================================================ */
+    .tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 13px; border-radius: 999px;
+      background: rgba(96,165,250,0.09);
+      border: 1px solid rgba(96,165,250,0.2);
+      font-size: 0.78rem; font-weight: 500; color: #93c5fd;
+      transition: all 0.2s;
+    }
+    .tag:hover { background: rgba(96,165,250,0.16); border-color: rgba(96,165,250,0.38); }
+
+    /* ============================================================
+       STAT NUMBER
+    ============================================================ */
+    .stat-num {
+      font-size: 2.4rem; font-weight: 800; line-height: 1;
+      background: linear-gradient(135deg, #60a5fa, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ============================================================
+       SOCIAL ICON
+    ============================================================ */
+    .social-icon {
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px;
+      background: rgba(96,165,250,0.08);
+      border: 1px solid rgba(96,165,250,0.2);
+      color: #60a5fa; font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+    .social-icon:hover {
+      background: rgba(96,165,250,0.16); border-color: rgba(96,165,250,0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(59,130,246,0.2);
+      color: #bfdbfe;
+    }
+
+    /* ============================================================
+       CONTACT FORM
+    ============================================================ */
+    .form-input {
+      width: 100%;
+      background: rgba(10,15,30,0.8);
+      border: 1.5px solid rgba(96,165,250,0.14);
+      border-radius: 12px;
+      padding: 13px 17px;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    }
+    .form-input::placeholder { color: #475569; }
+    .form-input:focus {
+      border-color: rgba(96,165,250,0.48);
+      box-shadow: 0 0 0 3px rgba(96,165,250,0.09);
+      background: rgba(14,22,42,0.92);
+    }
+
+    /* ============================================================
+       TOAST NOTIFICATION
+    ============================================================ */
+    #toast {
+      position: fixed; bottom: 88px; right: 28px;
+      background: rgba(14,22,42,0.95);
+      border: 1px solid rgba(96,165,250,0.28);
+      border-radius: 12px; padding: 13px 18px;
+      color: #86efac; font-size: 0.88rem; font-weight: 500;
+      z-index: 8999;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+      backdrop-filter: blur(12px); pointer-events: none;
+      max-width: 260px;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       HERO BACKGROUND
+    ============================================================ */
+    .hero-section {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -5%, rgba(59,130,246,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 40% at 85% 85%, rgba(168,85,247,0.1) 0%, transparent 50%),
+        #030712;
+      min-height: 100vh;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ============================================================
+       HERO ENTRY ANIMATIONS
+    ============================================================ */
+    .hero-badge   { animation: fadeUp 0.6s ease 0.2s both; }
+    .hero-title   { animation: fadeUp 0.6s ease 0.35s both; }
+    .hero-sub     { animation: fadeUp 0.6s ease 0.5s both; }
+    .hero-desc    { animation: fadeUp 0.6s ease 0.65s both; }
+    .hero-ctas    { animation: fadeUp 0.6s ease 0.8s both; }
+    .hero-scroll  { animation: fadeUp 0.6s ease 1.0s both; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       PROFILE IMAGE RING
+    ============================================================ */
+    .profile-ring {
+      padding: 3px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #a855f7, #3b82f6);
+      background-size: 200% auto;
+      animation: gradientFlow 4s linear infinite;
+    }
+
+    /* ============================================================
+       CERT BADGE ICON BOX
+    ============================================================ */
+    .cert-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.55rem; margin-bottom: 14px;
+    }
+
+    /* ============================================================
+       FLOATING BLOBS (decorative)
+    ============================================================ */
+    .blob {
+      position: absolute; border-radius: 50%;
+      pointer-events: none; filter: blur(60px);
+      animation: blobPulse 6s ease-in-out infinite;
+    }
+    @keyframes blobPulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50%      { transform: scale(1.12); opacity: 0.7; }
+    }
+
+    /* ============================================================
+       GLITCH TEXT
+    ============================================================ */
+    .glitch {
+      position: relative;
+    }
+    .glitch:hover::before,
+    .glitch:hover::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      background: linear-gradient(135deg, #60a5fa 0%, #a855f7 50%, #60a5fa 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .glitch:hover::before {
+      animation: glitch1 0.4s cubic-bezier(.25,.46,.45,.94) both infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    }
+    .glitch:hover::after {
+      animation: glitch2 0.4s cubic-bezier(.25,.46,.45,.94) reverse both infinite;
+      clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    }
+    @keyframes glitch1 {
+      0%   { transform: translate(0); }
+      20%  { transform: translate(-3px, 1px); }
+      40%  { transform: translate(2px, -1px); }
+      60%  { transform: translate(-1px, 2px); }
+      80%  { transform: translate(1px, -2px); }
+      100% { transform: translate(0); }
+    }
+    @keyframes glitch2 {
+      0%   { transform: translate(0); }
+      20%  { transform: translate(3px, -1px); }
+      40%  { transform: translate(-2px, 1px); }
+      60%  { transform: translate(1px, -2px); }
+      80%  { transform: translate(-1px, 2px); }
+      100% { transform: translate(0); }
+    }
+
+    /* ============================================================
+       RIPPLE EFFECT
+    ============================================================ */
+    .ripple-container { position: relative; overflow: hidden; }
+    .ripple-wave {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      background: rgba(255,255,255,0.25);
+      animation: rippleAnim 0.6s linear;
+      pointer-events: none;
+    }
+    @keyframes rippleAnim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* ============================================================
+       TECH MARQUEE STRIP
+    ============================================================ */
+    .marquee-wrap {
+      overflow: hidden;
+      position: relative;
+      padding: 0;
+      mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 28px;
+      animation: marqueeScroll 28s linear infinite;
+      width: max-content;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 22px;
+      background: rgba(14,22,42,0.72);
+      border: 1px solid rgba(96,165,250,0.14);
+      border-radius: 999px;
+      color: #94a3b8;
+      font-size: 0.83rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: border-color 0.3s, color 0.3s;
+      cursor: default;
+    }
+    .marquee-item:hover { border-color: rgba(96,165,250,0.4); color: #e2e8f0; }
+    .marquee-icon { font-size: 1.1rem; }
+
+    /* ============================================================
+       SPOTLIGHT CARD GLOW
+    ============================================================ */
+    .spotlight-card {
+      --mx: 50%; --my: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+    .spotlight-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle 180px at var(--mx) var(--my),
+        rgba(96,165,250,0.12) 0%,
+        transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+    .spotlight-card:hover::after { opacity: 1; }
+
+    /* ============================================================
+       ACTIVE NAV INDICATOR
+    ============================================================ */
+    .nav-link.active { color: #e2e8f0; }
+    .nav-link.active::after { width: 100%; }
+
+    /* ============================================================
+       CONFETTI PARTICLE
+    ============================================================ */
+    .confetti-piece {
+      position: fixed;
+      width: 8px; height: 8px;
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 99998;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ============================================================
+       3D TILT CARD
+    ============================================================ */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.08s ease;
+    }
+    .tilt-card .tilt-shine {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+      border-radius: inherit;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .tilt-card:hover .tilt-shine { opacity: 1; }
+
+    /* ============================================================
+       MAGNETIC BUTTON
+    ============================================================ */
+    .magnetic-btn {
+      transition: transform 0.2s cubic-bezier(.23,1,.32,1), box-shadow 0.2s ease;
+    }
+
+    /* ============================================================
+       FLOATING BADGE PING
+    ============================================================ */
+    .ping-ring {
+      animation: pingAnim 1.8s cubic-bezier(0,0,0.2,1) infinite;
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: rgba(74,222,128,0.3);
+    }
+    @keyframes pingAnim {
+      75%, 100% { transform: scale(2.2); opacity: 0; }
+    }
+
+    /* ============================================================
+       SCROLL REVEAL - STAGGERED CHILDREN
+    ============================================================ */
+    .reveal-stagger > * {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.05s; }
+    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.13s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.21s; }
+    .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.29s; }
+    .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.37s; }
+    .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.45s; }
+
+    /* ============================================================
+       HERO SCROLL DOT FIX
+    ============================================================ */
+    @keyframes scrollDot {
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      50%      { transform: translateY(8px); opacity: 0.4; }
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #030712; }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #3b82f6, #a855f7);
+      border-radius: 999px;
+    }
+
+    /* ============================================================
+       FOOTER DIVIDER
+    ============================================================ */
+    .footer-divider {
+      border: none; border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ============================================================
+       LIGHT MODE OVERRIDES (when dark mode is toggled off)
+    ============================================================ */
+    .light body { background: #f0f4ff !important; color: #1e293b !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ===============================================================
+       LOADING SCREEN
+  =============================================================== -->
+  <div id="loading-screen">
+    <div class="loader-ring" style="margin-bottom:20px;"></div>
+    <p style="color:#94a3b8;font-size:0.8rem;font-family:'JetBrains Mono',monospace;letter-spacing:0.12em;">INITIALIZING...</p>
+    <div style="margin-top:18px;width:180px;height:3px;background:rgba(96,165,250,0.12);border-radius:999px;overflow:hidden;">
+      <div id="loading-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#3b82f6,#a855f7);border-radius:999px;transition:width 0.25s ease;"></div>
+    </div>
+  </div>
+
+  <!-- ===============================================================
+       CURSOR
+  =============================================================== -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ===============================================================
+       SCROLL PROGRESS
+  =============================================================== -->
+  <div id="scroll-progress"></div>
+
+  <!-- ===============================================================
+       TOAST
+  =============================================================== -->
+  <div id="toast">&#10003; Message sent successfully!</div>
+
+  <!-- ===============================================================
+       BACK TO TOP
+  =============================================================== -->
+  <button id="back-to-top" aria-label="Back to top" onclick="scrollToTop()">
+    <svg width="18" height="18" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <!-- ===============================================================
+       NAVBAR
+  =============================================================== -->
+  <nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:9990;transition:background 0.3s,border 0.3s;">
+    <div style="max-width:1152px;margin:0 auto;padding:0 24px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;height:64px;">
+
+        <!-- Logo -->
+        <a href="#home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+          <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#3b82f6,#a855f7);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.78rem;letter-spacing:0.02em;">JK</div>
+          <span style="font-weight:700;color:#f1f5f9;font-size:0.95rem;" class="hidden-mobile">Jyoti Kashyap</span>
+        </a>
+
+        <!-- Desktop links -->
+        <div class="nav-desktop" style="display:flex;gap:28px;align-items:center;">
+          <a href="#about"          class="nav-link">About</a>
+          <a href="#skills"         class="nav-link">Skills</a>
+          <a href="#projects"        class="nav-link">Projects</a>
+          <a href="#experience"     class="nav-link">Experience</a>
+          <a href="#certifications" class="nav-link">Certs</a>
+          <a href="#education"      class="nav-link">Education</a>
+          <a href="#contact"        class="nav-link">Contact</a>
+        </div>
+
+        <!-- Right: dark mode + resume + hamburger -->
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button id="theme-toggle" aria-label="Toggle theme" style="width:36px;height:36px;border-radius:9px;background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.15);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#94a3b8;transition:all 0.2s;">
+            <span id="theme-icon">&#9790;</span>
+          </button>
+          <a href="#contact" class="btn-primary" style="padding:8px 18px;font-size:0.82rem;" id="resume-btn">
+            <span>Resume</span>
+          </a>
+          <button id="hamburger" aria-label="Menu" style="display:none;width:36px;height:36px;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0;" onclick="toggleMenu()">
+            <span id="hb1" style="display:block;width:20px;height:2px;background:#94a3b8;border-radius:2px;transition:all 0.3s;"></span>
+            <span id="hb2" style="display:block;width:20px;height:2px;background:#94a3b8;border-radius:2px;transition:all 0.3s;"></span>
+            <span id="hb3" style="display:block;width:20px;height:2px;background:#94a3b8;border-radius:2px;transition:all 0.3s;"></span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="glass" style="border-radius:12px;margin-bottom:8px;padding:6px 8px;">
+        <a href="#about"          class="mobile-link" onclick="closeMenu()">About</a>
+        <a href="#skills"         class="mobile-link" onclick="closeMenu()">Skills</a>
+        <a href="#projects"        class="mobile-link" onclick="closeMenu()">Projects</a>
+        <a href="#experience"     class="mobile-link" onclick="closeMenu()">Experience</a>
+        <a href="#certifications" class="mobile-link" onclick="closeMenu()">Certifications</a>
+        <a href="#education"      class="mobile-link" onclick="closeMenu()">Education</a>
+        <a href="#contact"        class="mobile-link" onclick="closeMenu()">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===============================================================
+       HERO SECTION
+  =============================================================== -->
+  <section id="home" class="hero-section" style="padding-top:64px;">
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Decorative blobs -->
+    <div class="blob" style="width:500px;height:500px;background:rgba(59,130,246,0.09);top:-120px;left:-100px;animation-delay:0s;"></div>
+    <div class="blob" style="width:400px;height:400px;background:rgba(168,85,247,0.07);bottom:-80px;right:-60px;animation-delay:2.5s;"></div>
+
+    <div style="max-width:800px;margin:0 auto;padding:80px 24px;text-align:center;position:relative;z-index:1;">
+
+      <!-- Badge -->
+      <div class="hero-badge" style="display:inline-flex;align-items:center;gap:8px;padding:7px 18px;border-radius:999px;background:rgba(13,20,39,0.65);border:1px solid rgba(96,165,250,0.22);color:#60a5fa;font-size:0.82rem;font-weight:500;margin-bottom:28px;backdrop-filter:blur(12px);">
+        <span style="width:7px;height:7px;background:#4ade80;border-radius:50%;animation:blinkCursor 2s ease-in-out infinite;"></span>
+        Open to internship opportunities
+      </div>
+
+      <!-- Headline -->
+      <h1 class="hero-title" style="font-size:clamp(2.2rem,6vw,4.2rem);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-0.03em;margin-bottom:18px;">
+        Hi, I'm <span class="gradient-text glitch" data-text="Jyoti Kashyap" style="display:inline-block;cursor:default;">Jyoti Kashyap</span>
+      </h1>
+
+      <!-- Typing sub-headline -->
+      <div class="hero-sub" style="font-size:clamp(1rem,3vw,1.35rem);color:#94a3b8;font-weight:500;min-height:38px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+        <span id="typing-el"></span><span class="type-cursor"></span>
+      </div>
+
+      <!-- Description -->
+      <p class="hero-desc" style="color:#64748b;font-size:1rem;max-width:600px;margin:0 auto 36px;line-height:1.8;">
+        I am a passionate Computer Applications student focused on mastering Data Structures &amp; Algorithms,
+        Java Development, and building real-world software projects. My goal is to become a software engineer
+        at a leading product-based company.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="hero-ctas" style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+        <a href="#contact" class="btn-primary ripple-container magnetic-btn" id="hero-resume-btn">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download Resume</span>
+        </a>
+        <a href="#projects" class="btn-outline ripple-container magnetic-btn" id="hero-projects-btn">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          <span>View Projects</span>
+        </a>
+        <a href="#contact" class="btn-outline ripple-container magnetic-btn" id="hero-contact-btn">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>Contact Me</span>
+        </a>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="hero-scroll" style="margin-top:64px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <span style="font-size:0.72rem;letter-spacing:0.1em;color:#334155;text-transform:uppercase;">Scroll</span>
+        <div style="width:20px;height:34px;border:1.5px solid #1e3a8a;border-radius:999px;display:flex;align-items:flex-start;justify-content:center;padding:4px;">
+          <div style="width:3px;height:7px;background:#3b82f6;border-radius:999px;animation:scrollDot 1.4s ease-in-out infinite;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================================================
+       ABOUT SECTION
+  =============================================================== -->
+  <!-- ===============================================================
+       TECH STACK MARQUEE
+  =============================================================== -->
+  <div style="padding:0 0 0;background:rgba(3,7,18,0.5);border-top:1px solid rgba(96,165,250,0.07);border-bottom:1px solid rgba(96,165,250,0.07);overflow:hidden;" class="reveal">
+    <div class="marquee-wrap" style="padding:18px 0;">
+      <div class="marquee-track" id="marquee-track">
+        <span class="marquee-item"><span class="marquee-icon">☕</span> Java</span>
+        <span class="marquee-item"><span class="marquee-icon">🌱</span> Spring Boot</span>
+        <span class="marquee-item"><span class="marquee-icon">⚛️</span> React</span>
+        <span class="marquee-item"><span class="marquee-icon">🌐</span> HTML5</span>
+        <span class="marquee-item"><span class="marquee-icon">🎨</span> CSS3</span>
+        <span class="marquee-item"><span class="marquee-icon">🟨</span> JavaScript</span>
+        <span class="marquee-item"><span class="marquee-icon">🗄️</span> MySQL</span>
+        <span class="marquee-item"><span class="marquee-icon">🐙</span> Git & GitHub</span>
+        <span class="marquee-item"><span class="marquee-icon">📊</span> DSA</span>
+        <span class="marquee-item"><span class="marquee-icon">🔧</span> VS Code</span>
+        <span class="marquee-item"><span class="marquee-icon">🐘</span> PHP</span>
+        <span class="marquee-item"><span class="marquee-icon">🧠</span> OOP</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-item"><span class="marquee-icon">☕</span> Java</span>
+        <span class="marquee-item"><span class="marquee-icon">🌱</span> Spring Boot</span>
+        <span class="marquee-item"><span class="marquee-icon">⚛️</span> React</span>
+        <span class="marquee-item"><span class="marquee-icon">🌐</span> HTML5</span>
+        <span class="marquee-item"><span class="marquee-icon">🎨</span> CSS3</span>
+        <span class="marquee-item"><span class="marquee-icon">🟨</span> JavaScript</span>
+        <span class="marquee-item"><span class="marquee-icon">🗄️</span> MySQL</span>
+        <span class="marquee-item"><span class="marquee-icon">🐙</span> Git & GitHub</span>
+        <span class="marquee-item"><span class="marquee-icon">📊</span> DSA</span>
+        <span class="marquee-item"><span class="marquee-icon">🔧</span> VS Code</span>
+        <span class="marquee-item"><span class="marquee-icon">🐘</span> PHP</span>
+        <span class="marquee-item"><span class="marquee-icon">🧠</span> OOP</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="about" style="padding:96px 24px;max-width:1152px;margin:0 auto;">
+
+    <div class="reveal" style="text-align:center;margin-bottom:64px;">
+      <p style="color:#60a5fa;font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">// Get to know me</p>
+      <h2 class="section-heading">About <span class="gradient-text-static">Me</span></h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+
+      <!-- Left: Profile image + tags -->
+      <div class="reveal-left" style="display:flex;flex-direction:column;align-items:center;gap:28px;">
+
+        <!-- Profile image -->
+        <div style="position:relative;">
+          <div style="position:absolute;inset:-12px;border-radius:50%;background:linear-gradient(135deg,rgba(59,130,246,0.25),rgba(168,85,247,0.2));filter:blur(24px);"></div>
+          <div class="profile-ring" style="display:inline-block;position:relative;">
+            <div style="width:220px;height:220px;border-radius:50%;overflow:hidden;background:#0d1427;">
+              <img src="assets/profile.png"
+                   alt="Jyoti Kashyap - Aspiring Java Software Engineer"
+                   style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                   onmouseover="this.style.transform='scale(1.07)'"
+                   onmouseout="this.style.transform='scale(1)'"
+              />
+              <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e3a8a,#581c87);font-size:3.5rem;font-weight:900;color:#60a5fa;">JK</div>
+            </div>
+          </div>
+          <!-- Online indicator with ping -->
+          <div style="position:absolute;bottom:12px;right:12px;width:22px;height:22px;">
+            <span class="ping-ring"></span>
+            <div style="position:absolute;inset:0;background:#4ade80;border-radius:50%;border:3px solid #030712;"></div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:300px;">
+          <span class="tag">&#128105;&#8205;&#128187; BCA Student</span>
+          <span class="tag">&#9749; Java Developer</span>
+          <span class="tag">&#128202; DSA Learner</span>
+          <span class="tag">&#129505; Problem Solver</span>
+          <span class="tag">&#128640; SE (Goal)</span>
+          <span class="tag">&#128218; Always Learning</span>
+        </div>
+      </div>
+
+      <!-- Right: Bio + stats -->
+      <div class="reveal-right">
+        <div style="margin-bottom:28px;">
+          <h3 style="font-size:1.5rem;font-weight:700;color:#f1f5f9;margin-bottom:14px;line-height:1.3;">
+            Turning <span class="gradient-text-static">ideas into code</span>, one commit at a time
+          </h3>
+          <p style="color:#64748b;line-height:1.85;margin-bottom:14px;font-size:0.95rem;">
+            I'm JK (Jyoti Kashyap) &mdash; a dedicated BCA student and aspiring Java Software Engineer. I thrive on solving
+            complex algorithmic problems and building clean, scalable software. Whether it's cracking DSA
+            challenges or building full-stack applications, I bring both precision and creativity to everything I create.
+          </p>
+          <p style="color:#64748b;line-height:1.85;font-size:0.95rem;">
+            With a strong foundation in Java, Data Structures, and Algorithms, I'm actively working towards
+            landing my dream role at a leading product-based tech company. Every line of code gets me one step closer.
+          </p>
+        </div>
+
+        <!-- Stats grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div class="glass-card spotlight-card tilt-card" style="padding:20px;text-align:center;position:relative;">
+            <div class="tilt-shine"></div>
+            <div class="stat-num counter" data-target="100" data-suffix="+">0+</div>
+            <div style="color:#64748b;font-size:0.82rem;margin-top:5px;">DSA Problems Solved</div>
+          </div>
+          <div class="glass-card spotlight-card tilt-card" style="padding:20px;text-align:center;position:relative;">
+            <div class="tilt-shine"></div>
+            <div class="stat-num counter" data-target="10" data-suffix="+">0+</div>
+            <div style="color:#64748b;font-size:0.82rem;margin-top:5px;">Projects Built</div>
+          </div>
+          <div class="glass-card spotlight-card tilt-card" style="padding:20px;text-align:center;position:relative;">
+            <div class="tilt-shine"></div>
+            <div class="stat-num counter" data-target="2" data-suffix="+">0+</div>
+            <div style="color:#64748b;font-size:0.82rem;margin-top:5px;">Years of Learning</div>
+          </div>
+          <div class="glass-card spotlight-card tilt-card" style="padding:20px;text-align:center;position:relative;">
+            <div class="tilt-shine"></div>
+            <div class="stat-num counter" data-target="100" data-suffix="">0</div>
+            <div style="color:#64748b;font-size:0.82rem;margin-top:5px;">Days Coding Journey</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===============================================================
+       SKILLS SECTION
+  =============================================================== -->
+  <section id="skills" style="padding:96px 24px;background:radial-gradient(ellipse 80% 40% at 50% 50%,rgba(59,130,246,0.055) 0%,transparent 70%);">
+    <div style="max-width:1152px;margin:0 auto;">
+
+      <div class="reveal" style="text-align:center;margin-bottom:64px;">
+        <p style="color:#60a5fa;font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">// What I work with</p>
+        <h2 class="section-heading">Technical <span class="gradient-text-static">Skills</span></h2>
+        <p class="section-lead" style="margin:14px auto 0;">A curated set of technologies I have mastered and continue to build upon.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+
+        <!-- Programming Languages -->
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.04s;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+            <div style="width:40px;height:40px;border-radius:11px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">&#128187;</div>
+            <span style="font-weight:700;color:#f1f5f9;">Programming Languages</span>
+          </div>
+          <div class="skill-item" data-level="90" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">Java</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">90%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="75" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">C</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">75%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="70" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">PHP</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">70%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="65">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">JavaScript</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">65%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+        </div>
+
+        <!-- Frontend -->
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.09s;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+            <div style="width:40px;height:40px;border-radius:11px;background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">&#127912;</div>
+            <span style="font-weight:700;color:#f1f5f9;">Frontend</span>
+          </div>
+          <div class="skill-item" data-level="85" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">HTML5</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">85%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="80" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">CSS3</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">80%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="62">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">React</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">62%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.14s;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+            <div style="width:40px;height:40px;border-radius:11px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">&#9881;</div>
+            <span style="font-weight:700;color:#f1f5f9;">Backend</span>
+          </div>
+          <div class="skill-item" data-level="88" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">Java (Core)</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">88%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="55" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">Spring Boot</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">55%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="68">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">PHP</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">68%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+        </div>
+
+        <!-- Database -->
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.19s;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+            <div style="width:40px;height:40px;border-radius:11px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">&#128452;</div>
+            <span style="font-weight:700;color:#f1f5f9;">Database</span>
+          </div>
+          <div class="skill-item" data-level="80" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">MySQL</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">80%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="72">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">SQL Server</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">72%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.24s;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+            <div style="width:40px;height:40px;border-radius:11px;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">&#128295;</div>
+            <span style="font-weight:700;color:#f1f5f9;">Tools</span>
+          </div>
+          <div class="skill-item" data-level="85" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">Git</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">85%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="88" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">GitHub</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">88%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="92">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">VS Code</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">92%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+        </div>
+
+        <!-- CS Concepts -->
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.29s;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+            <div style="width:40px;height:40px;border-radius:11px;background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">&#129504;</div>
+            <span style="font-weight:700;color:#f1f5f9;">CS Concepts</span>
+          </div>
+          <div class="skill-item" data-level="90" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">OOP</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">90%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="78" style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">Data Structures</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">78%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+          <div class="skill-item" data-level="75">
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:7px;">
+              <span style="color:#cbd5e1;font-weight:500;">Algorithms</span>
+              <span style="color:#60a5fa;font-family:'JetBrains Mono',monospace;">75%</span>
+            </div>
+            <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;"><div class="skill-bar-fill"></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================================================
+       EXPERIENCE / TIMELINE
+  =============================================================== -->
+  <section id="experience" style="padding:96px 24px;max-width:800px;margin:0 auto;">
+
+    <div class="reveal" style="text-align:center;margin-bottom:64px;">
+      <p style="color:#60a5fa;font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">// My journey</p>
+      <h2 class="section-heading">Experience &amp; <span class="gradient-text-static">Journey</span></h2>
+    </div>
+
+    <!-- Timeline item 1 -->
+    <div style="display:flex;gap:20px;" class="reveal" style="transition-delay:0.05s;">
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="tl-dot" style="margin-top:4px;"></div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="glass-card" style="padding:22px;flex:1;margin-bottom:18px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-bottom:10px;">
+          <div>
+            <h3 style="color:#f1f5f9;font-weight:700;font-size:1.05rem;">BCA &mdash; Computer Applications</h3>
+            <p style="color:#60a5fa;font-size:0.84rem;font-weight:500;margin-top:3px;">Full-time Student</p>
+          </div>
+          <span class="tag" style="height:fit-content;">Current</span>
+        </div>
+        <p style="color:#64748b;font-size:0.88rem;line-height:1.75;">Pursuing Bachelor of Computer Applications with focus on software development, data structures, database management, and software engineering principles.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;">
+          <span class="tag">Java</span><span class="tag">C</span><span class="tag">PHP</span><span class="tag">DBMS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline item 2 -->
+    <div style="display:flex;gap:20px;" class="reveal" style="transition-delay:0.1s;">
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="tl-dot" style="margin-top:4px;background:linear-gradient(135deg,#a855f7,#7e22ce);box-shadow:0 0 12px rgba(168,85,247,0.5);"></div>
+        <div class="tl-line" style="background:linear-gradient(to bottom,rgba(168,85,247,0.35),transparent);"></div>
+      </div>
+      <div class="glass-card" style="padding:22px;flex:1;margin-bottom:18px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-bottom:10px;">
+          <div>
+            <h3 style="color:#f1f5f9;font-weight:700;font-size:1.05rem;">Java &amp; Spring Boot Development</h3>
+            <p style="color:#a855f7;font-size:0.84rem;font-weight:500;margin-top:3px;">Self-Learning</p>
+          </div>
+          <span class="tag" style="height:fit-content;color:#c084fc;border-color:rgba(168,85,247,0.28);background:rgba(168,85,247,0.09);">In Progress</span>
+        </div>
+        <p style="color:#64748b;font-size:0.88rem;line-height:1.75;">Actively learning Java core, Spring Boot framework, REST API design, and OOP principles through hands-on projects and online courses.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;">
+          <span class="tag">Spring Boot</span><span class="tag">REST API</span><span class="tag">OOP</span><span class="tag">Maven</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline item 3 -->
+    <div style="display:flex;gap:20px;" class="reveal" style="transition-delay:0.15s;">
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="tl-dot" style="margin-top:4px;background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 0 12px rgba(16,185,129,0.45);"></div>
+        <div class="tl-line" style="background:linear-gradient(to bottom,rgba(16,185,129,0.35),transparent);"></div>
+      </div>
+      <div class="glass-card" style="padding:22px;flex:1;margin-bottom:18px;">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-bottom:10px;">
+          <div>
+            <h3 style="color:#f1f5f9;font-weight:700;font-size:1.05rem;">DSA &mdash; 100 Days Coding Challenge</h3>
+            <p style="color:#10b981;font-size:0.84rem;font-weight:500;margin-top:3px;">Personal Challenge</p>
+          </div>
+          <span class="tag" style="height:fit-content;color:#4ade80;border-color:rgba(16,185,129,0.28);background:rgba(16,185,129,0.09);">Ongoing</span>
+        </div>
+        <p style="color:#64748b;font-size:0.88rem;line-height:1.75;">Committed to solving 100+ DSA problems across arrays, linked lists, trees, graphs, and dynamic programming. Tracking daily progress.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;">
+          <span class="tag">Arrays</span><span class="tag">Trees</span><span class="tag">DP</span><span class="tag">Graphs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline item 4 - Goal -->
+    <div style="display:flex;gap:20px;" class="reveal" style="transition-delay:0.2s;">
+      <div style="display:flex;flex-direction:column;align-items:center;">
+        <div class="tl-dot" style="margin-top:4px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 0 12px rgba(245,158,11,0.45);"></div>
+      </div>
+      <div class="glass-card" style="padding:22px;flex:1;margin-bottom:18px;border-color:rgba(245,158,11,0.2);">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-bottom:10px;">
+          <div>
+            <h3 style="color:#f1f5f9;font-weight:700;font-size:1.05rem;">Software Engineer at a Product Company</h3>
+            <p style="color:#f59e0b;font-size:0.84rem;font-weight:500;margin-top:3px;">Target Goal &#127919;</p>
+          </div>
+          <span class="tag" style="height:fit-content;color:#fbbf24;border-color:rgba(245,158,11,0.28);background:rgba(245,158,11,0.09);">Goal</span>
+        </div>
+        <p style="color:#64748b;font-size:0.88rem;line-height:1.75;">Aspiring to join a leading product-based tech company as a Software Engineer, leveraging expertise in Java, DSA, and full-stack development.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===============================================================
+       CERTIFICATIONS
+  =============================================================== -->
+  <section id="certifications" style="padding:96px 24px;background:radial-gradient(ellipse 70% 40% at 50% 50%,rgba(168,85,247,0.045) 0%,transparent 70%);">
+    <div style="max-width:1152px;margin:0 auto;">
+
+      <div class="reveal" style="text-align:center;margin-bottom:64px;">
+        <p style="color:#a855f7;font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">// My credentials</p>
+        <h2 class="section-heading">Certifications &amp; <span class="gradient-text-static">Achievements</span></h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;">
+
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.04s;">
+          <div class="cert-icon" style="background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.2);">&#9749;</div>
+          <h3 style="color:#f1f5f9;font-weight:700;font-size:1rem;margin-bottom:7px;">Java Programming</h3>
+          <p style="color:#475569;font-size:0.82rem;line-height:1.65;margin-bottom:14px;">Core Java, OOP, Collections, Exception Handling, Generics</p>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <div style="width:7px;height:7px;background:#4ade80;border-radius:50%;"></div>
+            <span style="color:#4ade80;font-size:0.78rem;font-weight:500;">Completed</span>
+          </div>
+        </div>
+
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.09s;">
+          <div class="cert-icon" style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);">&#128202;</div>
+          <h3 style="color:#f1f5f9;font-weight:700;font-size:1rem;margin-bottom:7px;">Data Structures &amp; Algorithms</h3>
+          <p style="color:#475569;font-size:0.82rem;line-height:1.65;margin-bottom:14px;">Arrays, Linked Lists, Trees, Graphs, Sorting, Searching</p>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <div style="width:7px;height:7px;background:#4ade80;border-radius:50%;"></div>
+            <span style="color:#4ade80;font-size:0.78rem;font-weight:500;">Completed</span>
+          </div>
+        </div>
+
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.14s;">
+          <div class="cert-icon" style="background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.2);">&#128024;</div>
+          <h3 style="color:#f1f5f9;font-weight:700;font-size:1rem;margin-bottom:7px;">PHP Development</h3>
+          <p style="color:#475569;font-size:0.82rem;line-height:1.65;margin-bottom:14px;">Server-side scripting, Forms, Sessions, Database integration</p>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <div style="width:7px;height:7px;background:#4ade80;border-radius:50%;"></div>
+            <span style="color:#4ade80;font-size:0.78rem;font-weight:500;">Completed</span>
+          </div>
+        </div>
+
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.19s;">
+          <div class="cert-icon" style="background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.2);">&#127760;</div>
+          <h3 style="color:#f1f5f9;font-weight:700;font-size:1rem;margin-bottom:7px;">Web Development</h3>
+          <p style="color:#475569;font-size:0.82rem;line-height:1.65;margin-bottom:14px;">HTML5, CSS3, JavaScript, Responsive Design Principles</p>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <div style="width:7px;height:7px;background:#4ade80;border-radius:50%;"></div>
+            <span style="color:#4ade80;font-size:0.78rem;font-weight:500;">Completed</span>
+          </div>
+        </div>
+
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.24s;">
+          <div class="cert-icon" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.2);">&#129425;</div>
+          <h3 style="color:#f1f5f9;font-weight:700;font-size:1rem;margin-bottom:7px;">Git &amp; GitHub</h3>
+          <p style="color:#475569;font-size:0.82rem;line-height:1.65;margin-bottom:14px;">Version Control, Branching, Pull Requests, Collaboration</p>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <div style="width:7px;height:7px;background:#4ade80;border-radius:50%;"></div>
+            <span style="color:#4ade80;font-size:0.78rem;font-weight:500;">Completed</span>
+          </div>
+        </div>
+
+        <div class="glass-card reveal" style="padding:24px;transition-delay:0.29s;border-color:rgba(168,85,247,0.18);">
+          <div class="cert-icon" style="background:rgba(236,72,153,0.12);border:1px solid rgba(236,72,153,0.2);">&#127807;</div>
+          <h3 style="color:#f1f5f9;font-weight:700;font-size:1rem;margin-bottom:7px;">Spring Boot</h3>
+          <p style="color:#475569;font-size:0.82rem;line-height:1.65;margin-bottom:14px;">REST APIs, Dependency Injection, Spring MVC Architecture</p>
+          <div style="display:flex;align-items:center;gap:7px;">
+            <div style="width:7px;height:7px;background:#fbbf24;border-radius:50%;animation:blinkCursor 1.5s ease-in-out infinite;"></div>
+            <span style="color:#fbbf24;font-size:0.78rem;font-weight:500;">In Progress</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================================================
+       EDUCATION
+  =============================================================== -->
+  <section id="education" style="padding:96px 24px;max-width:880px;margin:0 auto;">
+
+    <div class="reveal" style="text-align:center;margin-bottom:64px;">
+      <p style="color:#60a5fa;font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">// Academic background</p>
+      <h2 class="section-heading">My <span class="gradient-text-static">Education</span></h2>
+    </div>
+
+    <div class="gradient-border-card reveal" style="padding:36px;">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:22px;">
+        <!-- Icon -->
+        <div style="width:64px;height:64px;border-radius:16px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;">&#127891;</div>
+        <!-- Content -->
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-bottom:14px;">
+            <div>
+              <h3 style="color:#f1f5f9;font-weight:800;font-size:1.45rem;letter-spacing:-0.01em;">Bachelor of Computer Applications</h3>
+              <p style="color:#60a5fa;font-weight:500;margin-top:4px;font-size:0.92rem;">Babu Banarasi Das University &middot; Lucknow, India</p>
+            </div>
+            <div style="text-align:right;">
+              <span class="tag">Expected 2026</span>
+              <div style="color:#475569;font-size:0.75rem;margin-top:5px;">2023 &mdash; Present</div>
+            </div>
+          </div>
+          <p style="color:#64748b;font-size:0.9rem;line-height:1.8;margin-bottom:20px;">
+            A comprehensive three-year program covering core computer science fundamentals, software development methodologies,
+            database management, computer networks, and emerging technologies in the digital landscape.
+          </p>
+          <div>
+            <p style="color:#94a3b8;font-size:0.84rem;font-weight:600;margin-bottom:12px;">Relevant Coursework</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <span class="tag">Data Structures</span>
+              <span class="tag">Database Management</span>
+              <span class="tag">Computer Networks</span>
+              <span class="tag">Operating Systems</span>
+              <span class="tag">Software Engineering</span>
+              <span class="tag">OOP</span>
+              <span class="tag">Web Technologies</span>
+              <span class="tag">Algorithms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===============================================================
+       TESTIMONIALS
+  =============================================================== -->
+  <!-- ===============================================================
+       PROJECTS SECTION
+  =============================================================== -->
+  <section id="projects" style="padding:96px 24px;">
+    <div style="max-width:1152px;margin:0 auto;">
+
+      <!-- Heading -->
+      <div class="reveal" style="text-align:center;margin-bottom:60px;">
+        <p style="color:#818cf8;font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">// What I've built</p>
+        <h2 class="section-heading">Featured <span class="gradient-text-static">Projects</span></h2>
+        <p class="section-lead" style="margin:14px auto 0;">A curated showcase of projects I've built while learning and growing as a developer.</p>
+      </div>
+
+      <!-- Projects Grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;">
+
+        <!-- Project 1: DSA Tracker -->
+        <div class="glass-card spotlight-card tilt-card reveal" style="overflow:hidden;transition-delay:0.05s;position:relative;">
+          <!-- Card top accent -->
+          <div style="height:4px;background:linear-gradient(90deg,#3b82f6,#a855f7);border-radius:0;"></div>
+          <div style="padding:28px;">
+            <!-- Header -->
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;">
+              <div style="width:48px;height:48px;border-radius:12px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">&#128202;</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <span class="tag" style="font-size:0.72rem;">Java</span>
+                <span class="tag" style="font-size:0.72rem;">DSA</span>
+                <span class="tag" style="font-size:0.72rem;">OOP</span>
+              </div>
+            </div>
+            <!-- Title & Desc -->
+            <h3 style="color:#f1f5f9;font-weight:800;font-size:1.1rem;margin-bottom:10px;letter-spacing:-0.01em;">DSA Progress Tracker</h3>
+            <p style="color:#64748b;font-size:0.88rem;line-height:1.7;margin-bottom:20px;">A command-line Java application to track daily DSA problem-solving progress. Implements custom data structures for categorizing problems by topic (Arrays, Trees, DP, Graphs) with a visual ASCII progress dashboard.</p>
+            <!-- Stats -->
+            <div style="display:flex;gap:16px;margin-bottom:20px;">
+              <div style="text-align:center;">
+                <div style="font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#60a5fa,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">100+</div>
+                <div style="color:#475569;font-size:0.72rem;">Problems</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#60a5fa,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">5</div>
+                <div style="color:#475569;font-size:0.72rem;">Categories</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#60a5fa,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">CLI</div>
+                <div style="color:#475569;font-size:0.72rem;">Interface</div>
+              </div>
+            </div>
+            <!-- Actions -->
+            <div style="display:flex;gap:10px;">
+              <a href="https://github.com/kashyap-jyoti" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding:9px 18px;font-size:0.82rem;flex:1;justify-content:center;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                <span>View Code</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Student Management System -->
+        <div class="glass-card spotlight-card tilt-card reveal" style="overflow:hidden;transition-delay:0.1s;position:relative;">
+          <div style="height:4px;background:linear-gradient(90deg,#a855f7,#ec4899);border-radius:0;"></div>
+          <div style="padding:28px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;">
+              <div style="width:48px;height:48px;border-radius:12px;background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">&#127979;</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <span class="tag" style="font-size:0.72rem;">Java</span>
+                <span class="tag" style="font-size:0.72rem;">MySQL</span>
+                <span class="tag" style="font-size:0.72rem;">JDBC</span>
+              </div>
+            </div>
+            <h3 style="color:#f1f5f9;font-weight:800;font-size:1.1rem;margin-bottom:10px;letter-spacing:-0.01em;">Student Management System</h3>
+            <p style="color:#64748b;font-size:0.88rem;line-height:1.7;margin-bottom:20px;">A full-featured desktop application built in Core Java with MySQL backend (JDBC). Supports CRUD operations for student records, course enrollments, and grade management with a clean console interface.</p>
+            <div style="display:flex;gap:16px;margin-bottom:20px;">
+              <div style="text-align:center;">
+                <div style="font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">CRUD</div>
+                <div style="color:#475569;font-size:0.72rem;">Operations</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">MySQL</div>
+                <div style="color:#475569;font-size:0.72rem;">Backend</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">OOP</div>
+                <div style="color:#475569;font-size:0.72rem;">Design</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;">
+              <a href="https://github.com/kashyap-jyoti" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding:9px 18px;font-size:0.82rem;flex:1;justify-content:center;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                <span>View Code</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: Portfolio Website -->
+        <div class="glass-card spotlight-card tilt-card reveal" style="overflow:hidden;transition-delay:0.15s;position:relative;">
+          <div style="height:4px;background:linear-gradient(90deg,#10b981,#3b82f6);border-radius:0;"></div>
+          <div style="padding:28px;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;">
+              <div style="width:48px;height:48px;border-radius:12px;background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;">&#128187;</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <span class="tag" style="font-size:0.72rem;">HTML</span>
+                <span class="tag" style="font-size:0.72rem;">CSS</span>
+                <span class="tag" style="font-size:0.72rem;">JS</span>
+              </div>
+            </div>
+            <h3 style="color:#f1f5f9;font-weight:800;font-size:1.1rem;margin-bottom:10px;letter-spacing:-0.01em;">Developer Portfolio</h3>
+            <p style="color:#64748b;font-size:0.88rem;line-height:1.7;margin-bottom:20px;">This very portfolio website! A premium dark glassmorphism design with particle animations, smooth scroll reveals, custom cursor, typing effects, animated skill bars, and a fully responsive layout — all in pure HTML/CSS/JS.</p>
+            <div style="display:flex;gap:16px;margin-bottom:20px;">
+              <div style="text-align:center;">
+                <div style="font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#10b981,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">No</div>
+                <div style="color:#475569;font-size:0.72rem;">Framework</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#10b981,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">100%</div>
+                <div style="color:#475569;font-size:0.72rem;">Responsive</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:1.25rem;font-weight:800;background:linear-gradient(135deg,#10b981,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Dark</div>
+                <div style="color:#475569;font-size:0.72rem;">Theme</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;">
+              <a href="https://github.com/kashyap-jyoti" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding:9px 18px;font-size:0.82rem;flex:1;justify-content:center;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                <span>View Code</span>
+              </a>
+              <a href="#home" class="btn-primary" style="padding:9px 18px;font-size:0.82rem;">
+                <span>Live Demo</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- More Projects CTA -->
+      <div class="reveal" style="text-align:center;margin-top:48px;">
+        <a href="https://github.com/kashyap-jyoti" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding:12px 32px;font-size:0.9rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+          <span>View All Projects on GitHub</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===============================================================
+       TESTIMONIALS SECTION
+  =============================================================== -->
+  <section id="testimonials" style="padding:96px 24px;background:radial-gradient(ellipse 60% 30% at 50% 50%,rgba(59,130,246,0.04) 0%,transparent 70%);">
+    <div style="max-width:1152px;margin:0 auto;">
+
+      <div class="reveal" style="text-align:center;margin-bottom:64px;">
+        <p style="color:#60a5fa;font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">// What others say</p>
+        <h2 class="section-heading">Testimonials &amp; <span class="gradient-text-static">Feedback</span></h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+
+        <div class="glass-card reveal" style="padding:28px;transition-delay:0.04s;">
+          <div style="font-size:2.5rem;color:#60a5fa;font-family:Georgia,serif;line-height:1;margin-bottom:16px;">&ldquo;</div>
+          <p style="color:#94a3b8;font-size:0.9rem;line-height:1.8;margin-bottom:22px;">JK demonstrates exceptional dedication to learning Java. Her problem-solving approach and commitment to DSA is remarkable for a student at this stage.</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#a855f7);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.82rem;flex-shrink:0;">PT</div>
+            <div>
+              <p style="color:#f1f5f9;font-weight:600;font-size:0.88rem;">Prof. Tejal Patel</p>
+              <p style="color:#475569;font-size:0.76rem;margin-top:2px;">Java &amp; OOP Instructor</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card reveal" style="padding:28px;transition-delay:0.09s;">
+          <div style="font-size:2.5rem;color:#a855f7;font-family:Georgia,serif;line-height:1;margin-bottom:16px;">&ldquo;</div>
+          <p style="color:#94a3b8;font-size:0.9rem;line-height:1.8;margin-bottom:22px;">Her ability to grasp complex algorithms and translate them into clean, efficient code is impressive. A real asset to any development team.</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.82rem;flex-shrink:0;">RS</div>
+            <div>
+              <p style="color:#f1f5f9;font-weight:600;font-size:0.88rem;">Rahul Sharma</p>
+              <p style="color:#475569;font-size:0.76rem;margin-top:2px;">Senior Software Engineer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card reveal" style="padding:28px;transition-delay:0.14s;">
+          <div style="font-size:2.5rem;color:#06b6d4;font-family:Georgia,serif;line-height:1;margin-bottom:16px;">&ldquo;</div>
+          <p style="color:#94a3b8;font-size:0.9rem;line-height:1.8;margin-bottom:22px;">JK consistently goes beyond the syllabus. Her curiosity and drive to build real projects alongside her studies makes her stand out as a future software engineer.</p>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#06b6d4,#3b82f6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.82rem;flex-shrink:0;">PD</div>
+            <div>
+              <p style="color:#f1f5f9;font-weight:600;font-size:0.88rem;">Priya Desai</p>
+              <p style="color:#475569;font-size:0.76rem;margin-top:2px;">Tech Mentor &amp; Developer</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================================================
+       CONTACT
+  =============================================================== -->
+  <section id="contact" style="padding:96px 24px;max-width:1152px;margin:0 auto;">
+
+    <div class="reveal" style="text-align:center;margin-bottom:64px;">
+      <p style="color:#60a5fa;font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:12px;">// Let's connect</p>
+      <h2 class="section-heading">Get In <span class="gradient-text-static">Touch</span></h2>
+      <p class="section-lead" style="margin:14px auto 0;">Whether it's a project, internship opportunity, or just a hello &mdash; my inbox is always open.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:2fr 3fr;gap:40px;align-items:start;">
+
+      <!-- Info panel -->
+      <div class="reveal-left" style="display:flex;flex-direction:column;gap:14px;">
+
+        <div class="glass-card" style="padding:18px;display:flex;align-items:center;gap:14px;">
+          <div style="width:42px;height:42px;border-radius:11px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">&#128205;</div>
+          <div>
+            <p style="color:#475569;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;">Location</p>
+            <p style="color:#f1f5f9;font-weight:500;font-size:0.9rem;">India</p>
+          </div>
+        </div>
+
+        <div class="glass-card" style="padding:18px;display:flex;align-items:center;gap:14px;">
+          <div style="width:42px;height:42px;border-radius:11px;background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">&#128231;</div>
+          <div>
+            <p style="color:#475569;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;">Email</p>
+            <p style="color:#f1f5f9;font-weight:500;font-size:0.9rem;">jyoti33604mah@gmail.com</p>
+          </div>
+        </div>
+
+        <div class="glass-card" style="padding:18px;display:flex;align-items:center;gap:14px;">
+          <div style="width:42px;height:42px;border-radius:11px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">&#128188;</div>
+          <div>
+            <p style="color:#475569;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px;">Status</p>
+            <div style="display:flex;align-items:center;gap:7px;">
+              <div style="width:7px;height:7px;background:#4ade80;border-radius:50%;animation:blinkCursor 2s ease-in-out infinite;"></div>
+              <p style="color:#4ade80;font-weight:500;font-size:0.9rem;">Open to Internships</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social icons -->
+        <div>
+          <p style="color:#64748b;font-size:0.82rem;font-weight:500;margin-bottom:12px;">Find me on</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+
+            <!-- GitHub -->
+            <a href="https://github.com/kashyap-jyoti" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub" title="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn" title="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram" title="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:jyoti33604mah@gmail.com" class="social-icon" aria-label="Email" title="Send Email">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Contact form -->
+      <form id="contact-form" class="glass-card reveal-right" style="padding:32px;" onsubmit="handleSubmit(event)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div>
+            <label style="display:block;color:#64748b;font-size:0.82rem;font-weight:500;margin-bottom:8px;" for="f-name">Your Name</label>
+            <input type="text" id="f-name" name="name" class="form-input" placeholder="Enter your name" required />
+          </div>
+          <div>
+            <label style="display:block;color:#64748b;font-size:0.82rem;font-weight:500;margin-bottom:8px;" for="f-email">Email Address</label>
+            <input type="email" id="f-email" name="email" class="form-input" placeholder="you@email.com" required />
+          </div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label style="display:block;color:#64748b;font-size:0.82rem;font-weight:500;margin-bottom:8px;" for="f-subject">Subject</label>
+          <input type="text" id="f-subject" name="subject" class="form-input" placeholder="What is this about?" />
+        </div>
+        <div style="margin-bottom:22px;">
+          <label style="display:block;color:#64748b;font-size:0.82rem;font-weight:500;margin-bottom:8px;" for="f-message">Message</label>
+          <textarea id="f-message" name="message" rows="5" class="form-input" style="resize:none;" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button type="submit" id="submit-btn" class="btn-primary ripple-container magnetic-btn" style="width:100%;justify-content:center;padding:15px;font-size:0.95rem;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <span id="btn-text">Send Message</span>
+        </button>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- ===============================================================
+       FOOTER
+  =============================================================== -->
+  <footer style="border-top:1px solid rgba(255,255,255,0.05);padding:40px 24px;">
+    <div style="max-width:1152px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;">
+
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#3b82f6,#a855f7);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:0.78rem;">JK</div>
+        <div>
+          <p style="color:#f1f5f9;font-weight:700;font-size:0.88rem;">Jyoti Kashyap</p>
+          <p style="color:#475569;font-size:0.72rem;margin-top:1px;">Aspiring Java Software Engineer</p>
+        </div>
+      </div>
+
+      <nav style="display:flex;flex-wrap:wrap;gap:22px;">
+        <a href="#about"          style="color:#475569;font-size:0.78rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#475569'">About</a>
+        <a href="#skills"         style="color:#475569;font-size:0.78rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#475569'">Skills</a>
+        <a href="#projects"        style="color:#475569;font-size:0.78rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#475569'">Projects</a>
+        <a href="#experience"     style="color:#475569;font-size:0.78rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#475569'">Experience</a>
+        <a href="#certifications" style="color:#475569;font-size:0.78rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#475569'">Certifications</a>
+        <a href="#education"      style="color:#475569;font-size:0.78rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#475569'">Education</a>
+        <a href="#contact"        style="color:#475569;font-size:0.78rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#60a5fa'" onmouseout="this.style.color='#475569'">Contact</a>
+      </nav>
+
+      <p style="color:#1e293b;font-size:0.76rem;">&#169; 2025 Jyoti Kashyap &mdash; Crafted with <span style="color:#f43f5e;">&#9829;</span></p>
+
+    </div>
+  </footer>
+
+  <!-- ===============================================================
+       RESPONSIVE STYLES
+  =============================================================== -->
+  <style>
+    @media (max-width: 768px) {
+      .nav-desktop { display: none !important; }
+      #resume-btn  { display: none !important; }
+      #hamburger   { display: flex !important; }
+      #about > div:last-child,
+      #contact > div:last-child {
+        grid-template-columns: 1fr !important;
+      }
+      .hidden-mobile { display: none !important; }
+    }
+  </style>
+
+  <!-- ===============================================================
+       JAVASCRIPT
+  =============================================================== -->
+  <script>
+  /* ===========================
+     LOADING SCREEN
+  =========================== */
+  (function initLoader() {
+    var bar = document.getElementById('loading-bar');
+    var screen = document.getElementById('loading-screen');
+    var prog = 0;
+    var iv = setInterval(function() {
+      prog += Math.random() * 20 + 6;
+      if (prog >= 100) {
+        prog = 100;
+        clearInterval(iv);
+        setTimeout(function() {
+          screen.classList.add('hidden-screen');
+          setTimeout(function() {
+            screen.style.display = 'none';
+            startApp();
+          }, 650);
+        }, 250);
+      }
+      bar.style.width = prog + '%';
+    }, 110);
+  })();
+
+  /* ===========================
+     APP INIT
+  =========================== */
+  function startApp() {
+    initCursor();
+    initScrollProgress();
+    initNavbar();
+    initParticles();
+    initTyping();
+    initScrollReveal();
+    initSkillBars();
+    initCounters();
+    initTiltCards();
+    initSpotlightCards();
+    initMagneticButtons();
+    initRippleButtons();
+    initActiveNav();
+  }
+
+  /* ===========================
+     CUSTOM CURSOR
+  =========================== */
+  function initCursor() {
+    var dot  = document.getElementById('cursor-dot');
+    var ring = document.getElementById('cursor-ring');
+    var mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', function(e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+    });
+
+    (function animRing() {
+      rx += (mx - rx) * 0.1;
+      ry += (my - ry) * 0.1;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+
+    var hoverEls = document.querySelectorAll('a,button,input,textarea,.glass-card,.skill-item');
+    hoverEls.forEach(function(el) {
+      el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
+      el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
+    });
+  }
+
+  /* ===========================
+     SCROLL PROGRESS BAR
+  =========================== */
+  function initScrollProgress() {
+    var bar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', function() {
+      var doc = document.documentElement;
+      var pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+      bar.style.width = pct + '%';
+    }, { passive: true });
+  }
+
+  /* ===========================
+     NAVBAR GLASS ON SCROLL
+  =========================== */
+  function initNavbar() {
+    var nav = document.getElementById('navbar');
+    var btt = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 60) {
+        nav.style.background  = 'rgba(3,7,18,0.88)';
+        nav.style.backdropFilter = 'blur(20px)';
+        nav.style.borderBottom   = '1px solid rgba(96,165,250,0.08)';
+      } else {
+        nav.style.background  = '';
+        nav.style.backdropFilter = '';
+        nav.style.borderBottom   = '';
+      }
+      if (window.scrollY > 400) btt.classList.add('show');
+      else btt.classList.remove('show');
+    }, { passive: true });
+  }
+
+  /* ===========================
+     MOBILE MENU
+  =========================== */
+  var menuOpen = false;
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    var m = document.getElementById('mobile-menu');
+    m.classList.toggle('open', menuOpen);
+    document.getElementById('hb1').style.transform = menuOpen ? 'rotate(45deg) translate(5px,5px)' : '';
+    document.getElementById('hb2').style.opacity   = menuOpen ? '0' : '1';
+    document.getElementById('hb3').style.transform = menuOpen ? 'rotate(-45deg) translate(5px,-5px)' : '';
+  }
+  function closeMenu() {
+    menuOpen = false;
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('hb1').style.transform = '';
+    document.getElementById('hb2').style.opacity   = '1';
+    document.getElementById('hb3').style.transform = '';
+  }
+
+  /* ===========================
+     DARK/LIGHT TOGGLE
+  =========================== */
+  var isDark = true;
+  document.getElementById('theme-toggle').addEventListener('click', function() {
+    isDark = !isDark;
+    if (!isDark) {
+      document.body.style.background = '#f0f4ff';
+      document.body.style.color = '#1e293b';
+      document.getElementById('theme-icon').innerHTML = '&#9728;';
+    } else {
+      document.body.style.background = '#030712';
+      document.body.style.color = '#e2e8f0';
+      document.getElementById('theme-icon').innerHTML = '&#9790;';
+    }
+  });
+
+  /* ===========================
+     BACK TO TOP
+  =========================== */
+  function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  /* ===========================
+     PARTICLE CANVAS (with mouse repel)
+  =========================== */
+  function initParticles() {
+    var canvas = document.getElementById('particles-canvas');
+    var ctx    = canvas.getContext('2d');
+    var W, H, particles;
+    var mouseX = -9999, mouseY = -9999;
+
+    canvas.parentElement.addEventListener('mousemove', function(e) {
+      var rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    });
+    canvas.parentElement.addEventListener('mouseleave', function() {
+      mouseX = -9999; mouseY = -9999;
+    });
+
+    function resize() {
+      W = canvas.width  = canvas.parentElement.offsetWidth;
+      H = canvas.height = canvas.parentElement.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    particles = [];
+    for (var i = 0; i < 75; i++) {
+      particles.push({
+        x: Math.random() * W, y: Math.random() * H,
+        ox: 0, oy: 0,
+        r: Math.random() * 1.6 + 0.4,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        a: Math.random() * 0.4 + 0.08,
+        color: Math.random() > 0.6 ? '168,85,247' : '96,165,250'
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      var repelRadius = 100, repelStrength = 3.5;
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        // Mouse repel
+        var dxM = p.x - mouseX, dyM = p.y - mouseY;
+        var distM = Math.sqrt(dxM*dxM + dyM*dyM);
+        if (distM < repelRadius) {
+          var force = (repelRadius - distM) / repelRadius;
+          p.ox += (dxM / distM) * force * repelStrength * 0.15;
+          p.oy += (dyM / distM) * force * repelStrength * 0.15;
+        }
+        p.ox *= 0.92; p.oy *= 0.92;
+        p.x += p.vx + p.ox; p.y += p.vy + p.oy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+
+        // Glow on nearby mouse
+        var glowAlpha = distM < 80 ? p.a + (1 - distM/80) * 0.4 : p.a;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r + (distM < 80 ? (1-distM/80)*1.5 : 0), 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + p.color + ',' + glowAlpha + ')';
+        ctx.fill();
+
+        for (var j = i + 1; j < particles.length; j++) {
+          var q = particles[j];
+          var dx = p.x - q.x, dy = p.y - q.y;
+          var d = Math.sqrt(dx*dx + dy*dy);
+          if (d < 120) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = 'rgba(' + p.color + ',' + ((1 - d/120) * 0.09) + ')';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  /* ===========================
+     TYPING ANIMATION
+  =========================== */
+  function initTyping() {
+    var phrases = [
+      'Aspiring Java Developer',
+      'DSA Enthusiast',
+      'Software Engineer in the Making',
+      'BCA Student',
+      'Problem Solver',
+      'Open Source Learner'
+    ];
+    var el = document.getElementById('typing-el');
+    var pi = 0, ci = 0, deleting = false;
+
+    function tick() {
+      var phrase = phrases[pi];
+      if (deleting) {
+        el.textContent = phrase.slice(0, --ci);
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(tick, 400); return; }
+        setTimeout(tick, 55);
+      } else {
+        el.textContent = phrase.slice(0, ++ci);
+        if (ci === phrase.length) { deleting = true; setTimeout(tick, 1800); return; }
+        setTimeout(tick, 75);
+      }
+    }
+    setTimeout(tick, 800);
+  }
+
+  /* ===========================
+     SCROLL REVEAL
+  =========================== */
+  function initScrollReveal() {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el) {
+      obs.observe(el);
+    });
+  }
+
+  /* ===========================
+     SKILL BARS
+  =========================== */
+  function initSkillBars() {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var level = e.target.getAttribute('data-level');
+          var bar = e.target.querySelector('.skill-bar-fill');
+          if (bar) { setTimeout(function() { bar.style.width = level + '%'; }, 150); }
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.skill-item').forEach(function(el) { obs.observe(el); });
+  }
+
+  /* ===========================
+     ANIMATED COUNTERS
+  =========================== */
+  function initCounters() {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var target  = parseInt(e.target.getAttribute('data-target'));
+          var suffix  = e.target.getAttribute('data-suffix') || '';
+          var current = 0;
+          var step    = target / 55;
+          var timer = setInterval(function() {
+            current += step;
+            if (current >= target) { current = target; clearInterval(timer); }
+            e.target.textContent = Math.floor(current) + suffix;
+          }, 22);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.counter').forEach(function(el) { obs.observe(el); });
+  }
+
+  /* ===========================
+     CONTACT FORM
+  =========================== */
+  function handleSubmit(e) {
+    e.preventDefault();
+    var btn  = document.getElementById('submit-btn');
+    var txt  = document.getElementById('btn-text');
+    btn.disabled = true;
+    txt.textContent = 'Sending...';
+    setTimeout(function() {
+      txt.textContent = '✓ Sent!';
+      btn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
+      showToast();
+      launchConfetti();
+      setTimeout(function() {
+        txt.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3200);
+    }, 1400);
+  }
+
+  function showToast() {
+    var t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 4000);
+  }
+
+  /* ===========================
+     CONFETTI BURST
+  =========================== */
+  function launchConfetti() {
+    var colors = ['#60a5fa','#a855f7','#4ade80','#f59e0b','#ec4899','#06b6d4'];
+    for (var i = 0; i < 80; i++) {
+      (function(i) {
+        setTimeout(function() {
+          var el = document.createElement('div');
+          el.className = 'confetti-piece';
+          el.style.left = (20 + Math.random() * 60) + '%';
+          el.style.top = (window.innerHeight * 0.4 + Math.random() * 100 - 50) + 'px';
+          el.style.background = colors[Math.floor(Math.random() * colors.length)];
+          el.style.width = (6 + Math.random() * 6) + 'px';
+          el.style.height = (6 + Math.random() * 8) + 'px';
+          el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+          el.style.animationDuration = (1.5 + Math.random() * 2.5) + 's';
+          el.style.animationDelay = '0s';
+          document.body.appendChild(el);
+          setTimeout(function() { el.remove(); }, 4500);
+        }, i * 18);
+      })(i);
+    }
+  }
+
+  /* ===========================
+     3D TILT CARDS
+  =========================== */
+  function initTiltCards() {
+    document.querySelectorAll('.tilt-card').forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var dx = (e.clientX - cx) / (rect.width / 2);
+        var dy = (e.clientY - cy) / (rect.height / 2);
+        var tiltX = dy * -9;
+        var tiltY = dx * 9;
+        card.style.transform = 'perspective(800px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg) translateZ(6px)';
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateZ(0)';
+        card.style.transition = 'transform 0.4s ease';
+        setTimeout(function() { card.style.transition = 'transform 0.08s ease'; }, 400);
+      });
+    });
+  }
+
+  /* ===========================
+     SPOTLIGHT CARD GLOW
+  =========================== */
+  function initSpotlightCards() {
+    document.querySelectorAll('.spotlight-card').forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        card.style.setProperty('--mx', x + 'px');
+        card.style.setProperty('--my', y + 'px');
+      });
+    });
+  }
+
+  /* ===========================
+     MAGNETIC BUTTONS
+  =========================== */
+  function initMagneticButtons() {
+    document.querySelectorAll('.magnetic-btn').forEach(function(btn) {
+      btn.addEventListener('mousemove', function(e) {
+        var rect = btn.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var dx = (e.clientX - cx) * 0.28;
+        var dy = (e.clientY - cy) * 0.28;
+        btn.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+      });
+      btn.addEventListener('mouseleave', function() {
+        btn.style.transform = '';
+        btn.style.transition = 'transform 0.35s cubic-bezier(.23,1,.32,1)';
+        setTimeout(function() { btn.style.transition = ''; }, 350);
+      });
+    });
+  }
+
+  /* ===========================
+     RIPPLE CLICK EFFECT
+  =========================== */
+  function initRippleButtons() {
+    document.querySelectorAll('.ripple-container').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        var rect = btn.getBoundingClientRect();
+        var ripple = document.createElement('span');
+        ripple.className = 'ripple-wave';
+        var size = Math.max(rect.width, rect.height) * 2;
+        ripple.style.width  = size + 'px';
+        ripple.style.height = size + 'px';
+        ripple.style.left   = (e.clientX - rect.left - size/2) + 'px';
+        ripple.style.top    = (e.clientY - rect.top  - size/2) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(function() { ripple.remove(); }, 700);
+      });
+    });
+  }
+
+  /* ===========================
+     ACTIVE NAV HIGHLIGHT
+  =========================== */
+  function initActiveNav() {
+    var sections = document.querySelectorAll('section[id], div[id="home"]');
+    var navLinks = document.querySelectorAll('.nav-link');
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          navLinks.forEach(function(link) {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.35, rootMargin: '-64px 0px 0px 0px' });
+    sections.forEach(function(s) { obs.observe(s); });
+  }
+  </script>
+
+</body>
+</html>
