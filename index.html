@@ -371,8 +371,76 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 @media(max-width:768px){.n-links,#n-res{display:none!important}#hbg{display:block!important}.pj-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.h-sts{flex-direction:column;align-items:center}}
 
-/* SCROLL DOT */
-@keyframes sDot{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(8px);opacity:.4}}
+/* JYOTI AI HOLOGRAPHIC ASSISTANT */
+.j-ai-wrapper{margin-top:40px;position:relative;z-index:10;width:100%}
+.j-ai-card{background:rgba(15,23,42,.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(96,165,250,.24);border-radius:var(--r4);box-shadow:0 20px 50px rgba(0,0,0,.45),0 0 35px rgba(59,130,246,.18);overflow:hidden;position:relative;transition:all .4s cubic-bezier(0.16, 1, 0.3, 1)}
+.j-ai-card:hover{border-color:rgba(96,165,250,.48);box-shadow:0 25px 65px rgba(0,0,0,.55),0 0 45px rgba(59,130,246,.3)}
+.j-ai-top-bar{height:3px;background:linear-gradient(90deg,var(--cyan),var(--vio),#ec4899,var(--cyan));background-size:300% 100%;animation:jGlowBar 4s linear infinite}
+@keyframes jGlowBar{0%{background-position:0% 0%}100%{background-position:300% 0%}}
+
+.j-ai-header{padding:18px 24px;background:rgba(30,41,59,.45);border-bottom:1px solid rgba(59,130,246,.14);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.j-ai-profile{display:flex;align-items:center;gap:14px}
+.j-ai-avatar-wrap{position:relative;width:46px;height:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.j-ai-avatar-ring{position:absolute;inset:-3px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#8B5CF6,#ec4899);padding:2px;animation:holoRotate 4s linear infinite}
+@keyframes holoRotate{to{transform:rotate(360deg)}}
+.j-ai-avatar-inner{width:100%;height:100%;background:#0F172A;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;box-shadow:inset 0 0 12px rgba(59,130,246,.5)}
+.j-ai-avatar-icon{font-size:1.2rem;background:linear-gradient(135deg,#60A5FA,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:holoPulse 2s ease-in-out infinite alternate}
+@keyframes holoPulse{from{transform:scale(.92);filter:drop-shadow(0 0 4px rgba(59,130,246,.6))}to{transform:scale(1.08);filter:drop-shadow(0 0 12px rgba(167,139,250,.9))}}
+
+.j-ai-title-wrap{display:flex;flex-direction:column}
+.j-ai-name{font-weight:700;font-size:1.05rem;color:#fff;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.j-ai-badge{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--cyan-l);display:flex;align-items:center;gap:6px;margin-top:2px}
+.j-ai-online-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;box-shadow:0 0 8px #22C55E;animation:p2 2s ease infinite}
+
+.j-ai-voicewave{display:flex;align-items:center;gap:3px;height:20px;padding:0 8px;opacity:.35;transition:opacity .3s ease}
+.j-ai-voicewave.active{opacity:1}
+.vw-bar{width:3px;height:5px;background:linear-gradient(to top,var(--cyan),var(--vio-l));border-radius:3px;transition:height .2s ease}
+.j-ai-voicewave.active .vw-bar:nth-child(1){animation:voiceWave .6s ease-in-out infinite alternate}
+.j-ai-voicewave.active .vw-bar:nth-child(2){animation:voiceWave .8s ease-in-out .15s infinite alternate}
+.j-ai-voicewave.active .vw-bar:nth-child(3){animation:voiceWave .5s ease-in-out .3s infinite alternate}
+.j-ai-voicewave.active .vw-bar:nth-child(4){animation:voiceWave .7s ease-in-out .1s infinite alternate}
+.j-ai-voicewave.active .vw-bar:nth-child(5){animation:voiceWave .9s ease-in-out .25s infinite alternate}
+@keyframes voiceWave{from{height:4px}to{height:18px}}
+
+.j-ai-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.j-ai-btn{width:32px;height:32px;border-radius:8px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);color:var(--t2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.85rem;transition:all .2s ease;font-family:inherit}
+.j-ai-btn:hover{background:rgba(59,130,246,.2);color:#fff;border-color:var(--cyan)}
+
+.j-ai-body{padding:20px 24px;max-height:280px;min-height:150px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
+.j-ai-body::-webkit-scrollbar{width:4px}
+.j-ai-body::-webkit-scrollbar-thumb{background:rgba(59,130,246,.3);border-radius:4px}
+
+.j-msg{display:flex;gap:12px;align-items:flex-start;max-width:92%;animation:jMsgFade .35s ease-out forwards}
+@keyframes jMsgFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.j-msg-ai{align-self:flex-start}
+.j-msg-user{align-self:flex-end;flex-direction:row-reverse}
+.j-msg-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--cyan-d),var(--vio));display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#fff;flex-shrink:0;box-shadow:0 0 10px rgba(59,130,246,.4)}
+.j-msg-bubble{padding:13px 18px;border-radius:18px;font-size:.91rem;line-height:1.65;position:relative}
+.j-msg-ai .j-msg-bubble{background:rgba(30,41,59,.85);border:1px solid rgba(59,130,246,.22);color:var(--t1);border-top-left-radius:4px;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.j-msg-user .j-msg-bubble{background:linear-gradient(135deg,#2563EB,#1D4ED8);color:#fff;border-top-right-radius:4px;box-shadow:0 4px 16px rgba(37,99,235,.35);font-weight:500}
+.j-typing-cursor{display:inline-block;width:2.5px;height:1.1em;background:var(--cyan);vertical-align:middle;margin-left:2px;animation:bl .8s step-end infinite}
+
+.j-ai-footer{padding:16px 24px 20px;background:rgba(15,23,42,.5);border-top:1px solid rgba(59,130,246,.1)}
+.j-ai-options-label{font-size:.72rem;font-family:'JetBrains Mono',monospace;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.j-ai-options{display:flex;flex-wrap:wrap;gap:8px}
+.j-chip{padding:8px 14px;border-radius:999px;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);color:var(--cyan-l);font-size:.82rem;font-weight:500;cursor:pointer;transition:all .25s cubic-bezier(0.16, 1, 0.3, 1);display:inline-flex;align-items:center;gap:6px;user-select:none;font-family:'Space Grotesk',sans-serif}
+.j-chip:hover{background:rgba(59,130,246,.22);border-color:var(--cyan);color:#fff;transform:translateY(-2px) scale(1.03);box-shadow:0 4px 16px rgba(59,130,246,.3)}
+.j-chip:active{transform:translateY(0) scale(.98)}
+
+.j-ai-card.minimized .j-ai-body,
+.j-ai-card.minimized .j-ai-footer{display:none}
+
+#j-ai-floating-orb{position:fixed;bottom:26px;left:26px;z-index:9900;display:flex;align-items:center;gap:10px;background:rgba(15,23,42,.88);backdrop-filter:blur(16px);border:1px solid rgba(96,165,250,.35);border-radius:999px;padding:8px 18px 8px 10px;color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 25px rgba(59,130,246,.3);transition:all .3s cubic-bezier(0.16, 1, 0.3, 1);opacity:0;pointer-events:none;transform:translateY(20px) scale(.9)}
+#j-ai-floating-orb.show{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+#j-ai-floating-orb:hover{transform:translateY(-4px) scale(1.04);border-color:var(--cyan);box-shadow:0 15px 40px rgba(0,0,0,.5),0 0 35px rgba(59,130,246,.5)}
+
+@media(max-width:640px){
+  .j-ai-header{padding:14px 16px}
+  .j-ai-body{padding:16px;max-height:240px}
+  .j-ai-footer{padding:14px 16px}
+  .j-chip{padding:6px 11px;font-size:.76rem}
+  #j-ai-floating-orb{bottom:20px;left:16px;padding:6px 14px 6px 8px}
+}
 </style>
 </head>
 <body>
@@ -460,7 +528,8 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
 </nav>
 
 <!-- ABOUT / HERO (Landing Section) -->
-<section id="home" style="min-height:100vh;display:flex;align-items:center;padding:100px 24px 60px;position:relative;z-index:1;">
+<section id="about" style="min-height:100vh;display:flex;align-items:center;padding:100px 24px 60px;position:relative;z-index:1;">
+  <a id="home" style="position:absolute;top:0;"></a>
   <div class="sec-in">
     <div style="display:grid;grid-template-columns:auto 1fr;gap:64px;align-items:center;" class="a-grid">
       <!-- LEFT: Profile Card -->
@@ -524,8 +593,65 @@ footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(
         </div>
       </div>
     </div>
+
+    <!-- JYOTI AI HOLOGRAPHIC ASSISTANT -->
+    <div class="j-ai-wrapper rv up">
+      <div class="j-ai-card" id="j-ai-card">
+        <div class="j-ai-top-bar"></div>
+        <div class="j-ai-header">
+          <div class="j-ai-profile">
+            <div class="j-ai-avatar-wrap">
+              <div class="j-ai-avatar-ring"></div>
+              <div class="j-ai-avatar-inner">
+                <span class="j-ai-avatar-icon">✦</span>
+              </div>
+            </div>
+            <div class="j-ai-title-wrap">
+              <div class="j-ai-name">Jyoti AI <span style="font-size:.7rem;padding:2px 7px;border-radius:999px;background:rgba(59,130,246,.15);color:var(--cyan);border:1px solid rgba(59,130,246,.3);">Holographic Guide</span></div>
+              <div class="j-ai-badge"><span class="j-ai-online-dot"></span>ONLINE &bull; PERSONAL PORTFOLIO GUIDE</div>
+            </div>
+          </div>
+          <div class="j-ai-voicewave" id="j-ai-wave" title="Voice-wave visualizer">
+            <div class="vw-bar"></div>
+            <div class="vw-bar"></div>
+            <div class="vw-bar"></div>
+            <div class="vw-bar"></div>
+            <div class="vw-bar"></div>
+          </div>
+          <div class="j-ai-controls">
+            <button class="j-ai-btn" onclick="resetJyotiChat()" title="Reset Conversation">&#8635;</button>
+            <button class="j-ai-btn" id="j-ai-min-btn" onclick="toggleJyotiMinimize()" title="Minimize / Maximize">&mdash;</button>
+          </div>
+        </div>
+        <div class="j-ai-body" id="j-ai-body">
+          <!-- Dynamically populated messages -->
+        </div>
+        <div class="j-ai-footer">
+          <div class="j-ai-options-label"><span>💡</span> Ask Jyoti AI &bull; Choose a topic:</div>
+          <div class="j-ai-options">
+            <button class="j-chip" onclick="handleJyotiOption('about')"><span>👤</span> About Jyoti</button>
+            <button class="j-chip" onclick="handleJyotiOption('skills')"><span>⚡</span> Skills</button>
+            <button class="j-chip" onclick="handleJyotiOption('projects')"><span>🚀</span> Projects</button>
+            <button class="j-chip" onclick="handleJyotiOption('dsa')"><span>📊</span> DSA Journey</button>
+            <button class="j-chip" onclick="handleJyotiOption('education')"><span>🎓</span> Education</button>
+            <button class="j-chip" onclick="handleJyotiOption('career')"><span>🎯</span> Career Goals</button>
+            <button class="j-chip" onclick="handleJyotiOption('contact')"><span>📬</span> Contact</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Floating Launcher when minimized or scrolled -->
+<div id="j-ai-floating-orb" onclick="toggleJyotiMinimize();goTo('#about');">
+  <div class="j-ai-avatar-wrap" style="width:28px;height:28px;">
+    <div class="j-ai-avatar-ring"></div>
+    <div class="j-ai-avatar-inner"><span class="j-ai-avatar-icon" style="font-size:.7rem;">✦</span></div>
+  </div>
+  <span style="font-size:.84rem;font-weight:600;letter-spacing:-.01em;">Jyoti AI</span>
+  <span style="width:6px;height:6px;background:#22C55E;border-radius:50%;box-shadow:0 0 6px #22C55E;"></span>
+</div>
 
 <!-- MARQUEE -->
 <div class="mq-sec rv up">
@@ -714,7 +840,7 @@ const PROJS=[
 function initApp(){
   initAurora(); initCursor(); initScrollProg(); initNav(); initTyping();
   initReveal(); initSkills(); initCounters(); initTilt(); initSpot(); initRipple();
-  initCmd(); initActiveNav(); initClock(); initCardGlow();
+  initCmd(); initActiveNav(); initClock(); initCardGlow(); initJyotiAI();
 }
 
 // AURORA & FLOATING PARTICLES
@@ -944,6 +1070,174 @@ function showToast(){const t=document.getElementById('toast');t.classList.add('s
 function launchConf(){
   const cols=['#3B82F6','#1D4ED8','#22C55E','#f59e0b','#ec4899','#93C5FD'];
   for(let i=0;i<90;i++){setTimeout(()=>{const el=document.createElement('div');el.className='cf-p';el.style.left=(15+Math.random()*70)+'%';el.style.top=(window.innerHeight*.35+Math.random()*80-40)+'px';el.style.background=cols[Math.floor(Math.random()*cols.length)];el.style.width=(5+Math.random()*7)+'px';el.style.height=(5+Math.random()*9)+'px';el.style.borderRadius=Math.random()>.5?'50%':'2px';el.style.animationDuration=(1.5+Math.random()*2.5)+'s';document.body.appendChild(el);setTimeout(()=>el.remove(),5000);},i*16);}
+}
+
+// JYOTI AI ASSISTANT ENGINE
+const JYOTI_RESPONSES = {
+  about: {
+    title: "About Jyoti",
+    target: "#about",
+    text: "Jyoti Kashyap is a passionate Bachelor of Computer Applications (BCA) student and an aspiring Java Software Engineer. She enjoys solving programming challenges, building real-world software projects, and continuously improving her technical skills. She believes in learning by building and is committed to becoming a highly skilled software developer."
+  },
+  skills: {
+    title: "Skills",
+    target: "#skills",
+    text: "Jyoti is skilled in Java, C, PHP, HTML, CSS, JavaScript, MySQL, Git, and GitHub. She is currently learning Spring Boot, React, and advanced Data Structures and Algorithms to prepare for software engineering roles."
+  },
+  projects: {
+    title: "Projects",
+    target: "#projects",
+    text: "Jyoti has developed practical projects such as a Virtual Interior Designer, Student Management System, and several web applications that demonstrate problem-solving, UI design, and software development skills."
+  },
+  dsa: {
+    title: "DSA Journey",
+    target: "#dsa",
+    text: "Jyoti is dedicated to mastering Data Structures and Algorithms through consistent practice, solving coding problems, and preparing for technical interviews at leading product-based companies."
+  },
+  education: {
+    title: "Education",
+    target: "#experience",
+    text: "Currently pursuing a Bachelor of Computer Applications while gaining hands-on experience through academic projects, self-learning, and coding practice."
+  },
+  career: {
+    title: "Career Goals",
+    target: "#experience",
+    text: "Jyoti's goal is to become a Software Engineer, contribute to innovative products, solve meaningful problems, and continue learning modern technologies throughout her career."
+  },
+  contact: {
+    title: "Contact",
+    target: "#contact",
+    text: "If you'd like to collaborate, discuss opportunities, or simply connect, please visit the Contact section or use the social media links available on this portfolio."
+  }
+};
+
+const GREETING_TEXT = "Hi! 👋 Welcome to Jyoti Kashyap's portfolio. I'm Jyoti AI, your personal guide. I'll introduce you to Jyoti, her skills, projects, and career journey. Click any option below to get started!";
+
+let jIsTyping = false;
+let jHasGreeted = false;
+
+function initJyotiAI(){
+  const card = document.getElementById('j-ai-card');
+  if(!card) return;
+
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e => {
+      if(e.isIntersecting && !jHasGreeted){
+        jHasGreeted = true;
+        setTimeout(()=>{
+          typeMessage(GREETING_TEXT);
+        }, 400);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  obs.observe(card);
+
+  window.addEventListener('scroll', ()=>{
+    const orb = document.getElementById('j-ai-floating-orb');
+    if(orb){
+      if(window.scrollY > 350 && card.classList.contains('minimized')){
+        orb.classList.add('show');
+      } else {
+        orb.classList.remove('show');
+      }
+    }
+  }, { passive: true });
+}
+
+function typeMessage(text, callback){
+  if(jIsTyping) return;
+  jIsTyping = true;
+
+  const wave = document.getElementById('j-ai-wave');
+  if(wave) wave.classList.add('active');
+
+  const body = document.getElementById('j-ai-body');
+  if(!body) return;
+
+  const msgEl = document.createElement('div');
+  msgEl.className = 'j-msg j-msg-ai';
+  msgEl.innerHTML = `
+    <div class="j-msg-avatar">✨</div>
+    <div class="j-msg-bubble">
+      <span class="j-msg-text"></span><span class="j-typing-cursor"></span>
+    </div>
+  `;
+  body.appendChild(msgEl);
+  body.scrollTop = body.scrollHeight;
+
+  const textSpan = msgEl.querySelector('.j-msg-text');
+  const cursor = msgEl.querySelector('.j-typing-cursor');
+
+  let idx = 0;
+  const speed = 16;
+
+  function charTick(){
+    if(idx < text.length){
+      textSpan.textContent += text.charAt(idx);
+      idx++;
+      body.scrollTop = body.scrollHeight;
+      setTimeout(charTick, speed);
+    } else {
+      if(cursor) cursor.remove();
+      if(wave) wave.classList.remove('active');
+      jIsTyping = false;
+      if(callback) callback();
+    }
+  }
+
+  charTick();
+}
+
+function handleJyotiOption(key){
+  if(jIsTyping) return;
+  const data = JYOTI_RESPONSES[key];
+  if(!data) return;
+
+  const body = document.getElementById('j-ai-body');
+
+  const userMsgEl = document.createElement('div');
+  userMsgEl.className = 'j-msg j-msg-user';
+  userMsgEl.innerHTML = `<div class="j-msg-bubble">${data.title}</div>`;
+  body.appendChild(userMsgEl);
+  body.scrollTop = body.scrollHeight;
+
+  setTimeout(()=>{
+    typeMessage(data.text, ()=>{
+      if(data.target){
+        setTimeout(()=>{
+          document.querySelector(data.target)?.scrollIntoView({ behavior: 'smooth' });
+        }, 350);
+      }
+    });
+  }, 200);
+}
+
+function toggleJyotiMinimize(){
+  const card = document.getElementById('j-ai-card');
+  const orb = document.getElementById('j-ai-floating-orb');
+  if(!card) return;
+
+  card.classList.toggle('minimized');
+  const minBtn = document.getElementById('j-ai-min-btn');
+  if(card.classList.contains('minimized')){
+    if(minBtn) minBtn.textContent = '⤢';
+    if(orb && window.scrollY > 300) orb.classList.add('show');
+  } else {
+    if(minBtn) minBtn.textContent = '—';
+    if(orb) orb.classList.remove('show');
+  }
+}
+
+function resetJyotiChat(){
+  if(jIsTyping) return;
+  const body = document.getElementById('j-ai-body');
+  if(body){
+    body.innerHTML = '';
+    jIsTyping = false;
+    typeMessage(GREETING_TEXT);
+  }
 }
 </script>
 </body>
