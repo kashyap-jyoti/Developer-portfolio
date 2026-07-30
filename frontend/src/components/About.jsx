@@ -16,7 +16,7 @@ export default function About() {
 
   const highlights = [
     'Deep expertise in Core Java, OOPs principles & Multithreaded Programming.',
-    'Full-Stack development mastery using MERN (MongoDB, Express, React, Node.js).',
+    'Full-Stack development mastery using Java (Spring Boot, React, REST APIs).',
     'Proficient in Data Structures, Algorithms, Complexity Analysis, and System Design.',
     'Experience building Spring Boot 3 microservices with REST API standards.',
     'BCA Computer Science undergraduate maintaining top academic honors.'
@@ -123,7 +123,7 @@ export default function About() {
                 I am an aspiring <strong style={{ color: '#60A5FA' }}>Java Developer</strong> and <strong style={{ color: '#60A5FA' }}>Software Engineer</strong> who thrives on solving complex engineering challenges. As a dedicated <strong style={{ color: '#C084FC' }}>BCA Student</strong> and <strong style={{ color: '#F472B6' }}>DSA Enthusiast</strong>, my core philosophy is writing clean, scalable, and high-performance code.
               </p>
               <p style={{ color: '#CBD5E1', lineHeight: 1.8, fontSize: '0.98rem', marginBottom: '28px' }}>
-                Whether implementing graph algorithms in Java or architecting full-stack web platforms in MERN, I bring a methodical <strong style={{ color: '#22C55E' }}>Problem Solver</strong> mindset to every technical project.
+                Whether implementing graph algorithms in Java or architecting enterprise web platforms in Java Full Stack, I bring a methodical <strong style={{ color: '#22C55E' }}>Problem Solver</strong> mindset to every technical project.
               </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
