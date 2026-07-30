@@ -11,7 +11,7 @@ export default function Hero() {
 
   // Typewriter effect states
   const professions = [
-    'Java & MERN Stack Software Engineer',
+    'Java Full Stack Software Engineer',
     'Backend Architecture & DSA Enthusiast',
     'BCA Computer Science Senior'
   ];
@@ -140,7 +140,7 @@ export default function Hero() {
           zIndex: 2
         }}
       >
-        ⚛️ React & MERN Architecture
+        ⚛️ React & Java Full Stack Architecture
       </motion.div>
 
       <div style={{ maxWidth: '1160px', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
@@ -170,7 +170,7 @@ export default function Hero() {
                 }}
               >
                 <span style={{ width: '8px', height: '8px', background: '#22C55E', borderRadius: '50%', boxShadow: '0 0 10px #22C55E' }}></span>
-                Available for Full-Time Roles & Spring / MERN Opportunities
+                Available for Full-Time Roles & Java Full Stack Opportunities
               </div>
             </motion.div>
 
@@ -394,7 +394,7 @@ export default function Hero() {
                   >
                     <div><span style={{ color: '#ec4899' }}>const</span> developer = &#123;</div>
                     <div style={{ paddingLeft: '16px' }}><span style={{ color: '#60A5FA' }}>name</span>: <span style={{ color: '#22C55E' }}>"Jyoti Kashyap"</span>,</div>
-                    <div style={{ paddingLeft: '16px' }}><span style={{ color: '#60A5FA' }}>primaryStack</span>: [<span style={{ color: '#22C55E' }}>"Java 21"</span>, <span style={{ color: '#22C55E' }}>"MERN Stack"</span>, <span style={{ color: '#22C55E' }}>"Spring Boot"</span>],</div>
+                    <div style={{ paddingLeft: '16px' }}><span style={{ color: '#60A5FA' }}>primaryStack</span>: [<span style={{ color: '#22C55E' }}>"Java 21"</span>, <span style={{ color: '#22C55E' }}>"Java Full Stack"</span>, <span style={{ color: '#22C55E' }}>"Spring Boot"</span>],</div>
                     <div style={{ paddingLeft: '16px' }}><span style={{ color: '#60A5FA' }}>focus</span>: <span style={{ color: '#22C55E' }}>"Backend Architecture & DSA"</span>,</div>
                     <div style={{ paddingLeft: '16px' }}><span style={{ color: '#60A5FA' }}>location</span>: <span style={{ color: '#22C55E' }}>"India"</span></div>
                     <div>&#125;;</div>

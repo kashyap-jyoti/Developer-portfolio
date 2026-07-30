@@ -153,7 +153,7 @@ export default function Contact() {
                 rows={5}
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Hello Jyoti, I reviewed your Java & MERN portfolio and would like to connect..."
+                placeholder="Hello Jyoti, I reviewed your Java Full Stack portfolio and would like to connect..."
                 className="input-focus-glow"
                 style={{ width: '100%', background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '10px', padding: '12px 14px', color: '#fff', fontFamily: 'inherit', outline: 'none', resize: 'vertical', transition: 'all 0.2s ease' }}
               ></textarea>

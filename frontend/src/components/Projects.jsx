@@ -144,7 +144,7 @@ export default function Projects({ onSelectProject }) {
     });
   }, []);
 
-  const categories = ['All', 'Java & Spring Boot', 'MERN Stack', 'Algorithms'];
+  const categories = ['All', 'Java & Spring Boot', 'Java Full Stack', 'Algorithms'];
 
   const filteredProjects = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
 

@@ -72,7 +72,7 @@ export default function Skills() {
     });
   }, []);
 
-  const categories = ['Core Backend', 'Frontend & MERN', 'Database & Cloud', 'Tools & DevOps'];
+  const categories = ['Core Backend', 'Frontend & Java Full Stack', 'Database & Cloud', 'Tools & DevOps'];
 
   return (
     <section id="skills" className="sec-wrap">
@@ -88,7 +88,7 @@ export default function Skills() {
         </div>
         <h2 className="sec-ttl">Languages, Frameworks & Infrastructure</h2>
         <p className="sec-sub" style={{ marginBottom: '40px' }}>
-          A comprehensive overview of my technical stack across Java enterprise backends, MERN applications, and database architectures.
+          A comprehensive overview of my technical stack across Java enterprise backends, Java Full Stack applications, and database architectures.
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>

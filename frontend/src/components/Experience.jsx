@@ -68,11 +68,11 @@ function ExperienceCard({ exp, index }) {
 export default function Experience() {
   const experiences = [
     {
-      role: 'Full-Stack MERN & Java Developer (Projects)',
+      role: 'Java Full Stack Developer (Projects)',
       company: 'Self-Driven Software Engineering',
       period: '2023 — Present',
       location: 'India',
-      description: 'Built enterprise-grade distributed banking backends and full-stack MERN portfolio platforms featuring high concurrency, JWT security, and interactive AI chat interfaces.',
+      description: 'Built enterprise-grade distributed banking backends and Java Full Stack portfolio platforms featuring high concurrency, JWT security, and interactive AI chat interfaces.',
       tags: ['Java 21', 'Spring Boot', 'React', 'Node.js', 'Express', 'MongoDB', 'Kafka']
     },
     {

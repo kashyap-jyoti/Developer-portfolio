@@ -15,7 +15,7 @@ export default function AIAssistant() {
 
   const quickPrompts = [
     "Tell me about Java & DSA",
-    "What is Jyoti's MERN Stack experience?",
+    "What is Jyoti's Java Full Stack experience?",
     "Featured Banking & Portfolio projects",
     "How to contact Jyoti?"
   ];

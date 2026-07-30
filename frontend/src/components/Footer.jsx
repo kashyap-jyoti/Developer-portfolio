@@ -51,7 +51,7 @@ export default function Footer() {
           <div>
             <h4 style={{ color: '#fff', fontWeight: 700, fontSize: '1.05rem', marginBottom: '4px' }}>Jyoti Kashyap</h4>
             <p style={{ color: '#64748B', fontSize: '0.82rem' }}>
-              Built with React, Express, MongoDB & Node.js (MERN Architecture).
+              Built with React, Spring Boot, Java & REST APIs (Java Full Stack Architecture).
             </p>
           </div>
 
