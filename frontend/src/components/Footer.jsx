@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowUp, Rocket } from 'lucide-react';
 import gsap from 'gsap';
 import RippleButton from './RippleButton';
+import LeetCodeIcon from './LeetCodeIcon';
 
 export default function Footer() {
   const [isLaunching, setIsLaunching] = useState(false);
@@ -56,13 +57,16 @@ export default function Footer() {
           </div>
 
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <RippleButton href="https://github.com/Kashyap-jyoti" target="_blank" rel="noreferrer" style={{ color: '#94A3B8', background: 'none', border: 'none', padding: '6px' }}>
+            <RippleButton href="https://github.com/Kashyap-jyoti" target="_blank" rel="noreferrer" title="GitHub Profile" style={{ color: '#94A3B8', background: 'none', border: 'none', padding: '6px' }}>
               <Github size={20} />
             </RippleButton>
-            <RippleButton href="https://linkedin.com" target="_blank" rel="noreferrer" style={{ color: '#94A3B8', background: 'none', border: 'none', padding: '6px' }}>
+            <RippleButton href="https://linkedin.com" target="_blank" rel="noreferrer" title="LinkedIn Profile" style={{ color: '#94A3B8', background: 'none', border: 'none', padding: '6px' }}>
               <Linkedin size={20} />
             </RippleButton>
-            <RippleButton href="mailto:jyoti33604mah@gmail.com" style={{ color: '#94A3B8', background: 'none', border: 'none', padding: '6px' }}>
+            <RippleButton href="https://leetcode.com/u/Jyoti_Kashyap/" target="_blank" rel="noreferrer" title="LeetCode Profile" style={{ color: '#94A3B8', background: 'none', border: 'none', padding: '6px' }}>
+              <LeetCodeIcon size={20} color="#FFA116" />
+            </RippleButton>
+            <RippleButton href="mailto:jyoti33604mah@gmail.com" title="Send Email" style={{ color: '#94A3B8', background: 'none', border: 'none', padding: '6px' }}>
               <Mail size={20} />
             </RippleButton>
 

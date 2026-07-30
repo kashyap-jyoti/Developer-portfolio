@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import { Search, X, FolderGit2, User, Mail, Cpu, Code2 } from 'lucide-react';
+import LeetCodeIcon from './LeetCodeIcon';
 
 export default function CommandPalette({ isOpen, onClose }) {
   const [query, setQuery] = useState('');
@@ -26,6 +26,7 @@ export default function CommandPalette({ isOpen, onClose }) {
     { label: 'View Technical Skills', href: '#skills', icon: Cpu },
     { label: 'Browse Projects', href: '#projects', icon: FolderGit2 },
     { label: 'Explore DSA Competence', href: '#dsa', icon: Code2 },
+    { label: 'Open LeetCode Profile', href: 'https://leetcode.com/u/Jyoti_Kashyap/', external: true, icon: LeetCodeIcon },
     { label: 'Send Contact Message', href: '#contact', icon: Mail },
   ];
 
@@ -78,6 +79,8 @@ export default function CommandPalette({ isOpen, onClose }) {
               <a
                 key={item.label}
                 href={item.href}
+                target={item.external ? '_blank' : '_self'}
+                rel={item.external ? 'noreferrer' : ''}
                 onClick={onClose}
                 style={{
                   display: 'flex',

@@ -20,6 +20,7 @@ import {
 import { useTilt } from '../hooks/useTilt';
 import { useCounter } from '../hooks/useCounter';
 import RippleButton from './RippleButton';
+import LeetCodeIcon from './LeetCodeIcon';
 
 export default function DSA() {
   const [inView, setInView] = useState(false);
@@ -85,15 +86,29 @@ export default function DSA() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           onViewportEnter={() => setInView(true)}
+          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '44px', gap: '20px' }}
         >
-          <div className="sec-lbl">
-            <Code2 size={16} />
-            <span>Algorithmic Growth & Problem Solving</span>
+          <div>
+            <div className="sec-lbl">
+              <Code2 size={16} />
+              <span>Algorithmic Growth & Problem Solving</span>
+            </div>
+            <h2 className="sec-ttl">DSA Journey</h2>
+            <p className="sec-sub" style={{ lineHeight: 1.7, margin: 0 }}>
+              A snapshot of my continuous journey to strengthen problem-solving skills through consistent practice and algorithmic thinking.
+            </p>
           </div>
-          <h2 className="sec-ttl">DSA Journey</h2>
-          <p className="sec-sub" style={{ marginBottom: '44px', lineHeight: 1.7 }}>
-            A snapshot of my continuous journey to strengthen problem-solving skills through consistent practice and algorithmic thinking.
-          </p>
+
+          <RippleButton
+            href="https://leetcode.com/u/Jyoti_Kashyap/"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-s"
+            style={{ padding: '10px 18px', fontSize: '0.85rem' }}
+          >
+            <LeetCodeIcon size={18} color="#FFA116" />
+            <span>Visit LeetCode Profile</span>
+          </RippleButton>
         </motion.div>
 
         {/* SUMMARY CARDS GRID */}

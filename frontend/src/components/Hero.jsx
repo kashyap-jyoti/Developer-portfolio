@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Github, Linkedin, Mail, ChevronDown, Terminal, Code, Sparkles, Cpu } from 'lucide-react';
 import RippleButton from './RippleButton';
+import LeetCodeIcon from './LeetCodeIcon';
 import { useTilt } from '../hooks/useTilt';
 
 export default function Hero() {
@@ -416,14 +417,18 @@ export default function Hero() {
                 )}
               </AnimatePresence>
 
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <RippleButton href="https://github.com/Kashyap-jyoti" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '10px 16px', fontSize: '0.82rem', flex: 1, justifyContent: 'center' }}>
-                  <Github size={16} />
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <RippleButton href="https://github.com/Kashyap-jyoti" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '8px 12px', fontSize: '0.8rem', flex: 1, justifyContent: 'center' }}>
+                  <Github size={15} />
                   <span>GitHub</span>
                 </RippleButton>
-                <RippleButton href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '10px 16px', fontSize: '0.82rem', flex: 1, justifyContent: 'center' }}>
-                  <Linkedin size={16} />
+                <RippleButton href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '8px 12px', fontSize: '0.8rem', flex: 1, justifyContent: 'center' }}>
+                  <Linkedin size={15} />
                   <span>LinkedIn</span>
+                </RippleButton>
+                <RippleButton href="https://leetcode.com/u/Jyoti_Kashyap/" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '8px 12px', fontSize: '0.8rem', flex: 1, justifyContent: 'center' }}>
+                  <LeetCodeIcon size={15} color="#FFA116" />
+                  <span>LeetCode</span>
                 </RippleButton>
               </div>
             </div>

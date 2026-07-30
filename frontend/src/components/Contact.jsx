@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Send, MapPin, Github, Linkedin, CheckCircle2 } from 'lucide-react';
 import { sendContactMessage } from '../services/api';
 import RippleButton from './RippleButton';
+import LeetCodeIcon from './LeetCodeIcon';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
@@ -75,12 +76,15 @@ export default function Contact() {
 
             <div className="glass2 glass-shine" style={{ padding: '24px' }}>
               <div style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600, marginBottom: '12px', textTransform: 'uppercase' }}>Social Profiles</div>
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <RippleButton href="https://github.com/Kashyap-jyoti" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '10px 16px', fontSize: '0.82rem' }}>
-                  <Github size={18} /> GitHub
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <RippleButton href="https://github.com/Kashyap-jyoti" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '8px 14px', fontSize: '0.82rem' }}>
+                  <Github size={17} /> GitHub
                 </RippleButton>
-                <RippleButton href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '10px 16px', fontSize: '0.82rem' }}>
-                  <Linkedin size={18} /> LinkedIn
+                <RippleButton href="https://linkedin.com" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '8px 14px', fontSize: '0.82rem' }}>
+                  <Linkedin size={17} /> LinkedIn
+                </RippleButton>
+                <RippleButton href="https://leetcode.com/u/Jyoti_Kashyap/" target="_blank" rel="noreferrer" className="btn-s" style={{ padding: '8px 14px', fontSize: '0.82rem' }}>
+                  <LeetCodeIcon size={17} color="#FFA116" /> LeetCode
                 </RippleButton>
               </div>
             </div>

@@ -42,7 +42,11 @@ public class AIService {
         ));
         knowledgeBase.add(new KnowledgeItem(
             Arrays.asList("contact", "hire", "email", "reach", "social"),
-            "You can reach Jyoti via the Contact form below, email directly at jyotikashyap.dev@gmail.com, or connect on GitHub and LinkedIn!"
+            "You can reach Jyoti via the Contact form below, email directly at jyotikashyap.dev@gmail.com, or connect on GitHub, LinkedIn, and LeetCode (https://leetcode.com/u/Jyoti_Kashyap/)!"
+        ));
+        knowledgeBase.add(new KnowledgeItem(
+            Arrays.asList("leetcode", "coding", "profile", "problems", "gfg"),
+            "Check out Jyoti's LeetCode profile at https://leetcode.com/u/Jyoti_Kashyap/ with 500+ solved Data Structures and Algorithms problems!"
         ));
     }
 
