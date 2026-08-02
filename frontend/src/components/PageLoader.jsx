@@ -21,7 +21,18 @@ export default function PageLoader({ onComplete }) {
       });
     }, 60);
 
-    return () => clearInterval(timer);
+    // Safety fallback: force-complete after 4 seconds no matter what
+    const safetyTimer = setTimeout(() => {
+      clearInterval(timer);
+      setProgress(100);
+      setIsLoading(false);
+      if (onComplete) onComplete();
+    }, 4000);
+
+    return () => {
+      clearInterval(timer);
+      clearTimeout(safetyTimer);
+    };
   }, [onComplete]);
 
   return (

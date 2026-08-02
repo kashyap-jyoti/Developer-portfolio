@@ -5,6 +5,58 @@ import { fetchProjects } from '../services/api';
 import RippleButton from './RippleButton';
 import { useTilt } from '../hooks/useTilt';
 
+// Fallback static projects – shown when backend is unavailable
+const FALLBACK_PROJECTS = [
+  {
+    id: 1,
+    title: 'Enterprise Banking Platform',
+    subtitle: 'High-Concurrency Distributed Backend',
+    description: 'Production-grade banking system with Spring Boot microservices, JWT security, Kafka event streaming, and real-time transaction processing supporting 10,000+ concurrent users.',
+    longDescription: 'Built with Spring Boot 3, Java 21, PostgreSQL, and Kafka for event-driven architecture. Includes JWT-based authentication, role-based access control, and distributed transaction management.',
+    category: 'Java & Spring Boot',
+    tags: ['Java 21', 'Spring Boot 3', 'Kafka', 'PostgreSQL', 'JWT', 'Microservices', 'Docker'],
+    githubUrl: 'https://github.com/Kashyap-jyoti',
+    stars: 24,
+    forks: 7
+  },
+  {
+    id: 2,
+    title: 'Java Full Stack Portfolio Platform',
+    subtitle: 'Interactive Developer Portfolio with AI Chat',
+    description: 'This portfolio platform itself — a full-stack web application with Java Spring Boot backend, React frontend, MySQL database, and an integrated AI assistant powered by a custom REST API.',
+    longDescription: 'Built with React, Java Spring Boot, MySQL, and GSAP animations. Features a Nova AI assistant, command palette, animated sections, custom cursor, and smooth page transitions.',
+    category: 'Java Full Stack',
+    tags: ['React', 'Java', 'Spring Boot', 'MySQL', 'REST API', 'GSAP', 'Framer Motion'],
+    githubUrl: 'https://github.com/Kashyap-jyoti',
+    stars: 18,
+    forks: 4
+  },
+  {
+    id: 3,
+    title: 'DSA Algorithm Visualizer',
+    subtitle: 'Interactive Algorithm & Data Structure Demos',
+    description: 'A web-based visualizer for sorting algorithms, graph traversals (BFS/DFS), dynamic programming problems, and tree operations with step-by-step execution playback.',
+    longDescription: 'Demonstrates 30+ algorithms including QuickSort, MergeSort, Dijkstra, Bellman-Ford, and various DP patterns with animated step-by-step visualization.',
+    category: 'Algorithms',
+    tags: ['Java', 'React', 'Algorithms', 'Data Structures', 'Graph Theory', 'Dynamic Programming'],
+    githubUrl: 'https://github.com/Kashyap-jyoti',
+    stars: 31,
+    forks: 12
+  },
+  {
+    id: 4,
+    title: 'E-Commerce Microservices',
+    subtitle: 'Scalable Online Retail Platform',
+    description: 'Full-featured e-commerce backend with product catalog, order management, inventory tracking, and payment processing built on Spring Boot microservices architecture.',
+    longDescription: 'Microservices include: Product Service, Order Service, Inventory Service, Payment Service, and API Gateway — all communicating via REST APIs and Kafka events.',
+    category: 'Java & Spring Boot',
+    tags: ['Spring Boot', 'Java', 'Microservices', 'MySQL', 'Redis', 'Docker', 'Kafka'],
+    githubUrl: 'https://github.com/Kashyap-jyoti',
+    stars: 15,
+    forks: 5
+  }
+];
+
 function ProjectCard({ project, onSelectProject, index }) {
   const { tiltProps } = useTilt(6, 1.01);
 
@@ -135,12 +187,17 @@ function ProjectCard({ project, onSelectProject, index }) {
 }
 
 export default function Projects({ onSelectProject }) {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(FALLBACK_PROJECTS);
   const [filter, setFilter] = useState('All');
 
   useEffect(() => {
     fetchProjects().then((data) => {
-      setProjects(data);
+      if (data && data.length > 0) {
+        setProjects(data);
+      }
+      // If backend returns empty/fails, keep showing fallback data
+    }).catch(() => {
+      // Silently keep fallback data
     });
   }, []);
 
@@ -160,9 +217,9 @@ export default function Projects({ onSelectProject }) {
           <FolderGit2 size={16} />
           <span>Featured Engineering Works</span>
         </div>
-        <h2 className="sec-ttl">Real-World Projects & Systems</h2>
+        <h2 className="sec-ttl">Real-World Projects &amp; Systems</h2>
         <p className="sec-sub" style={{ marginBottom: '32px' }}>
-          Dynamic full-stack platforms and backend microservices fetched directly from the Express REST API & MongoDB database.
+          Dynamic full-stack platforms and backend microservices — from enterprise banking backends to AI-powered portfolio platforms.
         </p>
 
         {/* Filter Chips */}

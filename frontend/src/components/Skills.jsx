@@ -4,6 +4,30 @@ import { Cpu, Layers } from 'lucide-react';
 import { fetchSkills } from '../services/api';
 import { useTilt } from '../hooks/useTilt';
 
+// Fallback static skills – shown when backend is unavailable
+const FALLBACK_SKILLS = [
+  // Core Backend
+  { name: 'Java 21', proficiency: 90, category: 'Core Backend' },
+  { name: 'Spring Boot 3', proficiency: 85, category: 'Core Backend' },
+  { name: 'REST APIs & Microservices', proficiency: 82, category: 'Core Backend' },
+  { name: 'Multithreading & Kafka', proficiency: 75, category: 'Core Backend' },
+  // Frontend & Java Full Stack
+  { name: 'React & JavaScript', proficiency: 85, category: 'Frontend & Java Full Stack' },
+  { name: 'HTML5 & CSS3', proficiency: 88, category: 'Frontend & Java Full Stack' },
+  { name: 'Node.js & Express', proficiency: 78, category: 'Frontend & Java Full Stack' },
+  { name: 'TypeScript', proficiency: 70, category: 'Frontend & Java Full Stack' },
+  // Database & Cloud
+  { name: 'MySQL & PostgreSQL', proficiency: 83, category: 'Database & Cloud' },
+  { name: 'MongoDB', proficiency: 80, category: 'Database & Cloud' },
+  { name: 'Redis', proficiency: 65, category: 'Database & Cloud' },
+  { name: 'AWS Basics', proficiency: 60, category: 'Database & Cloud' },
+  // Tools & DevOps
+  { name: 'Git & GitHub', proficiency: 92, category: 'Tools & DevOps' },
+  { name: 'Docker', proficiency: 72, category: 'Tools & DevOps' },
+  { name: 'Maven & Gradle', proficiency: 80, category: 'Tools & DevOps' },
+  { name: 'IntelliJ IDEA & VS Code', proficiency: 90, category: 'Tools & DevOps' }
+];
+
 function SkillCard({ category, filtered, index }) {
   const { tiltProps } = useTilt(8, 1.02);
 
@@ -64,11 +88,16 @@ function SkillCard({ category, filtered, index }) {
 }
 
 export default function Skills() {
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState(FALLBACK_SKILLS);
 
   useEffect(() => {
     fetchSkills().then((data) => {
-      setSkills(data);
+      if (data && data.length > 0) {
+        setSkills(data);
+      }
+      // If backend returns empty/fails, keep showing fallback data
+    }).catch(() => {
+      // Silently keep fallback data
     });
   }, []);
 
@@ -86,7 +115,7 @@ export default function Skills() {
           <Cpu size={16} />
           <span>Technical Arsenal</span>
         </div>
-        <h2 className="sec-ttl">Languages, Frameworks & Infrastructure</h2>
+        <h2 className="sec-ttl">Languages, Frameworks &amp; Infrastructure</h2>
         <p className="sec-sub" style={{ marginBottom: '40px' }}>
           A comprehensive overview of my technical stack across Java enterprise backends, Java Full Stack applications, and database architectures.
         </p>

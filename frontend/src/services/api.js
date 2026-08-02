@@ -32,7 +32,7 @@ export const sendContactMessage = async (formData) => {
     return await res.json();
   } catch (err) {
     console.error('Error sending message:', err);
-    return { success: false, error: 'Network error connecting to Express backend.' };
+    return { success: false, error: 'Network error connecting to backend server.' };
   }
 };
 
@@ -46,6 +46,6 @@ export const sendAIChatMessage = async (userMessage) => {
     return await res.json();
   } catch (err) {
     console.error('Error with AI assistant:', err);
-    return { success: false, reply: "I am unable to reach the Express backend server right now." };
+    return { success: false, reply: "I am unable to reach the backend server right now." };
   }
 };

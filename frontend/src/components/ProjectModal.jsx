@@ -22,7 +22,7 @@ export default function ProjectModal({ project, onClose }) {
         zIndex: 99999,
         display: 'flex',
         alignItems: 'center',
-        justify: 'center',
+        justifyContent: 'center',
         padding: '24px'
       }}
     >

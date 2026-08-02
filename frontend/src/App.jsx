@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -22,6 +22,8 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const handleLoaderComplete = useCallback(() => setIsLoaded(true), []);
+
   useEffect(() => {
     const handleCustomOpen = () => setCmdOpen(true);
     window.addEventListener('open-command-palette', handleCustomOpen);
@@ -30,7 +32,7 @@ export default function App() {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh', background: '#0F172A' }}>
-      <PageLoader onComplete={() => setIsLoaded(true)} />
+      <PageLoader onComplete={handleLoaderComplete} />
       <ScrollProgress />
       <CustomCursor />
       <BackgroundEffects />

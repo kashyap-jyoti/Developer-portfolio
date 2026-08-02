@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { Search, X, FolderGit2, User, Mail, Cpu, Code2 } from 'lucide-react';
 import LeetCodeIcon from './LeetCodeIcon';
 
@@ -43,7 +44,7 @@ export default function CommandPalette({ isOpen, onClose }) {
         zIndex: 99990,
         display: 'flex',
         alignItems: 'flex-start',
-        justify: 'center',
+        justifyContent: 'center',
         paddingTop: '120px'
       }}
     >
