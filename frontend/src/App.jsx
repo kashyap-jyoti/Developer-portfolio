@@ -7,6 +7,7 @@ import Projects from './components/Projects';
 import Experience from './components/Experience';
 import DSA from './components/DSA';
 import Contact from './components/Contact';
+import ResumeModal from './components/Resume';
 import Footer from './components/Footer';
 import AIAssistant from './components/AIAssistant';
 import CommandPalette from './components/CommandPalette';
@@ -19,6 +20,7 @@ import { AnimatePresence } from 'framer-motion';
 
 export default function App() {
   const [cmdOpen, setCmdOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -37,7 +39,7 @@ export default function App() {
       <CustomCursor />
       <BackgroundEffects />
       
-      <Navbar onOpenCmd={() => setCmdOpen(true)} />
+      <Navbar onOpenCmd={() => setCmdOpen(true)} onOpenResume={() => setResumeOpen(true)} />
       
       <main style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.6s ease-in' }}>
         <Hero />
@@ -50,6 +52,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
       <AIAssistant />
       <CommandPalette isOpen={cmdOpen} onClose={() => setCmdOpen(false)} />
       

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Menu, X, ArrowUpRight, Search } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Search, FileText } from 'lucide-react';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 import RippleButton from './RippleButton';
 
-export default function Navbar({ onOpenCmd }) {
+export default function Navbar({ onOpenCmd, onOpenResume }) {
   const { scrollDirection, scrollY } = useScrollDirection();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -182,9 +182,9 @@ export default function Navbar({ onOpenCmd }) {
             <kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '2px 5px', borderRadius: '4px', fontSize: '0.68rem' }}>Ctrl+K</kbd>
           </RippleButton>
 
-          <RippleButton href="#contact" className="btn-p" style={{ padding: '8px 18px', fontSize: '0.82rem' }}>
-            <span>Hire Me</span>
-            <ArrowUpRight size={14} />
+          <RippleButton onClick={onOpenResume} className="btn-p" style={{ padding: '8px 18px', fontSize: '0.82rem' }}>
+            <FileText size={14} />
+            <span>Resume</span>
           </RippleButton>
 
           {/* Mobile Menu Toggle */}
