@@ -16,6 +16,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
   const navLinks = [
     { label: 'About', href: '#about' },
     { label: 'Skills', href: '#skills' },
+    { label: 'Services', href: '#services' },
     { label: 'Projects', href: '#projects' },
     { label: 'DSA', href: '#dsa' },
     { label: 'Experience', href: '#experience' },
@@ -25,7 +26,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
   // Active section tracker
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'dsa', 'experience', 'contact'];
+      const sections = ['home', 'about', 'skills', 'services', 'projects', 'dsa', 'experience', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
