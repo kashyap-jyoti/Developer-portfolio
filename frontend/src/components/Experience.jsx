@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
 import { useTilt } from '../hooks/useTilt';
+import { useResponsive } from '../hooks/useResponsive';
 
 function ExperienceCard({ exp, index }) {
   const { tiltProps } = useTilt(6, 1.01);
@@ -66,6 +67,7 @@ function ExperienceCard({ exp, index }) {
 }
 
 export default function Experience() {
+  const { isMobile } = useResponsive();
   const experiences = [
     {
       role: 'Java Full Stack Developer (Projects)',
@@ -103,7 +105,7 @@ export default function Experience() {
         </p>
 
         {/* Timeline Container with Scroll Progress Line */}
-        <div style={{ position: 'relative', paddingLeft: '24px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
+        <div style={{ position: 'relative', paddingLeft: isMobile ? '16px' : '24px', display: 'flex', flexDirection: 'column', gap: '32px' }}>
           {/* Vertical Progress Line */}
           <motion.div
             initial={{ scaleY: 0 }}
@@ -130,7 +132,7 @@ export default function Experience() {
                 transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
                 style={{
                   position: 'absolute',
-                  left: '-23px',
+                  left: isMobile ? '-15px' : '-23px',
                   top: '28px',
                   width: '14px',
                   height: '14px',

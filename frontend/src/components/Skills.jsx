@@ -120,7 +120,7 @@ export default function Skills() {
           A comprehensive overview of my technical stack across Java enterprise backends, Java Full Stack applications, and database architectures.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '24px' }}>
           {categories.map((category, idx) => {
             const filtered = skills.filter((s) => s.category === category);
             return <SkillCard key={category} category={category} filtered={filtered} index={idx} />;

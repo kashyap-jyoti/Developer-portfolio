@@ -3,11 +3,14 @@ import { motion } from 'framer-motion';
 import { User, GraduationCap, Award, CheckCircle2, Sparkles } from 'lucide-react';
 import { useTilt } from '../hooks/useTilt';
 import { useCounter } from '../hooks/useCounter';
+import { useResponsive } from '../hooks/useResponsive';
 
 export default function About() {
   const { tiltProps: tiltPropsMain } = useTilt(6, 1.01);
   const { tiltProps: tiltPropsEdu } = useTilt(8, 1.02);
   const { tiltProps: tiltPropsCert } = useTilt(8, 1.02);
+  const { isMobile, isTablet } = useResponsive();
+  const isNarrow = isMobile || isTablet;
 
   const [inView, setInView] = useState(false);
 
@@ -107,7 +110,7 @@ export default function About() {
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: '36px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1.1fr 0.9fr', gap: isNarrow ? '24px' : '36px' }}>
           {/* Main About Card */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}

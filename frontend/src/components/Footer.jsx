@@ -4,9 +4,11 @@ import { Github, Linkedin, Mail, ArrowUp, Rocket } from 'lucide-react';
 import gsap from 'gsap';
 import RippleButton from './RippleButton';
 import LeetCodeIcon from './LeetCodeIcon';
+import { useResponsive } from '../hooks/useResponsive';
 
 export default function Footer() {
   const [isLaunching, setIsLaunching] = useState(false);
+  const { isMobile } = useResponsive();
 
   const scrollToTop = (e) => {
     setIsLaunching(true);
@@ -48,7 +50,7 @@ export default function Footer() {
       <div className="gradient-wave-line" />
 
       <div style={{ borderTop: '1px solid rgba(59, 130, 246, 0.15)', padding: '40px 24px' }}>
-        <div style={{ maxWidth: '1160px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '20px' }}>
+        <div style={{ maxWidth: '1160px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: isMobile ? 'center' : 'space-between', gap: '20px', textAlign: isMobile ? 'center' : 'left' }}>
           <div>
             <h4 style={{ color: '#fff', fontWeight: 700, fontSize: '1.05rem', marginBottom: '4px' }}>Jyoti Kashyap</h4>
             <p style={{ color: '#64748B', fontSize: '0.82rem' }}>

@@ -252,7 +252,7 @@ export default function Projects({ onSelectProject }) {
         {/* Project Cards Grid with Layout Animations */}
         <motion.div
           layout
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '28px' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(340px, 100%), 1fr))', gap: '28px' }}
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, idx) => (

@@ -10,7 +10,7 @@ import DSA from './components/DSA';
 import Contact from './components/Contact';
 import ResumeModal from './components/Resume';
 import Footer from './components/Footer';
-import AIAssistant from './components/AIAssistant';
+
 import CommandPalette from './components/CommandPalette';
 import ProjectModal from './components/ProjectModal';
 import BackgroundEffects from './components/BackgroundEffects';
@@ -55,7 +55,7 @@ export default function App() {
 
       <Footer />
       <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
-      <AIAssistant />
+
       <CommandPalette isOpen={cmdOpen} onClose={() => setCmdOpen(false)} />
       
       <AnimatePresence>

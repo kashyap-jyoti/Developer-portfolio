@@ -21,9 +21,12 @@ import { useTilt } from '../hooks/useTilt';
 import { useCounter } from '../hooks/useCounter';
 import RippleButton from './RippleButton';
 import LeetCodeIcon from './LeetCodeIcon';
+import { useResponsive } from '../hooks/useResponsive';
 
 export default function DSA() {
   const [inView, setInView] = useState(false);
+  const { isMobile, isTablet } = useResponsive();
+  const isNarrow = isMobile || isTablet;
 
   // Animated counters triggered when section enters view
   const solvedCount = useCounter(500, inView);
@@ -314,7 +317,7 @@ export default function DSA() {
         </motion.div>
 
         {/* ACHIEVEMENTS & INTERVIEW READINESS GRID */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '28px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1.2fr 0.8fr', gap: '28px' }}>
           {/* Achievements */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -327,7 +330,7 @@ export default function DSA() {
               <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#fff' }}>Achievements & Badges</h3>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(180px, 100%), 1fr))', gap: '16px' }}>
               {achievements.map((a, idx) => {
                 const IconComp = a.icon;
                 return (

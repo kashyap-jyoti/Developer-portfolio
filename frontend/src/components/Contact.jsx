@@ -4,10 +4,13 @@ import { Mail, Send, MapPin, Github, Linkedin, CheckCircle2 } from 'lucide-react
 import { sendContactMessage } from '../services/api';
 import RippleButton from './RippleButton';
 import LeetCodeIcon from './LeetCodeIcon';
+import { useResponsive } from '../hooks/useResponsive';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState({ loading: false, success: false, message: '' });
+  const { isMobile, isTablet } = useResponsive();
+  const isNarrow = isMobile || isTablet;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,7 +46,7 @@ export default function Contact() {
           Have an open position, project inquiry, or collaboration idea? Send a message directly into my MongoDB database below!
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '36px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1fr 1.4fr', gap: isNarrow ? '24px' : '36px' }}>
           {/* Contact info cards */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <motion.div
@@ -106,7 +109,7 @@ export default function Contact() {
               )}
             </AnimatePresence>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '0.8rem', color: '#CBD5E1', marginBottom: '6px', fontWeight: 500 }}>Your Name</label>
                 <input
