@@ -43,7 +43,7 @@ export default function App() {
       <Navbar onOpenCmd={() => setCmdOpen(true)} onOpenResume={() => setResumeOpen(true)} />
       
       <main style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.6s ease-in' }}>
-        <Hero />
+        <Hero onOpenResume={() => setResumeOpen(true)} />
         <About />
         <Skills />
         <Services />
@@ -56,7 +56,7 @@ export default function App() {
       <Footer />
       <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
 
-      <CommandPalette isOpen={cmdOpen} onClose={() => setCmdOpen(false)} />
+      <CommandPalette isOpen={cmdOpen} onClose={() => setCmdOpen(false)} onOpenResume={() => setResumeOpen(true)} />
       
       <AnimatePresence>
         {selectedProject && (

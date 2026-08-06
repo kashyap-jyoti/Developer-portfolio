@@ -6,7 +6,7 @@ import LeetCodeIcon from './LeetCodeIcon';
 import { useTilt } from '../hooks/useTilt';
 import { useResponsive } from '../hooks/useResponsive';
 
-export default function Hero() {
+export default function Hero({ onOpenResume }) {
   const { tiltProps } = useTilt(8, 1.02);
   const { isMobile, isTablet } = useResponsive();
   const [activeCodeTab, setActiveCodeTab] = useState('overview');
@@ -142,7 +142,7 @@ export default function Hero() {
                 padding: '6px 14px', borderRadius: '999px',
                 background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.25)',
                 fontSize: isMobile ? '0.72rem' : '0.8rem', color: '#60A5FA',
-                fontFamily: "'JetBrains Mono', monospace", marginBottom: '24px',
+                fontFamily: "'JetBrains Mono', monospace", marginBottom: '20px',
                 flexWrap: 'wrap', maxWidth: '100%'
               }}>
                 <span style={{ width: '8px', height: '8px', background: '#22C55E', borderRadius: '50%', boxShadow: '0 0 10px #22C55E', flexShrink: 0 }}></span>
@@ -150,48 +150,101 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* Headline */}
+            {/* Name */}
             <motion.h1
               variants={itemVariants}
               style={{
-                fontSize: isMobile ? 'clamp(1.9rem, 8vw, 2.6rem)' : isTablet ? '2.8rem' : '3.6rem',
-                fontWeight: 900, lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: '20px',
+                fontSize: isMobile ? 'clamp(2rem, 8vw, 2.8rem)' : isTablet ? '3rem' : '3.8rem',
+                fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '10px',
                 background: 'linear-gradient(135deg, #FFFFFF 40%, #94A3B8)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
                 wordBreak: 'break-word'
               }}
             >
-              Hi, I'm <span style={{ background: 'linear-gradient(135deg, #3B82F6, #60A5FA)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Jyoti Kashyap</span>
+              Jyoti Kashyap
             </motion.h1>
 
-            {/* Subtitle with Typewriter */}
+            {/* Role subtitle */}
+            <motion.div variants={itemVariants} style={{ marginBottom: '16px' }}>
+              <p style={{
+                fontSize: isMobile ? '1rem' : '1.15rem',
+                fontWeight: 600,
+                color: '#60A5FA',
+                fontFamily: "'JetBrains Mono', monospace",
+                margin: 0
+              }}>
+                BCA Student{' '}
+                <span style={{ color: '#475569', margin: '0 6px' }}>|</span>
+                Aspiring{' '}
+                <span style={{ color: '#FFFFFF' }}>
+                  {professions[textIndex].substring(0, subIndex)}
+                  <motion.span
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ repeat: Infinity, duration: 0.8 }}
+                    style={{ display: 'inline-block', width: '2px', height: '1em', background: '#60A5FA', marginLeft: '2px', verticalAlign: 'middle' }}
+                  />
+                </span>
+              </p>
+            </motion.div>
+
+            {/* Tagline */}
             <motion.p variants={itemVariants} style={{
-              fontSize: isMobile ? '0.95rem' : '1.2rem', color: '#CBD5E1',
-              lineHeight: 1.6, marginBottom: '28px', maxWidth: '600px',
-              minHeight: isMobile ? '4.8em' : '3.6em'
+              fontSize: isMobile ? '0.95rem' : '1.05rem', color: '#94A3B8',
+              lineHeight: 1.7, marginBottom: '28px', maxWidth: '560px'
             }}>
-              Aspiring{' '}
-              <strong style={{ color: '#60A5FA', fontFamily: "'JetBrains Mono', monospace" }}>
-                {professions[textIndex].substring(0, subIndex)}
-                <motion.span
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{ repeat: Infinity, duration: 0.8 }}
-                  style={{ display: 'inline-block', width: '2px', height: '1.1em', background: '#60A5FA', marginLeft: '2px', verticalAlign: 'middle' }}
-                />
-              </strong>
-              , building high-throughput backends and modern full-stack Web Applications.
+              Building practical applications with{' '}
+              <strong style={{ color: '#CBD5E1' }}>Java, Spring Boot, React & MySQL</strong>
+              {' '}— focused on clean architecture, real-world impact, and continuous growth.
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div variants={itemVariants} style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '36px' }}>
+            <motion.div variants={itemVariants} style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '28px' }}>
               <RippleButton href="#projects" className="btn-p">
-                <span>View Featured Projects</span>
+                <span>View Projects</span>
                 <ArrowUpRight size={18} />
               </RippleButton>
-              <RippleButton href="#contact" className="btn-s">
-                <Mail size={18} />
-                <span>Contact Me</span>
+              <RippleButton
+                onClick={onOpenResume}
+                className="btn-s"
+              >
+                <Code size={16} />
+                <span>Download Resume</span>
               </RippleButton>
+              <RippleButton href="#contact" className="btn-s">
+                <Mail size={16} />
+                <span>Let's Connect</span>
+              </RippleButton>
+            </motion.div>
+
+            {/* Tech Badges */}
+            <motion.div variants={itemVariants} style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px' }}>
+              {[
+                { label: 'Java', color: '#F97316', bg: 'rgba(249,115,22,0.1)', border: 'rgba(249,115,22,0.3)' },
+                { label: 'Spring Boot', color: '#22C55E', bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.3)' },
+                { label: 'React', color: '#38BDF8', bg: 'rgba(56,189,248,0.1)', border: 'rgba(56,189,248,0.3)' },
+                { label: 'MySQL', color: '#60A5FA', bg: 'rgba(96,165,250,0.1)', border: 'rgba(96,165,250,0.3)' },
+                { label: 'DSA', color: '#A78BFA', bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.3)' },
+              ].map((badge) => (
+                <motion.span
+                  key={badge.label}
+                  whileHover={{ scale: 1.08, y: -2 }}
+                  style={{
+                    padding: '5px 13px',
+                    borderRadius: '999px',
+                    background: badge.bg,
+                    border: `1px solid ${badge.border}`,
+                    color: badge.color,
+                    fontSize: '0.78rem',
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontWeight: 600,
+                    cursor: 'default',
+                    letterSpacing: '0.01em',
+                    boxShadow: `0 0 10px ${badge.bg}`,
+                  }}
+                >
+                  {badge.label}
+                </motion.span>
+              ))}
             </motion.div>
 
             {/* Quick Stats Grid */}
@@ -399,7 +452,6 @@ export default function Hero() {
             color: '#60A5FA', display: 'flex', flexDirection: 'column', alignItems: 'center',
             gap: '4px', textDecoration: 'none', fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace"
           }}>
-            <span>SCROLL DOWN</span>
             <ChevronDown size={18} />
           </a>
         </motion.div>

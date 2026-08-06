@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Search, X, FolderGit2, User, Mail, Cpu, Code2 } from 'lucide-react';
-import LeetCodeIcon from './LeetCodeIcon';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, FolderGit2, Cpu, Download, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
 
-export default function CommandPalette({ isOpen, onClose }) {
+export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
   const [query, setQuery] = useState('');
+  const [activeIndex, setActiveIndex] = useState(0);
+  const inputRef = useRef(null);
+  const listRef = useRef(null);
 
+  /* ── Open / close keyboard shortcut ── */
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -12,100 +16,285 @@ export default function CommandPalette({ isOpen, onClose }) {
         if (isOpen) onClose();
         else window.dispatchEvent(new CustomEvent('open-command-palette'));
       }
-      if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
+      if (e.key === 'Escape' && isOpen) onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  /* ── Reset on open ── */
+  useEffect(() => {
+    if (isOpen) {
+      setQuery('');
+      setActiveIndex(0);
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  }, [isOpen]);
 
-  const items = [
-    { label: 'Jump to About Section', href: '#about', icon: User },
-    { label: 'View Technical Skills', href: '#skills', icon: Cpu },
-    { label: 'Browse Projects', href: '#projects', icon: FolderGit2 },
-    { label: 'Explore DSA Competence', href: '#dsa', icon: Code2 },
-    { label: 'Open LeetCode Profile', href: 'https://leetcode.com/u/Jyoti_Kashyap/', external: true, icon: LeetCodeIcon },
-    { label: 'Send Contact Message', href: '#contact', icon: Mail },
+  /* ── Command definitions ── */
+  const commands = [
+    {
+      group: 'Navigation',
+      items: [
+        { id: 'projects', label: 'View Projects',  icon: FolderGit2, href: '#projects' },
+        { id: 'skills',   label: 'View Skills',    icon: Cpu,        href: '#skills'   },
+        { id: 'contact',  label: 'Contact Jyoti',  icon: Mail,       href: '#contact'  },
+      ],
+    },
+    {
+      group: 'Actions',
+      items: [
+        {
+          id: 'resume',
+          label: 'Download Resume',
+          icon: Download,
+          action: () => { onOpenResume?.(); onClose(); },
+        },
+      ],
+    },
+    {
+      group: 'Social',
+      items: [
+        { id: 'github',   label: 'Open GitHub',   icon: Github,   href: 'https://github.com/Kashyap-jyoti', external: true },
+        { id: 'linkedin', label: 'Open LinkedIn',  icon: Linkedin, href: 'https://linkedin.com',              external: true },
+      ],
+    },
   ];
 
-  const filtered = items.filter((it) => it.label.toLowerCase().includes(query.toLowerCase()));
+  const allItems = commands.flatMap((g) => g.items);
+
+  const filtered = query.trim()
+    ? allItems.filter((it) => it.label.toLowerCase().includes(query.toLowerCase()))
+    : allItems;
+
+  const groupedFiltered = query.trim()
+    ? [{ group: 'Results', items: filtered }]
+    : commands.map((g) => ({
+        group: g.group,
+        items: g.items.filter((it) => filtered.includes(it)),
+      })).filter((g) => g.items.length > 0);
+
+  /* ── Arrow-key + Enter navigation ── */
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActiveIndex((prev) => Math.min(prev + 1, filtered.length - 1));
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActiveIndex((prev) => Math.max(prev - 1, 0));
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const item = filtered[activeIndex];
+        if (!item) return;
+        if (item.action) {
+          item.action();
+        } else if (item.href) {
+          if (item.external) window.open(item.href, '_blank', 'noreferrer');
+          else { window.location.hash = item.href.slice(1); onClose(); }
+        }
+      }
+    },
+    [filtered, activeIndex, onClose]
+  );
+
+  useEffect(() => {
+    const el = listRef.current?.querySelector(`[data-index="${activeIndex}"]`);
+    el?.scrollIntoView({ block: 'nearest' });
+  }, [activeIndex]);
+
+  useEffect(() => setActiveIndex(0), [query]);
+
+  if (!isOpen) return null;
+
+  let runningIndex = 0;
 
   return (
-    <div
-      onClick={onClose}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        background: 'rgba(15, 23, 42, 0.75)',
-        backdropFilter: 'blur(12px)',
-        zIndex: 99990,
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        paddingTop: '120px'
-      }}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          width: '100%',
-          maxWidth: '560px',
-          background: 'rgba(15, 23, 42, 0.95)',
-          border: '1px solid rgba(59, 130, 246, 0.25)',
-          borderRadius: '20px',
-          overflow: 'hidden',
-          boxShadow: '0 40px 100px rgba(0,0,0,0.5), 0 0 40px rgba(59, 130, 246, 0.25)'
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px 20px', borderBottom: '1px solid rgba(59, 130, 246, 0.15)' }}>
-          <Search size={18} color="#64748B" />
-          <input
-            autoFocus
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Type a command or search..."
-            style={{ flex: 1, background: 'none', border: 'none', outline: 'none', color: '#fff', fontSize: '0.98rem', fontFamily: 'inherit' }}
-          />
-          <kbd style={{ background: 'rgba(255,255,255,0.08)', borderRadius: '4px', padding: '2px 6px', fontSize: '0.7rem', color: '#64748B', fontFamily: "'JetBrains Mono', monospace" }}>ESC</kbd>
-        </div>
-
-        <div style={{ padding: '8px', maxHeight: '320px', overflowY: 'auto' }}>
-          {filtered.map((item) => {
-            const Icon = item.icon;
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                target={item.external ? '_blank' : '_self'}
-                rel={item.external ? 'noreferrer' : ''}
-                onClick={onClose}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.15 }}
+          onClick={onClose}
+          style={{
+            position: 'fixed', inset: 0,
+            background: 'rgba(7, 15, 33, 0.82)',
+            backdropFilter: 'blur(14px)',
+            zIndex: 99990,
+            display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
+            paddingTop: 'clamp(60px, 12vh, 140px)',
+            paddingLeft: '16px', paddingRight: '16px',
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: -14 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: -14 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              width: '100%', maxWidth: '580px',
+              background: 'rgba(10, 18, 38, 0.98)',
+              border: '1px solid rgba(59, 130, 246, 0.3)',
+              borderRadius: '20px', overflow: 'hidden',
+              boxShadow: '0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,130,246,0.1), 0 0 60px rgba(59, 130, 246, 0.15)',
+            }}
+          >
+            {/* Search input */}
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: '12px',
+              padding: '16px 20px',
+              borderBottom: '1px solid rgba(255,255,255,0.06)',
+            }}>
+              <Search size={18} color="#3B82F6" style={{ flexShrink: 0 }} />
+              <input
+                ref={inputRef}
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Search portfolio..."
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  padding: '12px 14px',
-                  borderRadius: '10px',
-                  color: '#CBD5E1',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  transition: 'background 0.2s'
+                  flex: 1, background: 'none', border: 'none', outline: 'none',
+                  color: '#fff', fontSize: '1rem', fontFamily: 'inherit',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-              >
-                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#3B82F6' }}>
-                  <Icon size={16} />
+              />
+              <kbd style={{
+                background: 'rgba(255,255,255,0.06)', borderRadius: '5px',
+                padding: '2px 7px', fontSize: '0.68rem', color: '#64748B',
+                fontFamily: "'JetBrains Mono', monospace",
+                border: '1px solid rgba(255,255,255,0.08)', flexShrink: 0,
+              }}>ESC</kbd>
+            </div>
+
+            {/* Command list */}
+            <div ref={listRef} style={{ padding: '8px', maxHeight: '360px', overflowY: 'auto' }}>
+              {filtered.length === 0 ? (
+                <div style={{
+                  padding: '32px 16px', textAlign: 'center',
+                  color: '#475569', fontSize: '0.88rem',
+                  fontFamily: "'JetBrains Mono', monospace",
+                }}>
+                  No results for "{query}"
                 </div>
-                <span>{item.label}</span>
-              </a>
-            );
-          })}
-        </div>
-      </div>
-    </div>
+              ) : (
+                groupedFiltered.map((group) => (
+                  <div key={group.group}>
+                    <div style={{
+                      padding: '8px 14px 4px',
+                      fontSize: '0.67rem', fontWeight: 700,
+                      letterSpacing: '0.09em', textTransform: 'uppercase',
+                      color: '#334155', fontFamily: "'JetBrains Mono', monospace",
+                    }}>
+                      {group.group}
+                    </div>
+
+                    {group.items.map((item) => {
+                      const idx = runningIndex++;
+                      const isActive = idx === activeIndex;
+                      const Icon = item.icon;
+
+                      const inner = (
+                        <motion.div
+                          data-index={idx}
+                          onMouseEnter={() => setActiveIndex(idx)}
+                          onClick={() => {
+                            if (item.action) item.action();
+                            else if (item.href) {
+                              if (item.external) window.open(item.href, '_blank', 'noreferrer');
+                              else { window.location.hash = item.href.slice(1); onClose(); }
+                            }
+                          }}
+                          animate={{ background: isActive ? 'rgba(59, 130, 246, 0.12)' : 'rgba(255,255,255,0)' }}
+                          transition={{ duration: 0.12 }}
+                          style={{
+                            display: 'flex', alignItems: 'center', gap: '14px',
+                            padding: '11px 14px', borderRadius: '10px', cursor: 'pointer',
+                            border: isActive ? '1px solid rgba(59,130,246,0.25)' : '1px solid transparent',
+                          }}
+                        >
+                          <div style={{
+                            width: '34px', height: '34px', borderRadius: '9px', flexShrink: 0,
+                            background: isActive ? 'rgba(59,130,246,0.2)' : 'rgba(255,255,255,0.05)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            color: isActive ? '#60A5FA' : '#475569',
+                            transition: 'all 0.15s',
+                          }}>
+                            <Icon size={16} />
+                          </div>
+
+                          <span style={{
+                            flex: 1, fontSize: '0.9rem',
+                            color: isActive ? '#F1F5F9' : '#94A3B8',
+                            fontWeight: isActive ? 500 : 400,
+                            transition: 'color 0.12s',
+                          }}>
+                            {item.label}
+                          </span>
+
+                          <AnimatePresence>
+                            {isActive && (
+                              <motion.div
+                                initial={{ opacity: 0, x: -4 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -4 }}
+                                transition={{ duration: 0.12 }}
+                              >
+                                <ArrowRight size={14} color="#3B82F6" />
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </motion.div>
+                      );
+
+                      return item.href && !item.action ? (
+                        <a
+                          key={item.id}
+                          href={item.href}
+                          target={item.external ? '_blank' : '_self'}
+                          rel={item.external ? 'noreferrer' : ''}
+                          style={{ textDecoration: 'none', display: 'block' }}
+                        >
+                          {inner}
+                        </a>
+                      ) : (
+                        <div key={item.id}>{inner}</div>
+                      );
+                    })}
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* Footer hint bar */}
+            <div style={{
+              padding: '10px 20px',
+              borderTop: '1px solid rgba(255,255,255,0.05)',
+              display: 'flex', gap: '16px', alignItems: 'center',
+            }}>
+              {[
+                { keys: ['↑', '↓'], label: 'navigate' },
+                { keys: ['↵'],       label: 'select'   },
+                { keys: ['esc'],     label: 'close'    },
+              ].map(({ keys, label }) => (
+                <span key={label} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  {keys.map((k) => (
+                    <kbd key={k} style={{
+                      background: 'rgba(255,255,255,0.06)', borderRadius: '4px',
+                      padding: '1px 6px', fontSize: '0.65rem', color: '#64748B',
+                      fontFamily: "'JetBrains Mono', monospace",
+                      border: '1px solid rgba(255,255,255,0.08)',
+                    }}>{k}</kbd>
+                  ))}
+                  <span style={{ fontSize: '0.7rem', color: '#334155' }}>{label}</span>
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

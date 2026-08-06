@@ -1,107 +1,209 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Cpu, Layers } from 'lucide-react';
-import { fetchSkills } from '../services/api';
-import { useTilt } from '../hooks/useTilt';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Code2, Layout, Server, Database, Wrench, Sparkles } from 'lucide-react';
 
-// Fallback static skills – shown when backend is unavailable
-const FALLBACK_SKILLS = [
-  // Core Backend
-  { name: 'Java 21', proficiency: 90, category: 'Core Backend' },
-  { name: 'Spring Boot 3', proficiency: 85, category: 'Core Backend' },
-  { name: 'REST APIs & Microservices', proficiency: 82, category: 'Core Backend' },
-  { name: 'Multithreading & Kafka', proficiency: 75, category: 'Core Backend' },
-  // Frontend & Java Full Stack
-  { name: 'React & JavaScript', proficiency: 85, category: 'Frontend & Java Full Stack' },
-  { name: 'HTML5 & CSS3', proficiency: 88, category: 'Frontend & Java Full Stack' },
-  { name: 'Node.js & Express', proficiency: 78, category: 'Frontend & Java Full Stack' },
-  { name: 'TypeScript', proficiency: 70, category: 'Frontend & Java Full Stack' },
-  // Database & Cloud
-  { name: 'MySQL & PostgreSQL', proficiency: 83, category: 'Database & Cloud' },
-  { name: 'MongoDB', proficiency: 80, category: 'Database & Cloud' },
-  { name: 'Redis', proficiency: 65, category: 'Database & Cloud' },
-  { name: 'AWS Basics', proficiency: 60, category: 'Database & Cloud' },
-  // Tools & DevOps
-  { name: 'Git & GitHub', proficiency: 92, category: 'Tools & DevOps' },
-  { name: 'Docker', proficiency: 72, category: 'Tools & DevOps' },
-  { name: 'Maven & Gradle', proficiency: 80, category: 'Tools & DevOps' },
-  { name: 'IntelliJ IDEA & VS Code', proficiency: 90, category: 'Tools & DevOps' }
+/* ── Tech stack data ─────────────────────────────────────────────── */
+const STACK = [
+  {
+    id: 'languages',
+    label: 'Languages',
+    icon: Code2,
+    accent: '#F97316',
+    bg: 'rgba(249,115,22,0.12)',
+    border: 'rgba(249,115,22,0.3)',
+    glow: 'rgba(249,115,22,0.15)',
+    description: 'Core programming languages I write in',
+    items: [
+      { name: 'Java',   emoji: '☕' },
+      { name: 'C',      emoji: '⚙️' },
+      { name: 'Python', emoji: '🐍' },
+      { name: 'PHP',    emoji: '🐘' },
+    ],
+  },
+  {
+    id: 'frontend',
+    label: 'Frontend',
+    icon: Layout,
+    accent: '#38BDF8',
+    bg: 'rgba(56,189,248,0.12)',
+    border: 'rgba(56,189,248,0.3)',
+    glow: 'rgba(56,189,248,0.15)',
+    description: 'Building responsive, interactive UIs',
+    items: [
+      { name: 'HTML',       emoji: '🌐' },
+      { name: 'CSS',        emoji: '🎨' },
+      { name: 'JavaScript', emoji: '⚡' },
+      { name: 'React',      emoji: '⚛️' },
+      { name: 'TypeScript', emoji: '🔷' },
+    ],
+  },
+  {
+    id: 'backend',
+    label: 'Backend',
+    icon: Server,
+    accent: '#22C55E',
+    bg: 'rgba(34,197,94,0.12)',
+    border: 'rgba(34,197,94,0.3)',
+    glow: 'rgba(34,197,94,0.15)',
+    description: 'Scalable server-side systems & APIs',
+    items: [
+      { name: 'Java',            emoji: '☕' },
+      { name: 'Spring Boot',     emoji: '🍃' },
+      { name: 'Spring Security', emoji: '🔐' },
+      { name: 'REST API',        emoji: '🔗' },
+    ],
+  },
+  {
+    id: 'database',
+    label: 'Database',
+    icon: Database,
+    accent: '#A78BFA',
+    bg: 'rgba(167,139,250,0.12)',
+    border: 'rgba(167,139,250,0.3)',
+    glow: 'rgba(167,139,250,0.15)',
+    description: 'Relational databases & data modeling',
+    items: [
+      { name: 'MySQL',      emoji: '🐬' },
+      { name: 'PostgreSQL', emoji: '🐘' },
+    ],
+  },
+  {
+    id: 'tools',
+    label: 'Tools',
+    icon: Wrench,
+    accent: '#FB923C',
+    bg: 'rgba(251,146,60,0.12)',
+    border: 'rgba(251,146,60,0.3)',
+    glow: 'rgba(251,146,60,0.15)',
+    description: 'Development workflow & productivity',
+    items: [
+      { name: 'Git',     emoji: '🌿' },
+      { name: 'GitHub',  emoji: '🐙' },
+      { name: 'VS Code', emoji: '💻' },
+      { name: 'IntelliJ IDEA', emoji: '🧠' },
+      { name: 'Maven',   emoji: '📦' },
+    ],
+  },
+  {
+    id: 'ai',
+    label: 'AI',
+    icon: Sparkles,
+    accent: '#E879F9',
+    bg: 'rgba(232,121,249,0.12)',
+    border: 'rgba(232,121,249,0.3)',
+    glow: 'rgba(232,121,249,0.15)',
+    description: 'AI integrations & intelligent features',
+    items: [
+      { name: 'Python',      emoji: '🐍' },
+      { name: 'Gemini API',  emoji: '✨' },
+      { name: 'OpenAI API',  emoji: '🤖' },
+    ],
+  },
 ];
 
-function SkillCard({ category, filtered, index }) {
-  const { tiltProps } = useTilt(8, 1.02);
-
+/* ── Tech badge ──────────────────────────────────────────────────── */
+function Badge({ name, emoji, accent, bg, border }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.12 }}
+      whileHover={{ scale: 1.07, y: -3 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: '7px',
+        padding: '8px 16px', borderRadius: '999px',
+        background: bg, border: `1px solid ${border}`,
+        cursor: 'default',
+        boxShadow: `0 0 14px ${bg}`,
+      }}
     >
-      <div
-        className="glass glass-shine"
-        {...tiltProps}
-        style={{
-          padding: '28px',
-          height: '100%',
-          ...tiltProps.style
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
-          <motion.div
-            animate={{ rotate: [0, 10, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 8, ease: 'easeInOut' }}
-            style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(59, 130, 246, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#3B82F6' }}
-          >
-            <Layers size={18} />
-          </motion.div>
-          <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#fff' }}>{category}</h3>
-        </div>
+      <span style={{ fontSize: '1rem', lineHeight: 1 }}>{emoji}</span>
+      <span style={{
+        fontSize: '0.85rem', fontWeight: 600,
+        color: accent, letterSpacing: '0.01em',
+        fontFamily: "'JetBrains Mono', monospace",
+      }}>
+        {name}
+      </span>
+    </motion.div>
+  );
+}
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {filtered.map((skill) => (
-            <div key={skill.name}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px', fontSize: '0.86rem' }}>
-                <span style={{ color: '#CBD5E1', fontWeight: 500 }}>{skill.name}</span>
-                <span style={{ color: '#60A5FA', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.78rem' }}>{skill.proficiency}%</span>
-              </div>
-              <div style={{ width: '100%', height: '6px', background: 'rgba(15, 23, 42, 0.8)', borderRadius: '999px', overflow: 'hidden' }}>
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${skill.proficiency}%` }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                  style={{
-                    height: '100%',
-                    background: 'linear-gradient(90deg, #3B82F6, #1D4ED8, #60A5FA)',
-                    borderRadius: '999px',
-                    boxShadow: '0 0 10px rgba(59, 130, 246, 0.5)'
-                  }}
-                />
-              </div>
-            </div>
-          ))}
+/* ── Category panel ──────────────────────────────────────────────── */
+function CategoryPanel({ category }) {
+  const Icon = category.icon;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        background: 'rgba(15, 23, 42, 0.6)',
+        border: `1px solid ${category.border}`,
+        borderRadius: '20px',
+        padding: '32px',
+        boxShadow: `0 0 40px ${category.glow}, 0 20px 50px rgba(0,0,0,0.3)`,
+        backdropFilter: 'blur(12px)',
+      }}
+    >
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '10px' }}>
+        <div style={{
+          width: '44px', height: '44px', borderRadius: '12px',
+          background: category.bg, border: `1px solid ${category.border}`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: category.accent,
+          boxShadow: `0 0 16px ${category.glow}`,
+        }}>
+          <Icon size={20} />
         </div>
+        <div>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff', margin: 0 }}>
+            {category.label}
+          </h3>
+          <p style={{ fontSize: '0.8rem', color: '#64748B', margin: 0, marginTop: '2px' }}>
+            {category.description}
+          </p>
+        </div>
+        <div style={{ marginLeft: 'auto' }}>
+          <span style={{
+            padding: '4px 12px', borderRadius: '999px',
+            background: category.bg, border: `1px solid ${category.border}`,
+            color: category.accent, fontSize: '0.72rem',
+            fontFamily: "'JetBrains Mono', monospace", fontWeight: 700,
+          }}>
+            {category.items.length} tech{category.items.length !== 1 ? 's' : ''}
+          </span>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div style={{
+        height: '1px',
+        background: `linear-gradient(90deg, ${category.border}, transparent)`,
+        margin: '20px 0',
+      }} />
+
+      {/* Badges */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+        {category.items.map((item) => (
+          <Badge
+            key={item.name}
+            name={item.name}
+            emoji={item.emoji}
+            accent={category.accent}
+            bg={category.bg}
+            border={category.border}
+          />
+        ))}
       </div>
     </motion.div>
   );
 }
 
+/* ── Main component ──────────────────────────────────────────────── */
 export default function Skills() {
-  const [skills, setSkills] = useState(FALLBACK_SKILLS);
-
-  useEffect(() => {
-    fetchSkills().then((data) => {
-      if (data && data.length > 0) {
-        setSkills(data);
-      }
-      // If backend returns empty/fails, keep showing fallback data
-    }).catch(() => {
-      // Silently keep fallback data
-    });
-  }, []);
-
-  const categories = ['Core Backend', 'Frontend & Java Full Stack', 'Database & Cloud', 'Tools & DevOps'];
+  const [active, setActive] = useState('languages');
+  const current = STACK.find((s) => s.id === active);
 
   return (
     <section id="skills" className="sec-wrap">
@@ -111,20 +213,118 @@ export default function Skills() {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
+        {/* Section header */}
         <div className="sec-lbl">
-          <Cpu size={16} />
-          <span>Technical Arsenal</span>
+          <Code2 size={16} />
+          <span>Tech Stack</span>
         </div>
-        <h2 className="sec-ttl">Languages, Frameworks &amp; Infrastructure</h2>
-        <p className="sec-sub" style={{ marginBottom: '40px' }}>
-          A comprehensive overview of my technical stack across Java enterprise backends, Java Full Stack applications, and database architectures.
+        <h2 className="sec-ttl">Tools of the Trade</h2>
+        <p className="sec-sub" style={{ marginBottom: '44px' }}>
+          A categorised view of my technical skills — from languages and frameworks
+          to databases, tools, and AI integrations.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '24px' }}>
-          {categories.map((category, idx) => {
-            const filtered = skills.filter((s) => s.category === category);
-            return <SkillCard key={category} category={category} filtered={filtered} index={idx} />;
-          })}
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', gap: '28px' }}>
+          {/* Tab bar */}
+          <div style={{
+            display: 'flex', flexWrap: 'wrap', gap: '8px',
+          }}>
+            {STACK.map((cat) => {
+              const Icon = cat.icon;
+              const isActive = active === cat.id;
+              return (
+                <motion.button
+                  key={cat.id}
+                  onClick={() => setActive(cat.id)}
+                  whileHover={{ scale: 1.04, y: -1 }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '7px',
+                    padding: '9px 18px', borderRadius: '999px', cursor: 'pointer',
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: '0.82rem', fontWeight: 700,
+                    border: isActive ? `1px solid ${cat.border}` : '1px solid rgba(255,255,255,0.08)',
+                    background: isActive ? cat.bg : 'rgba(255,255,255,0.04)',
+                    color: isActive ? cat.accent : '#64748B',
+                    boxShadow: isActive ? `0 0 18px ${cat.glow}` : 'none',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <Icon size={14} />
+                  {cat.label}
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Category panel */}
+          <AnimatePresence mode="wait">
+            <CategoryPanel key={active} category={current} />
+          </AnimatePresence>
+
+          {/* All-categories overview grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <p style={{
+              fontSize: '0.75rem', color: '#334155', textTransform: 'uppercase',
+              letterSpacing: '0.1em', fontFamily: "'JetBrains Mono', monospace",
+              fontWeight: 700, marginBottom: '20px',
+            }}>
+              All Technologies
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '16px' }}>
+              {STACK.map((cat, i) => {
+                const Icon = cat.icon;
+                return (
+                  <motion.button
+                    key={cat.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: i * 0.07 }}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    onClick={() => { setActive(cat.id); window.scrollTo({ top: document.getElementById('skills').offsetTop - 80, behavior: 'smooth' }); }}
+                    style={{
+                      textAlign: 'left', cursor: 'pointer',
+                      background: active === cat.id ? cat.bg : 'rgba(255,255,255,0.03)',
+                      border: active === cat.id ? `1px solid ${cat.border}` : '1px solid rgba(255,255,255,0.07)',
+                      borderRadius: '14px', padding: '16px 18px',
+                      transition: 'all 0.2s',
+                      boxShadow: active === cat.id ? `0 0 20px ${cat.glow}` : 'none',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                      <div style={{
+                        width: '30px', height: '30px', borderRadius: '8px',
+                        background: cat.bg, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: cat.accent, flexShrink: 0,
+                      }}>
+                        <Icon size={15} />
+                      </div>
+                      <span style={{ fontSize: '0.88rem', fontWeight: 700, color: active === cat.id ? cat.accent : '#94A3B8' }}>
+                        {cat.label}
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                      {cat.items.map((item) => (
+                        <span key={item.name} style={{
+                          fontSize: '0.72rem', padding: '2px 9px', borderRadius: '999px',
+                          background: 'rgba(255,255,255,0.06)', color: '#64748B',
+                          fontFamily: "'JetBrains Mono', monospace",
+                        }}>
+                          {item.name}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.button>
+                );
+              })}
+            </div>
+          </motion.div>
         </div>
       </motion.div>
     </section>
