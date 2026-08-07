@@ -8,6 +8,7 @@ import Projects from './components/Projects';
 import Experience from './components/Experience';
 import DSA from './components/DSA';
 import Contact from './components/Contact';
+import RecruiterCTA from './components/RecruiterCTA';
 import ResumeModal from './components/Resume';
 import Footer from './components/Footer';
 
@@ -51,6 +52,7 @@ export default function App() {
         <DSA />
         <Experience />
         <Contact />
+        <RecruiterCTA />
       </main>
 
       <Footer />
