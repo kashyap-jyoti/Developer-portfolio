@@ -164,7 +164,7 @@ export default function Hero({ onOpenResume }) {
               Jyoti Kashyap
             </motion.h1>
 
-            {/* Role subtitle */}
+            {/* Profession Typewriter Line */}
             <motion.div variants={itemVariants} style={{ marginBottom: '16px' }}>
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.15rem',
@@ -174,9 +174,9 @@ export default function Hero({ onOpenResume }) {
                 margin: 0
               }}>
                 BCA Student{' '}
-                <span style={{ color: '#475569', margin: '0 6px' }}>|</span>
+                <span style={{ color: 'var(--t3)', margin: '0 6px' }}>|</span>
                 Aspiring{' '}
-                <span style={{ color: '#FFFFFF' }}>
+                <span style={{ color: 'var(--t1)' }}>
                   {professions[textIndex].substring(0, subIndex)}
                   <motion.span
                     animate={{ opacity: [0, 1, 0] }}
@@ -189,11 +189,11 @@ export default function Hero({ onOpenResume }) {
 
             {/* Tagline */}
             <motion.p variants={itemVariants} style={{
-              fontSize: isMobile ? '0.95rem' : '1.05rem', color: '#94A3B8',
+              fontSize: isMobile ? '0.95rem' : '1.05rem', color: 'var(--t3)',
               lineHeight: 1.7, marginBottom: '28px', maxWidth: '560px'
             }}>
               Building practical applications with{' '}
-              <strong style={{ color: '#CBD5E1' }}>Java, Spring Boot, React & MySQL</strong>
+              <strong style={{ color: 'var(--t2)' }}>Java, Spring Boot, React & MySQL</strong>
               {' '}— focused on clean architecture, real-world impact, and continuous growth.
             </motion.p>
 
@@ -218,25 +218,19 @@ export default function Hero({ onOpenResume }) {
 
             {/* Tech Badges */}
             <motion.div variants={itemVariants} style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px' }}>
-              {[
-                { label: 'Java', color: '#F97316', bg: 'rgba(249,115,22,0.1)', border: 'rgba(249,115,22,0.3)' },
-                { label: 'Spring Boot', color: '#22C55E', bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.3)' },
-                { label: 'React', color: '#38BDF8', bg: 'rgba(56,189,248,0.1)', border: 'rgba(56,189,248,0.3)' },
-                { label: 'MySQL', color: '#60A5FA', bg: 'rgba(96,165,250,0.1)', border: 'rgba(96,165,250,0.3)' },
-                { label: 'DSA', color: '#A78BFA', bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.3)' },
-              ].map((badge) => (
+              {techBadges.map((badge) => (
                 <motion.span
                   key={badge.label}
                   whileHover={{ scale: 1.08, y: -2 }}
                   style={{
-                    padding: '5px 13px',
+                    padding: '6px 14px',
                     borderRadius: '999px',
                     background: badge.bg,
-                    border: `1px solid ${badge.border}`,
                     color: badge.color,
+                    border: `1px solid ${badge.border}`,
                     fontSize: '0.78rem',
-                    fontFamily: "'JetBrains Mono', monospace",
                     fontWeight: 600,
+                    fontFamily: "'JetBrains Mono', monospace",
                     cursor: 'default',
                     letterSpacing: '0.01em',
                     boxShadow: `0 0 10px ${badge.bg}`,
@@ -255,15 +249,15 @@ export default function Hero({ onOpenResume }) {
             }}>
               <div className="glass2 glass-shine" style={{ padding: isMobile ? '12px 14px' : '16px 20px' }}>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#3B82F6' }}>500+</div>
-                <div style={{ fontSize: '0.74rem', color: '#64748B', marginTop: '2px', fontWeight: 500 }}>DSA Problems Solved</div>
+                <div style={{ fontSize: '0.74rem', color: 'var(--t3)', marginTop: '2px', fontWeight: 500 }}>DSA Problems Solved</div>
               </div>
               <div className="glass2 glass-shine" style={{ padding: isMobile ? '12px 14px' : '16px 20px' }}>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#60A5FA' }}>15+</div>
-                <div style={{ fontSize: '0.74rem', color: '#64748B', marginTop: '2px', fontWeight: 500 }}>Full-Stack & Java Projects</div>
+                <div style={{ fontSize: '0.74rem', color: 'var(--t3)', marginTop: '2px', fontWeight: 500 }}>Full-Stack & Java Projects</div>
               </div>
               <div className="glass2 glass-shine" style={{ padding: isMobile ? '12px 14px' : '16px 20px', gridColumn: isMobile ? 'span 2' : undefined }}>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#8B5CF6' }}>Top 5%</div>
-                <div style={{ fontSize: '0.74rem', color: '#64748B', marginTop: '2px', fontWeight: 500 }}>LeetCode / GFG Rating</div>
+                <div style={{ fontSize: '0.74rem', color: 'var(--t3)', marginTop: '2px', fontWeight: 500 }}>LeetCode / GFG Rating</div>
               </div>
             </motion.div>
           </div>
@@ -281,8 +275,8 @@ export default function Hero({ onOpenResume }) {
               style={{
                 padding: isNarrow ? '24px' : '32px',
                 position: 'relative',
-                border: '1px solid rgba(96, 165, 250, 0.3)',
-                boxShadow: '0 20px 50px rgba(15, 23, 42, 0.5), 0 0 30px rgba(59, 130, 246, 0.15)',
+                border: '1px solid var(--bor2)',
+                boxShadow: 'var(--shadow-hover)',
                 ...tiltProps.style
               }}
             >
@@ -311,13 +305,13 @@ export default function Hero({ onOpenResume }) {
                       style={{
                         width: '68px', height: '68px', borderRadius: '50%',
                         objectFit: 'cover', position: 'relative', zIndex: 1,
-                        border: '2px solid #0F172A', display: 'block'
+                        border: '2px solid var(--bg0)', display: 'block'
                       }}
                     />
                     <span style={{
                       position: 'absolute', bottom: '2px', right: '2px',
                       width: '12px', height: '12px', borderRadius: '50%',
-                      background: '#22C55E', border: '2px solid #0F172A', zIndex: 2,
+                      background: '#22C55E', border: '2px solid var(--bg0)', zIndex: 2,
                       boxShadow: '0 0 8px #22C55E'
                     }} />
                     <AnimatePresence>
@@ -340,7 +334,7 @@ export default function Hero({ onOpenResume }) {
                   </motion.div>
 
                   <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fff' }}>Jyoti Kashyap</h3>
+                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--t1)' }}>Jyoti Kashyap</h3>
                     <p style={{ fontSize: '0.78rem', color: '#60A5FA', fontFamily: "'JetBrains Mono', monospace" }}>@kashyap-jyoti</p>
                   </div>
                 </div>
@@ -358,11 +352,11 @@ export default function Hero({ onOpenResume }) {
                 <button
                   onClick={() => setActiveCodeTab('overview')}
                   style={{
-                    padding: '4px 10px', borderRadius: '6px', fontSize: '0.74rem',
-                    fontFamily: "'JetBrains Mono', monospace",
-                    border: activeCodeTab === 'overview' ? '1px solid #3B82F6' : '1px solid transparent',
-                    background: activeCodeTab === 'overview' ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255,255,255,0.04)',
-                    color: activeCodeTab === 'overview' ? '#60A5FA' : '#94A3B8', cursor: 'pointer'
+                    background: activeCodeTab === 'overview' ? 'rgba(59, 130, 246, 0.2)' : 'var(--btn-s-bg)',
+                    border: '1px solid var(--bor)',
+                    color: activeCodeTab === 'overview' ? '#3B82F6' : 'var(--t3)',
+                    padding: '5px 12px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
+                    cursor: 'pointer', fontFamily: "'JetBrains Mono', monospace", transition: 'all 0.2s'
                   }}
                 >
                   developer.json
@@ -370,11 +364,11 @@ export default function Hero({ onOpenResume }) {
                 <button
                   onClick={() => setActiveCodeTab('stack')}
                   style={{
-                    padding: '4px 10px', borderRadius: '6px', fontSize: '0.74rem',
-                    fontFamily: "'JetBrains Mono', monospace",
-                    border: activeCodeTab === 'stack' ? '1px solid #3B82F6' : '1px solid transparent',
-                    background: activeCodeTab === 'stack' ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255,255,255,0.04)',
-                    color: activeCodeTab === 'stack' ? '#60A5FA' : '#94A3B8', cursor: 'pointer'
+                    background: activeCodeTab === 'stack' ? 'rgba(59, 130, 246, 0.2)' : 'var(--btn-s-bg)',
+                    border: '1px solid var(--bor)',
+                    color: activeCodeTab === 'stack' ? '#3B82F6' : 'var(--t3)',
+                    padding: '5px 12px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
+                    cursor: 'pointer', fontFamily: "'JetBrains Mono', monospace", transition: 'all 0.2s'
                   }}
                 >
                   architecture.ts
@@ -388,10 +382,11 @@ export default function Hero({ onOpenResume }) {
                     key="overview"
                     initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
                     style={{
-                      background: 'rgba(15, 23, 42, 0.8)', padding: '14px', borderRadius: '12px',
+                      background: 'var(--sur2)', padding: '14px', borderRadius: '12px',
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: isMobile ? '0.74rem' : '0.82rem',
-                      color: '#CBD5E1', marginBottom: '20px', lineHeight: 1.7,
+                      color: 'var(--t2)', marginBottom: '20px', lineHeight: 1.7,
+                      border: '1px solid var(--bor)',
                       overflowX: 'auto', wordBreak: 'break-word'
                     }}
                   >
@@ -407,10 +402,11 @@ export default function Hero({ onOpenResume }) {
                     key="stack"
                     initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
                     style={{
-                      background: 'rgba(15, 23, 42, 0.8)', padding: '14px', borderRadius: '12px',
+                      background: 'var(--sur2)', padding: '14px', borderRadius: '12px',
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: isMobile ? '0.74rem' : '0.82rem',
-                      color: '#CBD5E1', marginBottom: '20px', lineHeight: 1.7,
+                      color: 'var(--t2)', marginBottom: '20px', lineHeight: 1.7,
+                      border: '1px solid var(--bor)',
                       overflowX: 'auto', wordBreak: 'break-word'
                     }}
                   >

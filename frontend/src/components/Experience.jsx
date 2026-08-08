@@ -138,7 +138,7 @@ export default function Experience() {
                   height: '14px',
                   borderRadius: '50%',
                   background: '#3B82F6',
-                  border: '3px solid #0F172A',
+                  border: '3px solid var(--bg0)',
                   zIndex: 2
                 }}
               />

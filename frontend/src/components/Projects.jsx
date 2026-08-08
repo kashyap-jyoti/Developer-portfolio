@@ -224,7 +224,7 @@ function ProjectCard({ project, onSelectProject, index }) {
             {project.category}
           </span>
 
-          <div style={{ display: 'flex', gap: '10px', color: '#64748B', fontSize: '0.78rem' }}>
+          <div style={{ display: 'flex', gap: '10px', color: 'var(--t3)', fontSize: '0.78rem' }}>
             {project.stars !== undefined && (
               <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <Star size={13} color="#EAB308" /> {project.stars}
@@ -239,10 +239,10 @@ function ProjectCard({ project, onSelectProject, index }) {
         </div>
 
         {/* ── Title & problem ── */}
-        <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fff', marginBottom: '6px', lineHeight: 1.3 }}>
+        <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--t1)', marginBottom: '6px', lineHeight: 1.3 }}>
           {project.title}
         </h3>
-        <p style={{ fontSize: '0.83rem', color: '#60A5FA', fontStyle: 'italic', marginBottom: '18px', lineHeight: 1.5 }}>
+        <p style={{ fontSize: '0.83rem', color: '#3B82F6', fontStyle: 'italic', marginBottom: '18px', lineHeight: 1.5 }}>
           {project.problem}
         </p>
 
@@ -369,11 +369,11 @@ export default function Projects({ onSelectProject }) {
               style={{
                 padding: '8px 18px',
                 borderRadius: '999px',
-                border: filter === cat ? '1px solid #3B82F6' : '1px solid rgba(59, 130, 246, 0.18)',
-                background: filter === cat ? 'rgba(59, 130, 246, 0.2)' : 'rgba(30, 41, 59, 0.5)',
-                color: filter === cat ? '#fff' : '#CBD5E1',
+                border: filter === cat ? '1px solid #3B82F6' : '1px solid var(--bor)',
+                background: filter === cat ? 'rgba(59, 130, 246, 0.2)' : 'var(--btn-s-bg)',
+                color: filter === cat ? '#3B82F6' : 'var(--t2)',
                 fontSize: '0.85rem',
-                fontWeight: 500,
+                fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 fontFamily: 'inherit',

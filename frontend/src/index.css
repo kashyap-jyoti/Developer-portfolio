@@ -5,21 +5,59 @@
   --vio: #1D4ED8;
   --vio-l: #60A5FA;
   --vio-d: #1E40AF;
+
   --bg0: #0F172A;
   --bg1: #0F172A;
   --bg2: #1E293B;
   --sur: rgba(30, 41, 59, 0.72);
+  --sur2: rgba(30, 41, 59, 0.5);
   --bor: rgba(59, 130, 246, 0.18);
-  --bor2: rgba(96, 165, 250, 0.25);
+  --bor2: rgba(96, 165, 250, 0.35);
+
   --t1: #FFFFFF;
   --t2: #CBD5E1;
-  --t3: #64748B;
+  --t3: #94A3B8;
+  --t-muted: #64748B;
+
+  --btn-s-bg: rgba(59, 130, 246, 0.08);
+  --btn-s-hover: rgba(59, 130, 246, 0.18);
+  --nav-bg: rgba(15, 23, 42, 0.88);
+  --modal-bg: rgba(15, 23, 42, 0.96);
+  --input-bg: rgba(15, 23, 42, 0.8);
+  --grid-line: rgba(59, 130, 246, 0.035);
+
+  --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(59, 130, 246, 0.15);
+
   --r1: 8px;
   --r2: 14px;
   --r3: 20px;
   --r4: 28px;
   --gcyan: 0 0 40px rgba(59, 130, 246, 0.25);
   --gvio: 0 0 40px rgba(96, 165, 250, 0.25);
+}
+
+[data-theme="light"] {
+  --bg0: #F8FAFC;
+  --bg1: #FFFFFF;
+  --bg2: #F1F5F9;
+  --sur: rgba(255, 255, 255, 0.88);
+  --sur2: rgba(241, 245, 249, 0.85);
+  --bor: rgba(37, 99, 235, 0.15);
+  --bor2: rgba(37, 99, 235, 0.32);
+
+  --t1: #0F172A;
+  --t2: #334155;
+  --t3: #475569;
+  --t-muted: #64748B;
+
+  --btn-s-bg: rgba(37, 99, 235, 0.07);
+  --btn-s-hover: rgba(37, 99, 235, 0.14);
+  --nav-bg: rgba(255, 255, 255, 0.88);
+  --modal-bg: rgba(255, 255, 255, 0.97);
+  --input-bg: rgba(241, 245, 249, 0.95);
+  --grid-line: rgba(37, 99, 235, 0.06);
+
+  --shadow-hover: 0 16px 40px rgba(15, 23, 42, 0.08), 0 0 30px rgba(37, 99, 235, 0.12);
 }
 
 *, *::before, *::after {
@@ -67,26 +105,26 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--bor);
   border-radius: var(--r3);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
   will-change: transform;
 }
 
 .glass:hover {
-  border-color: rgba(96, 165, 250, 0.35);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(59, 130, 246, 0.15);
+  border-color: var(--bor2);
+  box-shadow: var(--shadow-hover);
 }
 
 .glass2 {
-  background: rgba(30, 41, 59, 0.6);
+  background: var(--sur2);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(59, 130, 246, 0.12);
+  border: 1px solid var(--bor);
   border-radius: var(--r2);
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
 }
 
 .glass2:hover {
-  border-color: rgba(96, 165, 250, 0.3);
+  border-color: var(--bor2);
 }
 
 /* Glass Reflection Sweep Hover Effect */
@@ -142,7 +180,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(59, 130, 246, 0.08);
+  background: var(--btn-s-bg);
   border: 1px solid var(--bor);
   color: var(--t1);
   padding: 13px 26px;
@@ -155,7 +193,7 @@ body {
 }
 
 .btn-s:hover {
-  background: rgba(59, 130, 246, 0.18);
+  background: var(--btn-s-hover);
   border-color: var(--cyan);
 }
 
@@ -184,7 +222,7 @@ body {
   font-size: 2.5rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #FFFFFF 40%, var(--t2));
+  background: linear-gradient(135deg, var(--t1) 40%, var(--t2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 16px;
@@ -195,6 +233,16 @@ body {
   font-size: 1.05rem;
   max-width: 620px;
   line-height: 1.6;
+}
+
+#grid-ol {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
 /* Animated Background Orbs */

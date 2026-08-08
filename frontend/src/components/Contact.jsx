@@ -120,11 +120,11 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder="Jyoti Kashyap"
                   className="input-focus-glow"
-                  style={{ width: '100%', background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '10px', padding: '12px 14px', color: '#fff', fontFamily: 'inherit', outline: 'none', transition: 'all 0.2s ease' }}
+                  style={{ width: '100%', background: 'var(--input-bg)', border: '1px solid var(--bor)', borderRadius: '10px', padding: '12px 14px', color: 'var(--t1)', fontFamily: 'inherit', outline: 'none', transition: 'all 0.2s ease' }}
                 />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#CBD5E1', marginBottom: '6px', fontWeight: 500 }}>Your Email</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--t2)', marginBottom: '6px', fontWeight: 500 }}>Your Email</label>
                 <input
                   type="email"
                   name="email"
@@ -133,13 +133,13 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder="name@example.com"
                   className="input-focus-glow"
-                  style={{ width: '100%', background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '10px', padding: '12px 14px', color: '#fff', fontFamily: 'inherit', outline: 'none', transition: 'all 0.2s ease' }}
+                  style={{ width: '100%', background: 'var(--input-bg)', border: '1px solid var(--bor)', borderRadius: '10px', padding: '12px 14px', color: 'var(--t1)', fontFamily: 'inherit', outline: 'none', transition: 'all 0.2s ease' }}
                 />
               </div>
             </div>
 
             <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', fontSize: '0.8rem', color: '#CBD5E1', marginBottom: '6px', fontWeight: 500 }}>Subject</label>
+              <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--t2)', marginBottom: '6px', fontWeight: 500 }}>Subject</label>
               <input
                 type="text"
                 name="subject"
@@ -148,12 +148,12 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder="Software Engineer Role / Project Inquiry"
                 className="input-focus-glow"
-                style={{ width: '100%', background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '10px', padding: '12px 14px', color: '#fff', fontFamily: 'inherit', outline: 'none', transition: 'all 0.2s ease' }}
+                style={{ width: '100%', background: 'var(--input-bg)', border: '1px solid var(--bor)', borderRadius: '10px', padding: '12px 14px', color: 'var(--t1)', fontFamily: 'inherit', outline: 'none', transition: 'all 0.2s ease' }}
               />
             </div>
 
             <div style={{ marginBottom: '24px' }}>
-              <label style={{ display: 'block', fontSize: '0.8rem', color: '#CBD5E1', marginBottom: '6px', fontWeight: 500 }}>Message</label>
+              <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--t2)', marginBottom: '6px', fontWeight: 500 }}>Message</label>
               <textarea
                 name="message"
                 required
@@ -162,7 +162,7 @@ export default function Contact() {
                 onChange={handleChange}
                 placeholder="Hello Jyoti, I reviewed your Java Full Stack portfolio and would like to connect..."
                 className="input-focus-glow"
-                style={{ width: '100%', background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '10px', padding: '12px 14px', color: '#fff', fontFamily: 'inherit', outline: 'none', resize: 'vertical', transition: 'all 0.2s ease' }}
+                style={{ width: '100%', background: 'var(--input-bg)', border: '1px solid var(--bor)', borderRadius: '10px', padding: '12px 14px', color: 'var(--t1)', fontFamily: 'inherit', outline: 'none', resize: 'vertical', transition: 'all 0.2s ease' }}
               ></textarea>
             </div>
 

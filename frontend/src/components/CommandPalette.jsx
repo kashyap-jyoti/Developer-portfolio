@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, FolderGit2, Cpu, Download, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { Search, FolderGit2, Cpu, Download, Github, Linkedin, Mail, ArrowRight, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
+  const { theme, setTheme } = useTheme();
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef(null);
@@ -49,6 +51,23 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
           label: 'Download Resume',
           icon: Download,
           action: () => { onOpenResume?.(); onClose(); },
+        },
+      ],
+    },
+    {
+      group: 'Theme',
+      items: [
+        {
+          id: 'theme-light',
+          label: 'Switch to Light Mode ☀️',
+          icon: Sun,
+          action: () => { setTheme('light'); onClose(); },
+        },
+        {
+          id: 'theme-dark',
+          label: 'Switch to Dark Mode 🌙',
+          icon: Moon,
+          action: () => { setTheme('dark'); onClose(); },
         },
       ],
     },
@@ -120,7 +139,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
           onClick={onClose}
           style={{
             position: 'fixed', inset: 0,
-            background: 'rgba(7, 15, 33, 0.82)',
+            background: 'rgba(7, 15, 33, 0.75)',
             backdropFilter: 'blur(14px)',
             zIndex: 99990,
             display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
@@ -136,17 +155,17 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
             onClick={(e) => e.stopPropagation()}
             style={{
               width: '100%', maxWidth: '580px',
-              background: 'rgba(10, 18, 38, 0.98)',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
+              background: 'var(--modal-bg)',
+              border: '1px solid var(--bor)',
               borderRadius: '20px', overflow: 'hidden',
-              boxShadow: '0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,130,246,0.1), 0 0 60px rgba(59, 130, 246, 0.15)',
+              boxShadow: '0 40px 80px rgba(0,0,0,0.4), 0 0 0 1px var(--bor)',
             }}
           >
             {/* Search input */}
             <div style={{
               display: 'flex', alignItems: 'center', gap: '12px',
               padding: '16px 20px',
-              borderBottom: '1px solid rgba(255,255,255,0.06)',
+              borderBottom: '1px solid var(--bor)',
             }}>
               <Search size={18} color="#3B82F6" style={{ flexShrink: 0 }} />
               <input
@@ -158,14 +177,14 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
                 placeholder="Search portfolio..."
                 style={{
                   flex: 1, background: 'none', border: 'none', outline: 'none',
-                  color: '#fff', fontSize: '1rem', fontFamily: 'inherit',
+                  color: 'var(--t1)', fontSize: '1rem', fontFamily: 'inherit',
                 }}
               />
               <kbd style={{
-                background: 'rgba(255,255,255,0.06)', borderRadius: '5px',
-                padding: '2px 7px', fontSize: '0.68rem', color: '#64748B',
+                background: 'var(--btn-s-bg)', borderRadius: '5px',
+                padding: '2px 7px', fontSize: '0.68rem', color: 'var(--t3)',
                 fontFamily: "'JetBrains Mono', monospace",
-                border: '1px solid rgba(255,255,255,0.08)', flexShrink: 0,
+                border: '1px solid var(--bor)', flexShrink: 0,
               }}>ESC</kbd>
             </div>
 
@@ -174,7 +193,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
               {filtered.length === 0 ? (
                 <div style={{
                   padding: '32px 16px', textAlign: 'center',
-                  color: '#475569', fontSize: '0.88rem',
+                  color: 'var(--t3)', fontSize: '0.88rem',
                   fontFamily: "'JetBrains Mono', monospace",
                 }}>
                   No results for "{query}"
@@ -186,7 +205,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
                       padding: '8px 14px 4px',
                       fontSize: '0.67rem', fontWeight: 700,
                       letterSpacing: '0.09em', textTransform: 'uppercase',
-                      color: '#334155', fontFamily: "'JetBrains Mono', monospace",
+                      color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace",
                     }}>
                       {group.group}
                     </div>
@@ -207,19 +226,19 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
                               else { window.location.hash = item.href.slice(1); onClose(); }
                             }
                           }}
-                          animate={{ background: isActive ? 'rgba(59, 130, 246, 0.12)' : 'rgba(255,255,255,0)' }}
+                          animate={{ background: isActive ? 'rgba(59, 130, 246, 0.12)' : 'transparent' }}
                           transition={{ duration: 0.12 }}
                           style={{
                             display: 'flex', alignItems: 'center', gap: '14px',
                             padding: '11px 14px', borderRadius: '10px', cursor: 'pointer',
-                            border: isActive ? '1px solid rgba(59,130,246,0.25)' : '1px solid transparent',
+                            border: isActive ? '1px solid var(--bor2)' : '1px solid transparent',
                           }}
                         >
                           <div style={{
                             width: '34px', height: '34px', borderRadius: '9px', flexShrink: 0,
-                            background: isActive ? 'rgba(59,130,246,0.2)' : 'rgba(255,255,255,0.05)',
+                            background: isActive ? 'rgba(59,130,246,0.2)' : 'var(--btn-s-bg)',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            color: isActive ? '#60A5FA' : '#475569',
+                            color: isActive ? '#3B82F6' : 'var(--t3)',
                             transition: 'all 0.15s',
                           }}>
                             <Icon size={16} />
@@ -227,8 +246,8 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
 
                           <span style={{
                             flex: 1, fontSize: '0.9rem',
-                            color: isActive ? '#F1F5F9' : '#94A3B8',
-                            fontWeight: isActive ? 500 : 400,
+                            color: isActive ? 'var(--t1)' : 'var(--t2)',
+                            fontWeight: isActive ? 600 : 400,
                             transition: 'color 0.12s',
                           }}>
                             {item.label}
@@ -271,7 +290,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
             {/* Footer hint bar */}
             <div style={{
               padding: '10px 20px',
-              borderTop: '1px solid rgba(255,255,255,0.05)',
+              borderTop: '1px solid var(--bor)',
               display: 'flex', gap: '16px', alignItems: 'center',
             }}>
               {[
@@ -282,13 +301,13 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
                 <span key={label} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                   {keys.map((k) => (
                     <kbd key={k} style={{
-                      background: 'rgba(255,255,255,0.06)', borderRadius: '4px',
-                      padding: '1px 6px', fontSize: '0.65rem', color: '#64748B',
+                      background: 'var(--btn-s-bg)', borderRadius: '4px',
+                      padding: '1px 6px', fontSize: '0.65rem', color: 'var(--t3)',
                       fontFamily: "'JetBrains Mono', monospace",
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      border: '1px solid var(--bor)',
                     }}>{k}</kbd>
                   ))}
-                  <span style={{ fontSize: '0.7rem', color: '#334155' }}>{label}</span>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--t3)' }}>{label}</span>
                 </span>
               ))}
             </div>

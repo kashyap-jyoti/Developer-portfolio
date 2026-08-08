@@ -88,11 +88,11 @@ export default function ResumeModal({ isOpen, onClose }) {
               maxWidth: '980px',
               maxHeight: '90vh',
               overflowY: 'auto',
-              background: 'rgba(15, 23, 42, 0.97)',
+              background: 'var(--modal-bg)',
               backdropFilter: 'blur(24px)',
               borderRadius: '20px',
-              border: '1px solid rgba(59, 130, 246, 0.25)',
-              boxShadow: '0 30px 80px rgba(0,0,0,0.6), 0 0 40px rgba(59, 130, 246, 0.12)',
+              border: '1px solid var(--bor)',
+              boxShadow: 'var(--shadow-hover)',
               padding: '32px',
             }}
           >
@@ -103,14 +103,14 @@ export default function ResumeModal({ isOpen, onClose }) {
                   padding: '10px',
                   background: 'rgba(59, 130, 246, 0.12)',
                   borderRadius: '12px',
-                  border: '1px solid rgba(59, 130, 246, 0.25)',
+                  border: '1px solid var(--bor)',
                   display: 'flex',
                 }}>
-                  <FileText size={20} color="#60A5FA" />
+                  <FileText size={20} color="#3B82F6" />
                 </div>
                 <div>
-                  <h2 style={{ color: '#fff', fontWeight: 700, fontSize: '1.25rem', margin: 0 }}>My Resume</h2>
-                  <p style={{ color: '#64748B', fontSize: '0.8rem', margin: 0, fontFamily: "'JetBrains Mono', monospace" }}>
+                  <h2 style={{ color: 'var(--t1)', fontWeight: 700, fontSize: '1.25rem', margin: 0 }}>My Resume</h2>
+                  <p style={{ color: 'var(--t3)', fontSize: '0.8rem', margin: 0, fontFamily: "'JetBrains Mono', monospace" }}>
                     Upload · Preview · Download
                   </p>
                 </div>

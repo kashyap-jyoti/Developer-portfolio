@@ -137,11 +137,11 @@ function CategoryPanel({ category }) {
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        background: 'rgba(15, 23, 42, 0.6)',
+        background: 'var(--sur)',
         border: `1px solid ${category.border}`,
         borderRadius: '20px',
         padding: '32px',
-        boxShadow: `0 0 40px ${category.glow}, 0 20px 50px rgba(0,0,0,0.3)`,
+        boxShadow: `0 0 40px ${category.glow}, var(--shadow-hover)`,
         backdropFilter: 'blur(12px)',
       }}
     >
@@ -157,10 +157,10 @@ function CategoryPanel({ category }) {
           <Icon size={20} />
         </div>
         <div>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#fff', margin: 0 }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
             {category.label}
           </h3>
-          <p style={{ fontSize: '0.8rem', color: '#64748B', margin: 0, marginTop: '2px' }}>
+          <p style={{ fontSize: '0.8rem', color: 'var(--t3)', margin: 0, marginTop: '2px' }}>
             {category.description}
           </p>
         </div>

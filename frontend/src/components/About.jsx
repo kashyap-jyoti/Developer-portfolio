@@ -88,7 +88,7 @@ export default function About() {
             <div style={{ fontSize: '2.4rem', fontWeight: 800, color: '#3B82F6', fontFamily: "'JetBrains Mono', monospace" }}>
               {dsaCount}+
             </div>
-            <div style={{ fontSize: '0.84rem', color: '#64748B', marginTop: '4px', fontWeight: 500 }}>
+            <div style={{ fontSize: '0.84rem', color: 'var(--t3)', marginTop: '4px', fontWeight: 500 }}>
               Algorithmic Problems Solved
             </div>
           </div>
@@ -96,7 +96,7 @@ export default function About() {
             <div style={{ fontSize: '2.4rem', fontWeight: 800, color: '#60A5FA', fontFamily: "'JetBrains Mono', monospace" }}>
               {projectCount}+
             </div>
-            <div style={{ fontSize: '0.84rem', color: '#64748B', marginTop: '4px', fontWeight: 500 }}>
+            <div style={{ fontSize: '0.84rem', color: 'var(--t3)', marginTop: '4px', fontWeight: 500 }}>
               Full-Stack & Java Repositories
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function About() {
             <div style={{ fontSize: '2.4rem', fontWeight: 800, color: '#8B5CF6', fontFamily: "'JetBrains Mono', monospace" }}>
               Top 5%
             </div>
-            <div style={{ fontSize: '0.84rem', color: '#64748B', marginTop: '4px', fontWeight: 500 }}>
+            <div style={{ fontSize: '0.84rem', color: 'var(--t3)', marginTop: '4px', fontWeight: 500 }}>
               LeetCode & GFG Score
             </div>
           </div>
@@ -119,13 +119,13 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="glass glass-shine" {...tiltPropsMain} style={{ padding: '36px', ...tiltPropsMain.style }}>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: '#fff', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--t1)', marginBottom: '20px' }}>
                 Who I Am
               </h3>
-              <p style={{ color: '#CBD5E1', lineHeight: 1.8, fontSize: '0.98rem', marginBottom: '20px' }}>
+              <p style={{ color: 'var(--t2)', lineHeight: 1.8, fontSize: '0.98rem', marginBottom: '20px' }}>
                 I am an aspiring <strong style={{ color: '#60A5FA' }}>Java Developer</strong> and <strong style={{ color: '#60A5FA' }}>Software Engineer</strong> who thrives on solving complex engineering challenges. As a dedicated <strong style={{ color: '#C084FC' }}>BCA Student</strong> and <strong style={{ color: '#F472B6' }}>DSA Enthusiast</strong>, my core philosophy is writing clean, scalable, and high-performance code.
               </p>
-              <p style={{ color: '#CBD5E1', lineHeight: 1.8, fontSize: '0.98rem', marginBottom: '28px' }}>
+              <p style={{ color: 'var(--t2)', lineHeight: 1.8, fontSize: '0.98rem', marginBottom: '28px' }}>
                 Whether implementing graph algorithms in Java or architecting enterprise web platforms in Java Full Stack, I bring a methodical <strong style={{ color: '#22C55E' }}>Problem Solver</strong> mindset to every technical project.
               </p>
 
@@ -140,7 +140,7 @@ export default function About() {
                     style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}
                   >
                     <CheckCircle2 size={19} color="#3B82F6" style={{ marginTop: '2px', flexShrink: 0 }} />
-                    <span style={{ color: '#CBD5E1', fontSize: '0.9rem', lineHeight: 1.6 }}>{item}</span>
+                    <span style={{ color: 'var(--t2)', fontSize: '0.9rem', lineHeight: 1.6 }}>{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -161,11 +161,11 @@ export default function About() {
                   <GraduationCap size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: '#fff', fontWeight: 700, fontSize: '1.05rem' }}>Bachelor of Computer Applications</h4>
-                  <p style={{ color: '#64748B', fontSize: '0.82rem', fontFamily: "'JetBrains Mono', monospace" }}>2022 — Present | CS Major</p>
+                  <h4 style={{ color: 'var(--t1)', fontWeight: 700, fontSize: '1.05rem' }}>Bachelor of Computer Applications</h4>
+                  <p style={{ color: 'var(--t3)', fontSize: '0.82rem', fontFamily: "'JetBrains Mono', monospace" }}>2022 — Present | CS Major</p>
                 </div>
               </div>
-              <p style={{ color: '#CBD5E1', fontSize: '0.9rem', lineHeight: 1.65 }}>
+              <p style={{ color: 'var(--t2)', fontSize: '0.9rem', lineHeight: 1.65 }}>
                 Coursework: Data Structures, Operating Systems, Database Management Systems (DBMS), Computer Networks, Software Engineering.
               </p>
             </div>
@@ -176,11 +176,11 @@ export default function About() {
                   <Award size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: '#fff', fontWeight: 700, fontSize: '1.05rem' }}>Certifications & Achievements</h4>
-                  <p style={{ color: '#64748B', fontSize: '0.82rem', fontFamily: "'JetBrains Mono', monospace" }}>Java & Full-Stack Verified</p>
+                  <h4 style={{ color: 'var(--t1)', fontWeight: 700, fontSize: '1.05rem' }}>Certifications & Achievements</h4>
+                  <p style={{ color: 'var(--t3)', fontSize: '0.82rem', fontFamily: "'JetBrains Mono', monospace" }}>Java & Full-Stack Verified</p>
                 </div>
               </div>
-              <p style={{ color: '#CBD5E1', fontSize: '0.9rem', lineHeight: 1.65 }}>
+              <p style={{ color: 'var(--t2)', fontSize: '0.9rem', lineHeight: 1.65 }}>
                 Oracle Certified Java Professional Candidate, Hackathon Winner, top scorer in Data Structures & Object-Oriented Analysis.
               </p>
             </div>

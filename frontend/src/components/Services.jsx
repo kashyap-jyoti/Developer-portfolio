@@ -164,7 +164,7 @@ function ServiceCard({ service, index }) {
           style={{
             fontSize: '1.1rem',
             fontWeight: 700,
-            color: '#FFFFFF',
+            color: 'var(--t1)',
             marginBottom: '12px',
             lineHeight: 1.35
           }}
@@ -176,7 +176,7 @@ function ServiceCard({ service, index }) {
         <p
           style={{
             fontSize: '0.9rem',
-            color: '#CBD5E1',
+            color: 'var(--t2)',
             lineHeight: 1.7,
             marginBottom: '22px',
             flexGrow: 1
@@ -200,10 +200,10 @@ function ServiceCard({ service, index }) {
               style={{
                 fontSize: '0.72rem',
                 padding: '4px 10px',
-                background: 'rgba(15, 23, 42, 0.7)',
+                background: 'var(--sur2)',
                 borderRadius: '6px',
-                color: '#94A3B8',
-                border: '1px solid rgba(255,255,255,0.07)',
+                color: 'var(--t3)',
+                border: '1px solid var(--bor)',
                 fontFamily: "'JetBrains Mono', monospace",
                 letterSpacing: '0.02em'
               }}

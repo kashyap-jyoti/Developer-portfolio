@@ -186,10 +186,10 @@ export default function ProjectModal({ project, onClose }) {
           maxHeight: '90vh',
           display: 'flex',
           flexDirection: 'column',
-          background: 'rgba(13, 20, 40, 0.97)',
-          border: '1px solid rgba(59, 130, 246, 0.3)',
+          background: 'var(--modal-bg)',
+          border: '1px solid var(--bor)',
           borderRadius: '24px',
-          boxShadow: '0 40px 100px rgba(0,0,0,0.7), 0 0 60px rgba(59,130,246,0.15)',
+          boxShadow: 'var(--shadow-hover)',
           overflow: 'hidden',
         }}
       >
@@ -198,8 +198,8 @@ export default function ProjectModal({ project, onClose }) {
           style={{
             flexShrink: 0,
             padding: '24px 28px 20px',
-            borderBottom: '1px solid rgba(59,130,246,0.12)',
-            background: 'rgba(15,23,42,0.95)',
+            borderBottom: '1px solid var(--bor)',
+            background: 'var(--nav-bg)',
             backdropFilter: 'blur(10px)',
           }}
         >

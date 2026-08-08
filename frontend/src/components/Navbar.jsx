@@ -3,11 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Search, FileText } from 'lucide-react';
 import { useScrollDirection } from '../hooks/useScrollDirection';
 import { useResponsive } from '../hooks/useResponsive';
+import { useTheme } from '../context/ThemeContext';
 import RippleButton from './RippleButton';
 
 export default function Navbar({ onOpenCmd, onOpenResume }) {
   const { scrollDirection, scrollY } = useScrollDirection();
   const { isMobile, isTablet } = useResponsive();
+  const { theme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [hoveredLink, setHoveredLink] = useState(null);
@@ -64,11 +66,12 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
         right: 0,
         zIndex: 9990,
         padding: '0 clamp(12px, 3vw, 24px)',
-        background: scrolled ? 'rgba(15, 23, 42, 0.88)' : 'transparent',
+        background: scrolled ? 'var(--nav-bg)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(59, 130, 246, 0.15)' : '1px solid transparent',
-        boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.2)' : 'none'
+        borderBottom: scrolled ? '1px solid var(--bor)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.15)' : 'none',
+        transition: 'background 0.3s ease, border-color 0.3s ease'
       }}
     >
       <div style={{
@@ -98,8 +101,9 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
             JK
           </div>
           <span style={{
-            fontWeight: 700, fontSize: isMobile ? '0.88rem' : '1rem', color: '#fff',
-            letterSpacing: '-0.01em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'
+            fontWeight: 700, fontSize: isMobile ? '0.88rem' : '1rem', color: 'var(--t1)',
+            letterSpacing: '-0.01em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+            transition: 'color 0.3s ease'
           }}>
             Jyoti Kashyap
           </span>
@@ -119,7 +123,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
                 onMouseLeave={() => setHoveredLink(null)}
                 style={{
                   position: 'relative',
-                  color: isActive || isHovered ? '#60A5FA' : '#CBD5E1',
+                  color: isActive || isHovered ? '#3B82F6' : 'var(--t2)',
                   fontSize: '0.85rem', fontWeight: 500,
                   textDecoration: 'none', padding: '8px 14px',
                   borderRadius: '8px', transition: 'color 0.2s ease'
@@ -143,7 +147,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
                     transition={{ duration: 0.2 }}
                     style={{
                       position: 'absolute', bottom: '4px', left: '14px', right: '14px',
-                      height: '2px', background: '#60A5FA', borderRadius: '999px'
+                      height: '2px', background: '#3B82F6', borderRadius: '999px'
                     }}
                   />
                 )}
@@ -152,23 +156,109 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
           })}
         </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons & Theme Toggle */}
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
+          {/* Theme Switcher Pill */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            background: theme === 'dark' ? 'rgba(30, 41, 59, 0.6)' : 'rgba(241, 245, 249, 0.95)',
+            border: '1px solid var(--bor)',
+            borderRadius: '999px',
+            padding: '3px',
+            gap: '2px',
+            position: 'relative'
+          }}>
+            <button
+              onClick={() => setTheme('light')}
+              aria-label="Switch to Light mode"
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                background: 'none',
+                border: 'none',
+                padding: '4px 10px',
+                fontSize: '0.74rem',
+                fontWeight: 600,
+                color: theme === 'light' ? '#2563EB' : 'var(--t3)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                transition: 'color 0.2s ease',
+                borderRadius: '999px'
+              }}
+            >
+              {theme === 'light' && (
+                <motion.div
+                  layoutId="activeThemePill"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: '#FFFFFF',
+                    borderRadius: '999px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    zIndex: -1
+                  }}
+                />
+              )}
+              ☀️ Light
+            </button>
+
+            <button
+              onClick={() => setTheme('dark')}
+              aria-label="Switch to Dark mode"
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                background: 'none',
+                border: 'none',
+                padding: '4px 10px',
+                fontSize: '0.74rem',
+                fontWeight: 600,
+                color: theme === 'dark' ? '#60A5FA' : 'var(--t3)',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                transition: 'color 0.2s ease',
+                borderRadius: '999px'
+              }}
+            >
+              {theme === 'dark' && (
+                <motion.div
+                  layoutId="activeThemePill"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'rgba(59, 130, 246, 0.25)',
+                    borderRadius: '999px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                    zIndex: -1
+                  }}
+                />
+              )}
+              🌙 Dark
+            </button>
+          </div>
+
           {/* Search button — hidden on mobile */}
           {!isMobile && (
             <RippleButton
               onClick={onOpenCmd}
               style={{
                 display: 'flex', alignItems: 'center', gap: '6px',
-                background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.2)',
-                borderRadius: '9px', padding: '7px 12px', color: '#CBD5E1',
+                background: 'var(--btn-s-bg)', border: '1px solid var(--bor)',
+                borderRadius: '9px', padding: '7px 12px', color: 'var(--t2)',
                 fontSize: '0.78rem', cursor: 'pointer', fontFamily: 'inherit'
               }}
             >
               <Search size={14} />
               <span>Search</span>
               {!isTablet && (
-                <kbd style={{ background: 'rgba(255,255,255,0.08)', padding: '2px 5px', borderRadius: '4px', fontSize: '0.68rem' }}>Ctrl+K</kbd>
+                <kbd style={{ background: 'rgba(128,128,128,0.15)', padding: '2px 5px', borderRadius: '4px', fontSize: '0.68rem' }}>Ctrl+K</kbd>
               )}
             </RippleButton>
           )}
@@ -186,7 +276,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={mobileOpen}
-            style={{ background: 'none', border: 'none', color: '#CBD5E1', cursor: 'pointer', display: 'none', padding: '6px' }}
+            style={{ background: 'none', border: 'none', color: 'var(--t1)', cursor: 'pointer', display: 'none', padding: '6px' }}
             className="mobile-toggle"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -203,9 +293,9 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             style={{
-              background: 'rgba(15, 23, 42, 0.97)',
+              background: 'var(--modal-bg)',
               backdropFilter: 'blur(20px)',
-              borderTop: '1px solid rgba(59, 130, 246, 0.15)',
+              borderTop: '1px solid var(--bor)',
               padding: '16px clamp(16px, 4vw, 24px) 24px',
               overflow: 'hidden'
             }}
@@ -217,15 +307,15 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   style={{
-                    color: activeSection === link.href.substring(1) ? '#60A5FA' : '#CBD5E1',
+                    color: activeSection === link.href.substring(1) ? '#3B82F6' : 'var(--t1)',
                     fontSize: '1rem', fontWeight: 500, textDecoration: 'none',
-                    padding: '12px 8px', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'block'
+                    padding: '12px 8px', borderBottom: '1px solid var(--bor)', display: 'block'
                   }}
                 >
                   {link.label}
                 </a>
               ))}
-              <div style={{ paddingTop: '16px' }}>
+              <div style={{ paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <RippleButton
                   onClick={() => { onOpenResume(); setMobileOpen(false); }}
                   className="btn-p"

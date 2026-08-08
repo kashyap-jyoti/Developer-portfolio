@@ -19,6 +19,7 @@ import PageLoader from './components/PageLoader';
 import ScrollProgress from './components/ScrollProgress';
 import CustomCursor from './components/CustomCursor';
 import { AnimatePresence } from 'framer-motion';
+import { ThemeProvider } from './context/ThemeContext';
 
 export default function App() {
   const [cmdOpen, setCmdOpen] = useState(false);
@@ -35,36 +36,38 @@ export default function App() {
   }, []);
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', background: '#0F172A' }}>
-      <PageLoader onComplete={handleLoaderComplete} />
-      <ScrollProgress />
-      <CustomCursor />
-      <BackgroundEffects />
-      
-      <Navbar onOpenCmd={() => setCmdOpen(true)} onOpenResume={() => setResumeOpen(true)} />
-      
-      <main style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.6s ease-in' }}>
-        <Hero onOpenResume={() => setResumeOpen(true)} />
-        <About />
-        <Skills />
-        <Services />
-        <Projects onSelectProject={(proj) => setSelectedProject(proj)} />
-        <DSA />
-        <Experience />
-        <Contact />
-        <RecruiterCTA />
-      </main>
+    <ThemeProvider>
+      <div style={{ position: 'relative', minHeight: '100vh', background: 'var(--bg0)', color: 'var(--t1)', transition: 'background 0.3s ease, color 0.3s ease' }}>
+        <PageLoader onComplete={handleLoaderComplete} />
+        <ScrollProgress />
+        <CustomCursor />
+        <BackgroundEffects />
+        
+        <Navbar onOpenCmd={() => setCmdOpen(true)} onOpenResume={() => setResumeOpen(true)} />
+        
+        <main style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.6s ease-in' }}>
+          <Hero onOpenResume={() => setResumeOpen(true)} />
+          <About />
+          <Skills />
+          <Services />
+          <Projects onSelectProject={(proj) => setSelectedProject(proj)} />
+          <DSA />
+          <Experience />
+          <Contact />
+          <RecruiterCTA />
+        </main>
 
-      <Footer />
-      <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
+        <Footer />
+        <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
 
-      <CommandPalette isOpen={cmdOpen} onClose={() => setCmdOpen(false)} onOpenResume={() => setResumeOpen(true)} />
-      
-      <AnimatePresence>
-        {selectedProject && (
-          <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-        )}
-      </AnimatePresence>
-    </div>
+        <CommandPalette isOpen={cmdOpen} onClose={() => setCmdOpen(false)} onOpenResume={() => setResumeOpen(true)} />
+        
+        <AnimatePresence>
+          {selectedProject && (
+            <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+          )}
+        </AnimatePresence>
+      </div>
+    </ThemeProvider>
   );
 }
