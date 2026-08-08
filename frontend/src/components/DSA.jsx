@@ -260,12 +260,12 @@ export default function DSA() {
                         ? 'rgba(168, 85, 247, 0.15)'
                         : isCompleted
                         ? 'rgba(59, 130, 246, 0.1)'
-                        : 'rgba(15, 23, 42, 0.5)',
+                        : 'var(--sur2)',
                       border: isCurrent
                         ? '1px solid #A855F7'
                         : isCompleted
                         ? '1px solid rgba(59, 130, 246, 0.35)'
-                        : '1px solid rgba(255,255,255,0.06)',
+                        : '1px solid var(--bor)',
                       boxShadow: isCurrent
                         ? '0 0 20px rgba(168, 85, 247, 0.35)'
                         : isCompleted
@@ -278,7 +278,7 @@ export default function DSA() {
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: '0.7rem', color: '#64748B', fontFamily: "'JetBrains Mono', monospace", fontWeight: 700 }}>
+                      <span style={{ fontSize: '0.7rem', color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace", fontWeight: 700 }}>
                         STEP 0{m.id}
                       </span>
                       {isCompleted ? (
