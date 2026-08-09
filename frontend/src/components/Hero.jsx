@@ -14,6 +14,15 @@ export default function Hero({ onOpenResume }) {
 
   const isNarrow = isMobile || isTablet;
 
+  const techBadges = [
+    { label: '☕ Java 21', bg: 'rgba(249, 115, 22, 0.12)', color: '#F97316', border: 'rgba(249, 115, 22, 0.3)' },
+    { label: '🍃 Spring Boot', bg: 'rgba(34, 197, 94, 0.12)', color: '#22C55E', border: 'rgba(34, 197, 94, 0.3)' },
+    { label: '⚛️ React 18', bg: 'rgba(56, 189, 248, 0.12)', color: '#38BDF8', border: 'rgba(56, 189, 248, 0.3)' },
+    { label: '🐬 MySQL', bg: 'rgba(167, 139, 250, 0.12)', color: '#A78BFA', border: 'rgba(167, 139, 250, 0.3)' },
+    { label: '⚡ REST APIs', bg: 'rgba(251, 146, 60, 0.12)', color: '#FB923C', border: 'rgba(251, 146, 60, 0.3)' },
+    { label: '🧩 DSA & Algorithms', bg: 'rgba(232, 121, 249, 0.12)', color: '#E879F9', border: 'rgba(232, 121, 249, 0.3)' }
+  ];
+
   // Typewriter effect states
   const professions = [
     'Java Full Stack Software Engineer',
