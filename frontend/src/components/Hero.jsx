@@ -15,12 +15,12 @@ export default function Hero({ onOpenResume }) {
   const isNarrow = isMobile || isTablet;
 
   const techBadges = [
-    { label: '☕ Java 21', bg: 'rgba(249, 115, 22, 0.12)', color: '#F97316', border: 'rgba(249, 115, 22, 0.3)' },
-    { label: '🍃 Spring Boot', bg: 'rgba(34, 197, 94, 0.12)', color: '#22C55E', border: 'rgba(34, 197, 94, 0.3)' },
-    { label: '⚛️ React 18', bg: 'rgba(56, 189, 248, 0.12)', color: '#38BDF8', border: 'rgba(56, 189, 248, 0.3)' },
-    { label: '🐬 MySQL', bg: 'rgba(167, 139, 250, 0.12)', color: '#A78BFA', border: 'rgba(167, 139, 250, 0.3)' },
-    { label: '⚡ REST APIs', bg: 'rgba(251, 146, 60, 0.12)', color: '#FB923C', border: 'rgba(251, 146, 60, 0.3)' },
-    { label: '🧩 DSA & Algorithms', bg: 'rgba(232, 121, 249, 0.12)', color: '#E879F9', border: 'rgba(232, 121, 249, 0.3)' }
+    { label: '☕ Java 21', tooltip: 'Primary backend language', bg: 'rgba(249, 115, 22, 0.12)', color: '#F97316', border: 'rgba(249, 115, 22, 0.3)' },
+    { label: '🍃 Spring Boot', tooltip: 'Backend framework', bg: 'rgba(34, 197, 94, 0.12)', color: '#22C55E', border: 'rgba(34, 197, 94, 0.3)' },
+    { label: '⚛️ React 18', tooltip: 'Frontend library', bg: 'rgba(56, 189, 248, 0.12)', color: '#38BDF8', border: 'rgba(56, 189, 248, 0.3)' },
+    { label: '🐬 MySQL', tooltip: 'Relational database', bg: 'rgba(167, 139, 250, 0.12)', color: '#A78BFA', border: 'rgba(167, 139, 250, 0.3)' },
+    { label: '⚡ REST APIs', tooltip: 'API architecture', bg: 'rgba(251, 146, 60, 0.12)', color: '#FB923C', border: 'rgba(251, 146, 60, 0.3)' },
+    { label: '🧩 DSA & Algorithms', tooltip: 'Problem solving', bg: 'rgba(232, 121, 249, 0.12)', color: '#E879F9', border: 'rgba(232, 121, 249, 0.3)' }
   ];
 
   // Typewriter effect states
@@ -77,7 +77,7 @@ export default function Hero({ onOpenResume }) {
       id="home"
       onMouseMove={handleMouseMove}
       style={{
-        paddingTop: isNarrow ? '100px' : '140px',
+        paddingTop: isNarrow ? '100px' : '130px',
         paddingBottom: isNarrow ? '60px' : '80px',
         position: 'relative',
         zIndex: 1,
@@ -149,23 +149,23 @@ export default function Hero({ onOpenResume }) {
               <div style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                 padding: '6px 14px', borderRadius: '999px',
-                background: 'rgba(59, 130, 246, 0.08)', border: '1px solid rgba(59, 130, 246, 0.25)',
-                fontSize: isMobile ? '0.72rem' : '0.8rem', color: '#60A5FA',
-                fontFamily: "'JetBrains Mono', monospace", marginBottom: '20px',
-                flexWrap: 'wrap', maxWidth: '100%'
+                background: 'var(--sur2)', border: '1px solid var(--bor)',
+                fontSize: isMobile ? '0.72rem' : '0.8rem', color: 'var(--t1)',
+                fontWeight: 500, fontFamily: "'JetBrains Mono', monospace", marginBottom: '20px',
+                flexWrap: 'wrap', maxWidth: '100%', boxShadow: '0 2px 10px rgba(0,0,0,0.06)'
               }}>
-                <span style={{ width: '8px', height: '8px', background: '#22C55E', borderRadius: '50%', boxShadow: '0 0 10px #22C55E', flexShrink: 0 }}></span>
+                <span style={{ width: '8px', height: '8px', background: '#22C55E', borderRadius: '50%', boxShadow: '0 0 10px #22C55E', flexShrink: 0, animation: 'pulseDot 2s ease-in-out infinite' }}></span>
                 <span>Available for Full-Time Roles & Java Full Stack Opportunities</span>
               </div>
             </motion.div>
 
-            {/* Name */}
+            {/* Name Focal Point */}
             <motion.h1
               variants={itemVariants}
               style={{
-                fontSize: isMobile ? 'clamp(2rem, 8vw, 2.8rem)' : isTablet ? '3rem' : '3.8rem',
-                fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '10px',
-                background: 'linear-gradient(135deg, #FFFFFF 40%, #94A3B8)',
+                fontSize: isMobile ? 'clamp(2.2rem, 8vw, 2.8rem)' : isTablet ? '3.2rem' : '4rem',
+                fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '12px',
+                background: 'linear-gradient(135deg, var(--t1) 30%, var(--t2) 100%)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
                 wordBreak: 'break-word'
               }}
@@ -178,7 +178,7 @@ export default function Hero({ onOpenResume }) {
               <p style={{
                 fontSize: isMobile ? '1rem' : '1.15rem',
                 fontWeight: 600,
-                color: '#60A5FA',
+                color: '#3B82F6',
                 fontFamily: "'JetBrains Mono', monospace",
                 margin: 0
               }}>
@@ -190,7 +190,7 @@ export default function Hero({ onOpenResume }) {
                   <motion.span
                     animate={{ opacity: [0, 1, 0] }}
                     transition={{ repeat: Infinity, duration: 0.8 }}
-                    style={{ display: 'inline-block', width: '2px', height: '1em', background: '#60A5FA', marginLeft: '2px', verticalAlign: 'middle' }}
+                    style={{ display: 'inline-block', width: '2px', height: '1em', background: '#3B82F6', marginLeft: '2px', verticalAlign: 'middle' }}
                   />
                 </span>
               </p>
@@ -202,13 +202,13 @@ export default function Hero({ onOpenResume }) {
               lineHeight: 1.7, marginBottom: '28px', maxWidth: '560px'
             }}>
               Building practical applications with{' '}
-              <strong style={{ color: 'var(--t2)' }}>Java, Spring Boot, React & MySQL</strong>
+              <strong style={{ color: 'var(--t1)' }}>Java, Spring Boot, React & MySQL</strong>
               {' '}— focused on clean architecture, real-world impact, and continuous growth.
             </motion.p>
 
             {/* CTA Buttons */}
             <motion.div variants={itemVariants} style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '28px' }}>
-              <RippleButton href="#projects" className="btn-p">
+              <RippleButton href="#projects" className="btn-p" style={{ boxShadow: '0 6px 20px rgba(59, 130, 246, 0.4)' }}>
                 <span>View Projects</span>
                 <ArrowUpRight size={18} />
               </RippleButton>
@@ -225,11 +225,12 @@ export default function Hero({ onOpenResume }) {
               </RippleButton>
             </motion.div>
 
-            {/* Tech Badges */}
+            {/* Tech Badges with Tooltips */}
             <motion.div variants={itemVariants} style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px' }}>
               {techBadges.map((badge) => (
                 <motion.span
                   key={badge.label}
+                  title={badge.tooltip}
                   whileHover={{ scale: 1.08, y: -2 }}
                   style={{
                     padding: '6px 14px',
@@ -240,7 +241,7 @@ export default function Hero({ onOpenResume }) {
                     fontSize: '0.78rem',
                     fontWeight: 600,
                     fontFamily: "'JetBrains Mono', monospace",
-                    cursor: 'default',
+                    cursor: 'pointer',
                     letterSpacing: '0.01em',
                     boxShadow: `0 0 10px ${badge.bg}`,
                   }}
@@ -261,7 +262,7 @@ export default function Hero({ onOpenResume }) {
                 <div style={{ fontSize: '0.74rem', color: 'var(--t3)', marginTop: '2px', fontWeight: 500 }}>DSA Problems Solved</div>
               </div>
               <div className="glass2 glass-shine" style={{ padding: isMobile ? '12px 14px' : '16px 20px' }}>
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#60A5FA' }}>15+</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#2563EB' }}>15+</div>
                 <div style={{ fontSize: '0.74rem', color: 'var(--t3)', marginTop: '2px', fontWeight: 500 }}>Full-Stack & Java Projects</div>
               </div>
               <div className="glass2 glass-shine" style={{ padding: isMobile ? '12px 14px' : '16px 20px', gridColumn: isMobile ? 'span 2' : undefined }}>
@@ -295,17 +296,17 @@ export default function Hero({ onOpenResume }) {
                   {/* Interactive Glowing Avatar */}
                   <motion.div
                     onClick={handleAvatarClick}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileHover={{ scale: 1.08, rotate: 3 }}
                     whileTap={{ scale: 0.95 }}
                     style={{ position: 'relative', cursor: 'pointer' }}
                   >
                     <motion.div
                       animate={{ rotate: 360, scale: [1, 1.05, 1] }}
-                      transition={{ rotate: { repeat: Infinity, duration: 8, ease: 'linear' }, scale: { repeat: Infinity, duration: 3, ease: 'easeInOut' } }}
+                      transition={{ rotate: { repeat: Infinity, duration: 10, ease: 'linear' }, scale: { repeat: Infinity, duration: 3, ease: 'easeInOut' } }}
                       style={{
                         position: 'absolute', inset: -4, borderRadius: '50%',
                         background: 'linear-gradient(135deg, #3B82F6, #60A5FA, #2563EB, #8B5CF6)',
-                        zIndex: 0, boxShadow: '0 0 25px rgba(59, 130, 246, 0.6), 0 0 10px rgba(96, 165, 250, 0.4)'
+                        zIndex: 0, boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)'
                       }}
                     />
                     <img
@@ -344,7 +345,7 @@ export default function Hero({ onOpenResume }) {
 
                   <div>
                     <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--t1)' }}>Jyoti Kashyap</h3>
-                    <p style={{ fontSize: '0.78rem', color: '#60A5FA', fontFamily: "'JetBrains Mono', monospace" }}>@kashyap-jyoti</p>
+                    <p style={{ fontSize: '0.78rem', color: '#3B82F6', fontFamily: "'JetBrains Mono', monospace" }}>@kashyap-jyoti</p>
                   </div>
                 </div>
 
@@ -362,8 +363,8 @@ export default function Hero({ onOpenResume }) {
                   onClick={() => setActiveCodeTab('overview')}
                   style={{
                     background: activeCodeTab === 'overview' ? 'rgba(59, 130, 246, 0.2)' : 'var(--btn-s-bg)',
-                    border: '1px solid var(--bor)',
-                    color: activeCodeTab === 'overview' ? '#3B82F6' : 'var(--t3)',
+                    border: activeCodeTab === 'overview' ? '1px solid #3B82F6' : '1px solid var(--bor)',
+                    color: activeCodeTab === 'overview' ? '#3B82F6' : 'var(--t2)',
                     padding: '5px 12px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
                     cursor: 'pointer', fontFamily: "'JetBrains Mono', monospace", transition: 'all 0.2s'
                   }}
@@ -374,8 +375,8 @@ export default function Hero({ onOpenResume }) {
                   onClick={() => setActiveCodeTab('stack')}
                   style={{
                     background: activeCodeTab === 'stack' ? 'rgba(59, 130, 246, 0.2)' : 'var(--btn-s-bg)',
-                    border: '1px solid var(--bor)',
-                    color: activeCodeTab === 'stack' ? '#3B82F6' : 'var(--t3)',
+                    border: activeCodeTab === 'stack' ? '1px solid #3B82F6' : '1px solid var(--bor)',
+                    color: activeCodeTab === 'stack' ? '#3B82F6' : 'var(--t2)',
                     padding: '5px 12px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
                     cursor: 'pointer', fontFamily: "'JetBrains Mono', monospace", transition: 'all 0.2s'
                   }}
@@ -394,17 +395,17 @@ export default function Hero({ onOpenResume }) {
                       background: 'var(--sur2)', padding: '14px', borderRadius: '12px',
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: isMobile ? '0.74rem' : '0.82rem',
-                      color: 'var(--t2)', marginBottom: '20px', lineHeight: 1.7,
+                      color: 'var(--t1)', marginBottom: '20px', lineHeight: 1.7,
                       border: '1px solid var(--bor)',
                       overflowX: 'auto', wordBreak: 'break-word'
                     }}
                   >
                     <div><span style={{ color: '#ec4899' }}>const</span> developer = &#123;</div>
-                    <div style={{ paddingLeft: '14px' }}><span style={{ color: '#60A5FA' }}>name</span>: <span style={{ color: '#22C55E' }}>"Jyoti Kashyap"</span>,</div>
-                    <div style={{ paddingLeft: '14px' }}><span style={{ color: '#60A5FA' }}>primaryStack</span>: [<span style={{ color: '#22C55E' }}>"Java 21"</span>, <span style={{ color: '#22C55E' }}>"Spring Boot"</span>],</div>
-                    <div style={{ paddingLeft: '14px' }}><span style={{ color: '#60A5FA' }}>focus</span>: <span style={{ color: '#22C55E' }}>"Backend Architecture & DSA"</span>,</div>
-                    <div style={{ paddingLeft: '14px' }}><span style={{ color: '#60A5FA' }}>location</span>: <span style={{ color: '#22C55E' }}>"India"</span></div>
-                    <div>&#125;;</div>
+                    <div style={{ paddingLeft: '14px' }}><span style={{ color: '#3B82F6' }}>name</span>: <span style={{ color: '#22C55E' }}>"Jyoti Kashyap"</span>,</div>
+                    <div style={{ paddingLeft: '14px' }}><span style={{ color: '#3B82F6' }}>primaryStack</span>: [<span style={{ color: '#22C55E' }}>"Java 21"</span>, <span style={{ color: '#22C55E' }}>"Spring Boot"</span>],</div>
+                    <div style={{ paddingLeft: '14px' }}><span style={{ color: '#3B82F6' }}>focus</span>: <span style={{ color: '#22C55E' }}>"Backend Architecture & DSA"</span>,</div>
+                    <div style={{ paddingLeft: '14px' }}><span style={{ color: '#3B82F6' }}>location</span>: <span style={{ color: '#22C55E' }}>"India"</span></div>
+                    <div>&#125;<span style={{ display: 'inline-block', width: '8px', height: '14px', background: '#3B82F6', marginLeft: '4px', verticalAlign: 'middle', animation: 'cursorBlink 1s step-end infinite' }} /></div>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -414,7 +415,7 @@ export default function Hero({ onOpenResume }) {
                       background: 'var(--sur2)', padding: '14px', borderRadius: '12px',
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: isMobile ? '0.74rem' : '0.82rem',
-                      color: 'var(--t2)', marginBottom: '20px', lineHeight: 1.7,
+                      color: 'var(--t1)', marginBottom: '20px', lineHeight: 1.7,
                       border: '1px solid var(--bor)',
                       overflowX: 'auto', wordBreak: 'break-word'
                     }}
@@ -423,7 +424,7 @@ export default function Hero({ onOpenResume }) {
                     <div style={{ paddingLeft: '14px' }}>concurrency: <span style={{ color: '#EAB308' }}>"Multithreading & Kafka"</span>;</div>
                     <div style={{ paddingLeft: '14px' }}>databases: [<span style={{ color: '#22C55E' }}>"MongoDB"</span>, <span style={{ color: '#22C55E' }}>"PostgreSQL"</span>];</div>
                     <div style={{ paddingLeft: '14px' }}>architecture: <span style={{ color: '#ec4899' }}>"Microservices & REST APIs"</span>;</div>
-                    <div>&#125;</div>
+                    <div>&#125;<span style={{ display: 'inline-block', width: '8px', height: '14px', background: '#3B82F6', marginLeft: '4px', verticalAlign: 'middle', animation: 'cursorBlink 1s step-end infinite' }} /></div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -454,7 +455,7 @@ export default function Hero({ onOpenResume }) {
           style={{ display: 'flex', justifyContent: 'center', marginTop: isNarrow ? '40px' : '60px' }}
         >
           <a href="#about" style={{
-            color: '#60A5FA', display: 'flex', flexDirection: 'column', alignItems: 'center',
+            color: '#3B82F6', display: 'flex', flexDirection: 'column', alignItems: 'center',
             gap: '4px', textDecoration: 'none', fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace"
           }}>
             <ChevronDown size={18} />

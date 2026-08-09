@@ -3,6 +3,7 @@ const API_BASE = '/api';
 export const fetchProjects = async () => {
   try {
     const res = await fetch(`${API_BASE}/projects`);
+    if (!res.ok) throw new Error(`HTTP error status ${res.status}`);
     const data = await res.json();
     return data.data || [];
   } catch (err) {
@@ -14,6 +15,7 @@ export const fetchProjects = async () => {
 export const fetchSkills = async () => {
   try {
     const res = await fetch(`${API_BASE}/skills`);
+    if (!res.ok) throw new Error(`HTTP error status ${res.status}`);
     const data = await res.json();
     return data.data || [];
   } catch (err) {

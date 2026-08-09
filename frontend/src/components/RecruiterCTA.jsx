@@ -98,7 +98,7 @@ export default function RecruiterCTA() {
             fontWeight: 800,
             letterSpacing: '-0.02em',
             lineHeight: 1.2,
-            background: 'linear-gradient(135deg, #FFFFFF 40%, #CBD5E1)',
+            background: 'linear-gradient(135deg, var(--t1) 40%, var(--t2))',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             marginBottom: '14px',
@@ -110,7 +110,7 @@ export default function RecruiterCTA() {
         {/* Subtext */}
         <p
           style={{
-            color: '#94A3B8',
+            color: 'var(--t3)',
             fontSize: 'clamp(0.92rem, 2.2vw, 1.05rem)',
             lineHeight: 1.65,
             maxWidth: '480px',
