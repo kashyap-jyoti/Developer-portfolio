@@ -96,11 +96,21 @@ export default function PageLoader({ onComplete }) {
             transition={{ delay: 0.2, duration: 0.5 }}
             style={{ textAlign: 'center', marginBottom: '28px' }}
           >
-            <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.01em', marginBottom: '4px' }}>
+            <h2 style={{
+              fontSize: '1.45rem',
+              fontWeight: 900,
+              background: 'linear-gradient(135deg, #FFFFFF 0%, #60A5FA 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              letterSpacing: '0.04em',
+              marginBottom: '4px',
+              textTransform: 'uppercase',
+              filter: 'drop-shadow(0 0 16px rgba(59, 130, 246, 0.6))'
+            }}>
               Jyoti Kashyap
             </h2>
-            <p style={{ fontSize: '0.82rem', color: '#60A5FA', fontFamily: "'JetBrains Mono', monospace" }}>
-              Software Engineer Portfolio
+            <p style={{ fontSize: '0.84rem', color: '#60A5FA', fontFamily: "'JetBrains Mono', monospace", fontWeight: 600 }}>
+              Java Full Stack Software Engineer
             </p>
           </motion.div>
 
