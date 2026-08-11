@@ -159,19 +159,81 @@ export default function Hero({ onOpenResume }) {
               </div>
             </motion.div>
 
-            {/* Name Focal Point */}
-            <motion.h1
-              variants={itemVariants}
-              style={{
-                fontSize: isMobile ? 'clamp(2.2rem, 8vw, 2.8rem)' : isTablet ? '3.2rem' : '4rem',
-                fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '12px',
-                background: 'linear-gradient(135deg, var(--t1) 30%, var(--t2) 100%)',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                wordBreak: 'break-word'
-              }}
-            >
-              Jyoti Kashyap
-            </motion.h1>
+            {/* Name Focal Point Container */}
+            <div style={{ position: 'relative', marginBottom: '20px', zIndex: 2 }}>
+              {/* Radial ambient glow backdrop behind name */}
+              <motion.div
+                animate={{ opacity: [0.35, 0.65, 0.35], scale: [0.95, 1.04, 0.95] }}
+                transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
+                style={{
+                  position: 'absolute',
+                  top: '-30%',
+                  left: '-10%',
+                  width: '120%',
+                  height: '160%',
+                  background: 'radial-gradient(ellipse at center, rgba(59, 130, 246, 0.28) 0%, rgba(96, 165, 250, 0.12) 50%, transparent 80%)',
+                  filter: 'blur(30px)',
+                  pointerEvents: 'none',
+                  zIndex: -1
+                }}
+              />
+
+              {/* Eyebrow Focal Tag */}
+              <motion.div
+                variants={itemVariants}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '0.78rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: '#60A5FA',
+                  fontFamily: "'JetBrains Mono', monospace",
+                  marginBottom: '10px'
+                }}
+              >
+                <Sparkles size={14} style={{ color: '#3B82F6' }} />
+                <span>Java Full Stack Software Engineer</span>
+              </motion.div>
+
+              {/* Main Name Heading */}
+              <motion.h1
+                variants={itemVariants}
+                whileHover={{ scale: 1.015 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+                style={{
+                  fontSize: isMobile ? 'clamp(2.5rem, 9vw, 3.4rem)' : isTablet ? '3.8rem' : '4.6rem',
+                  fontWeight: 900,
+                  lineHeight: 1.02,
+                  letterSpacing: '-0.035em',
+                  margin: 0,
+                  background: 'linear-gradient(135deg, var(--t1) 20%, #60A5FA 60%, #3B82F6 95%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  wordBreak: 'break-word',
+                  filter: 'drop-shadow(0 4px 24px rgba(59, 130, 246, 0.4))'
+                }}
+              >
+                Jyoti Kashyap
+              </motion.h1>
+
+              {/* Vibrant Gradient Focal Line */}
+              <motion.div
+                initial={{ width: '0%', opacity: 0 }}
+                animate={{ width: '100%', opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.4, ease: 'easeOut' }}
+                style={{
+                  height: '4px',
+                  marginTop: '10px',
+                  maxWidth: '320px',
+                  background: 'linear-gradient(90deg, #3B82F6 0%, #60A5FA 50%, transparent 100%)',
+                  borderRadius: '999px',
+                  boxShadow: '0 0 16px rgba(59, 130, 246, 0.7)'
+                }}
+              />
+            </div>
 
             {/* Profession Typewriter Line */}
             <motion.div variants={itemVariants} style={{ marginBottom: '16px' }}>
@@ -344,7 +406,9 @@ export default function Hero({ onOpenResume }) {
                   </motion.div>
 
                   <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--t1)' }}>Jyoti Kashyap</h3>
+                    <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--t1)', background: 'linear-gradient(135deg, var(--t1) 40%, #60A5FA 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                      Jyoti Kashyap ✦
+                    </h3>
                     <p style={{ fontSize: '0.78rem', color: '#3B82F6', fontFamily: "'JetBrains Mono', monospace" }}>@kashyap-jyoti</p>
                   </div>
                 </div>
@@ -401,7 +465,9 @@ export default function Hero({ onOpenResume }) {
                     }}
                   >
                     <div><span style={{ color: '#ec4899' }}>const</span> developer = &#123;</div>
-                    <div style={{ paddingLeft: '14px' }}><span style={{ color: '#3B82F6' }}>name</span>: <span style={{ color: '#22C55E' }}>"Jyoti Kashyap"</span>,</div>
+                    <div style={{ paddingLeft: '14px' }}>
+                      <span style={{ color: '#3B82F6' }}>name</span>: <span style={{ color: '#22C55E', background: 'rgba(34, 197, 94, 0.12)', padding: '2px 8px', borderRadius: '4px', border: '1px solid rgba(34, 197, 94, 0.25)', fontWeight: 700 }}>"Jyoti Kashyap"</span>,
+                    </div>
                     <div style={{ paddingLeft: '14px' }}><span style={{ color: '#3B82F6' }}>primaryStack</span>: [<span style={{ color: '#22C55E' }}>"Java 21"</span>, <span style={{ color: '#22C55E' }}>"Spring Boot"</span>],</div>
                     <div style={{ paddingLeft: '14px' }}><span style={{ color: '#3B82F6' }}>focus</span>: <span style={{ color: '#22C55E' }}>"Backend Architecture & DSA"</span>,</div>
                     <div style={{ paddingLeft: '14px' }}><span style={{ color: '#3B82F6' }}>location</span>: <span style={{ color: '#22C55E' }}>"India"</span></div>
