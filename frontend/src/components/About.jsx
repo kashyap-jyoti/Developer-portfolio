@@ -44,11 +44,13 @@ export default function About() {
       >
         <div className="sec-lbl">
           <User size={16} />
-          <span>About My Engineering Journey</span>
+          <span>About Jyoti Kashyap</span>
         </div>
-        <h2 className="sec-ttl" style={{ marginBottom: '20px' }}>Passionate About Scalable Software & Algorithms</h2>
-        <p className="sec-sub" style={{ marginBottom: '44px', lineHeight: 1.7 }}>
-          I combine computer science fundamentals with modern software craftsmanship to create elegant, high-throughput applications.
+        <h2 className="sec-ttl" style={{ marginBottom: '20px' }}>
+          Software Engineer & Algorithm Specialist
+        </h2>
+        <p className="sec-sub" style={{ marginBottom: '44px', lineHeight: 1.7, fontSize: '1.08rem' }}>
+          Hi, I'm <strong style={{ color: '#60A5FA', fontWeight: 800, background: 'rgba(59, 130, 246, 0.12)', padding: '2px 8px', borderRadius: '6px', border: '1px solid rgba(59, 130, 246, 0.25)' }}>Jyoti Kashyap</strong> — a Java Full Stack Developer & BCA Computer Science student dedicated to building scalable backend microservices, modern frontends, and high-throughput algorithmic solutions.
         </p>
 
         {/* Animated Keyword Badges */}
