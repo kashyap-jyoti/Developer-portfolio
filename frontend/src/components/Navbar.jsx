@@ -90,25 +90,27 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
         {/* Brand Logo: [JK] Jyoti Kashyap */}
         <motion.a
           href="#home"
-          whileHover={{ scale: 1.04 }}
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.96 }}
           aria-label="Jyoti Kashyap - Home"
           style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0 }}
         >
           <div style={{
-            width: '36px', height: '36px', borderRadius: '50%',
-            background: 'linear-gradient(135deg, #2563EB, #1D4ED8)',
+            width: '38px', height: '38px', borderRadius: '50%',
+            background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontWeight: 800, fontSize: '0.85rem', color: '#ffffff',
-            boxShadow: '0 0 16px rgba(59, 130, 246, 0.4), 0 0 6px rgba(96, 165, 250, 0.3)',
-            border: '2px solid rgba(96, 165, 250, 0.6)', flexShrink: 0
+            fontWeight: 800, fontSize: '0.9rem', color: '#ffffff',
+            boxShadow: '0 0 18px rgba(59, 130, 246, 0.5), 0 0 8px rgba(96, 165, 250, 0.4)',
+            border: '2px solid rgba(96, 165, 250, 0.7)', flexShrink: 0
           }}>
             JK
           </div>
           <span style={{
-            fontWeight: 700, fontSize: '1rem', color: 'var(--t1)',
-            letterSpacing: '-0.01em', whiteSpace: 'nowrap',
-            transition: 'color 0.3s ease'
+            fontWeight: 800, fontSize: '1.05rem',
+            background: 'linear-gradient(135deg, var(--t1) 30%, #60A5FA 100%)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            letterSpacing: '-0.02em', whiteSpace: 'nowrap',
+            filter: 'drop-shadow(0 2px 8px rgba(59, 130, 246, 0.2))'
           }}>
             Jyoti Kashyap
           </span>
