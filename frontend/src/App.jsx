@@ -5,6 +5,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Services from './components/Services';
 import Projects from './components/Projects';
+import GithubActivity from './components/GithubActivity';
 import Experience from './components/Experience';
 import DSA from './components/DSA';
 import Contact from './components/Contact';
@@ -51,6 +52,7 @@ export default function App() {
           <Skills />
           <Services />
           <Projects onSelectProject={(proj) => setSelectedProject(proj)} />
+          <GithubActivity />
           <DSA />
           <Experience />
           <Contact />
