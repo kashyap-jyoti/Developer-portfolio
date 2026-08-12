@@ -38,9 +38,10 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
     {
       group: 'Navigation',
       items: [
-        { id: 'projects', label: 'View Projects',  icon: FolderGit2, href: '#projects' },
-        { id: 'skills',   label: 'View Skills',    icon: Cpu,        href: '#skills'   },
-        { id: 'contact',  label: 'Contact Jyoti',  icon: Mail,       href: '#contact'  },
+        { id: 'projects',   label: 'View Projects',        icon: FolderGit2, href: '#projects' },
+        { id: 'github-sec', label: 'View GitHub Activity', icon: Github,     href: '#github'   },
+        { id: 'skills',     label: 'View Skills',          icon: Cpu,        href: '#skills'   },
+        { id: 'contact',    label: 'Contact Jyoti',        icon: Mail,       href: '#contact'  },
       ],
     },
     {
