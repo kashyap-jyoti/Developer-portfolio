@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, FolderGit2, Cpu, Download, Github, Linkedin, Mail, ArrowRight, Sun, Moon } from 'lucide-react';
+import { Search, FolderGit2, Cpu, Download, Github, Linkedin, Mail, ArrowRight, Sun, Moon, Bug } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
@@ -53,6 +53,16 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
           icon: Download,
           action: () => { onOpenResume?.(); onClose(); },
         },
+        {
+          id: 'preview-404',
+          label: 'Preview 404 Error Page 🐛',
+          icon: Bug,
+          action: () => {
+            window.history.pushState({}, '', '/404');
+            window.dispatchEvent(new PopStateEvent('popstate'));
+            onClose();
+          },
+        },
       ],
     },
     {
@@ -94,6 +104,28 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
         items: g.items.filter((it) => filtered.includes(it)),
       })).filter((g) => g.items.length > 0);
 
+  const handleSelectItem = useCallback(
+    (item) => {
+      if (!item) return;
+      if (item.action) {
+        item.action();
+      } else if (item.href) {
+        if (item.external) {
+          window.open(item.href, '_blank', 'noreferrer');
+        } else {
+          if (window.location.pathname !== '/') {
+            window.history.pushState({}, '', '/' + item.href);
+            window.dispatchEvent(new PopStateEvent('popstate'));
+          } else {
+            window.location.hash = item.href.slice(1);
+          }
+          onClose();
+        }
+      }
+    },
+    [onClose]
+  );
+
   /* ── Arrow-key + Enter navigation ── */
   const handleKeyDown = useCallback(
     (e) => {
@@ -106,16 +138,10 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
       } else if (e.key === 'Enter') {
         e.preventDefault();
         const item = filtered[activeIndex];
-        if (!item) return;
-        if (item.action) {
-          item.action();
-        } else if (item.href) {
-          if (item.external) window.open(item.href, '_blank', 'noreferrer');
-          else { window.location.hash = item.href.slice(1); onClose(); }
-        }
+        handleSelectItem(item);
       }
     },
-    [filtered, activeIndex, onClose]
+    [filtered, activeIndex, handleSelectItem]
   );
 
   useEffect(() => {
@@ -220,13 +246,7 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
                         <motion.div
                           data-index={idx}
                           onMouseEnter={() => setActiveIndex(idx)}
-                          onClick={() => {
-                            if (item.action) item.action();
-                            else if (item.href) {
-                              if (item.external) window.open(item.href, '_blank', 'noreferrer');
-                              else { window.location.hash = item.href.slice(1); onClose(); }
-                            }
-                          }}
+                          onClick={() => handleSelectItem(item)}
                           animate={{ background: isActive ? 'rgba(59, 130, 246, 0.12)' : 'transparent' }}
                           transition={{ duration: 0.12 }}
                           style={{
