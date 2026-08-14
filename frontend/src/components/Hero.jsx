@@ -98,8 +98,7 @@ export default function Hero({ onOpenResume }) {
         <>
           <motion.div
             whileHover={{ scale: 1.1, rotate: 6 }}
-            animate={{ y: [0, -14, 0], rotate: [0, 5, 0] }}
-            transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             style={{
               position: 'absolute', top: '18%', right: isTablet ? '2%' : '8%',
               padding: '8px 14px', borderRadius: '999px',
@@ -114,8 +113,7 @@ export default function Hero({ onOpenResume }) {
 
           <motion.div
             whileHover={{ scale: 1.1, rotate: -6 }}
-            animate={{ y: [0, 14, 0], rotate: [0, -5, 0] }}
-            transition={{ repeat: Infinity, duration: 7, ease: 'easeInOut', delay: 1 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             style={{
               position: 'absolute', bottom: '25%', left: isTablet ? '1%' : '4%',
               padding: '8px 14px', borderRadius: '999px',
@@ -161,23 +159,6 @@ export default function Hero({ onOpenResume }) {
 
             {/* Name Focal Point Container */}
             <div style={{ position: 'relative', marginBottom: '20px', zIndex: 2 }}>
-              {/* Radial ambient glow backdrop behind name */}
-              <motion.div
-                animate={{ opacity: [0.35, 0.65, 0.35], scale: [0.95, 1.04, 0.95] }}
-                transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
-                style={{
-                  position: 'absolute',
-                  top: '-30%',
-                  left: '-10%',
-                  width: '120%',
-                  height: '160%',
-                  background: 'radial-gradient(ellipse at center, rgba(59, 130, 246, 0.28) 0%, rgba(96, 165, 250, 0.12) 50%, transparent 80%)',
-                  filter: 'blur(30px)',
-                  pointerEvents: 'none',
-                  zIndex: -1
-                }}
-              />
-
               {/* Eyebrow Focal Tag */}
               <motion.div
                 variants={itemVariants}
@@ -337,8 +318,6 @@ export default function Hero({ onOpenResume }) {
           {/* Floating 3D Interactive Profile Card */}
           <motion.div
             variants={itemVariants}
-            animate={{ y: [0, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut' }}
             style={{ order: isNarrow ? -1 : undefined }}
           >
             <div
@@ -362,9 +341,7 @@ export default function Hero({ onOpenResume }) {
                     whileTap={{ scale: 0.95 }}
                     style={{ position: 'relative', cursor: 'pointer' }}
                   >
-                    <motion.div
-                      animate={{ rotate: 360, scale: [1, 1.05, 1] }}
-                      transition={{ rotate: { repeat: Infinity, duration: 10, ease: 'linear' }, scale: { repeat: Infinity, duration: 3, ease: 'easeInOut' } }}
+                    <div
                       style={{
                         position: 'absolute', inset: -4, borderRadius: '50%',
                         background: 'linear-gradient(135deg, #3B82F6, #60A5FA, #2563EB, #8B5CF6)',
