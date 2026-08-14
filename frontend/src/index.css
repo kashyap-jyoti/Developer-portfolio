@@ -245,21 +245,19 @@ body {
   background-size: 60px 60px;
 }
 
-/* Animated Background Orbs */
+/* Background Orbs — gentle opacity breathe only */
 .orb-bg {
   position: fixed;
   border-radius: 50%;
   filter: blur(90px);
   pointer-events: none;
   z-index: 0;
-  animation: orbF 10s ease-in-out infinite alternate;
-  will-change: transform;
+  animation: orbBreathe 8s ease-in-out infinite alternate;
 }
 
-@keyframes orbF {
-  0% { transform: scale(1) translate(0, 0); }
-  50% { transform: scale(1.15) translate(40px, -30px); }
-  100% { transform: scale(0.95) translate(-20px, 30px); }
+@keyframes orbBreathe {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
 }
 
 #grid-ol {
@@ -280,27 +278,10 @@ body {
   }
 }
 
-/* Animated Gradient Line */
+/* Static Gradient Line */
 .gradient-wave-line {
   height: 2px;
   background: linear-gradient(90deg, transparent, #2563EB, #60A5FA, #3B82F6, transparent);
-  background-size: 200% 100%;
-  animation: gradientMove 4s linear infinite;
-}
-
-@keyframes gradientMove {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
-}
-
-/* Floating animation for icons */
-.float-subtle {
-  animation: subtleFloat 4s ease-in-out infinite alternate;
-}
-
-@keyframes subtleFloat {
-  0% { transform: translateY(0px) rotate(0deg); }
-  100% { transform: translateY(-8px) rotate(3deg); }
 }
 
 /* Focus styles for forms */
