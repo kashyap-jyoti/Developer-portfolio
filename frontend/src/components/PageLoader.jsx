@@ -75,18 +75,6 @@ export default function PageLoader({ onComplete }) {
             }}
           >
             JK
-            {/* Pulsing ring */}
-            <motion.div
-              animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
-              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-              style={{
-                position: 'absolute',
-                inset: -6,
-                borderRadius: '28px',
-                border: '2px solid rgba(96, 165, 250, 0.5)',
-                pointerEvents: 'none'
-              }}
-            />
           </motion.div>
 
           {/* Title / Subtitle */}
