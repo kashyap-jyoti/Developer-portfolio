@@ -1,41 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, ArrowUp, Rocket } from 'lucide-react';
-import gsap from 'gsap';
+import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
 import RippleButton from './RippleButton';
 import LeetCodeIcon from './LeetCodeIcon';
 import { useResponsive } from '../hooks/useResponsive';
 
 export default function Footer() {
-  const [isLaunching, setIsLaunching] = useState(false);
   const { isMobile } = useResponsive();
 
-  const scrollToTop = (e) => {
-    setIsLaunching(true);
-    const target = e.currentTarget;
-
-    // Rocket Blast Off GSAP Animation
-    gsap.to(target, {
-      y: -120,
-      scale: 1.3,
-      opacity: 0,
-      duration: 0.6,
-      ease: 'power3.in',
-      onComplete: () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Reset rocket button
-        setTimeout(() => {
-          gsap.to(target, {
-            y: 0,
-            scale: 1,
-            opacity: 1,
-            duration: 0.4,
-            ease: 'back.out(1.7)'
-          });
-          setIsLaunching(false);
-        }, 500);
-      }
-    });
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -90,7 +64,7 @@ export default function Footer() {
                 boxShadow: '0 0 15px rgba(59, 130, 246, 0.4)'
               }}
             >
-              {isLaunching ? <Rocket size={20} /> : <ArrowUp size={20} />}
+              <ArrowUp size={20} />
             </button>
           </div>
         </div>
