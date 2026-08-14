@@ -5,9 +5,7 @@ import { useReducedMotion } from '../hooks/useReducedMotion';
 export default function CustomCursor() {
   const prefersReduced = useReducedMotion();
   const [isHovered, setIsHovered] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const [ripples, setRipples] = useState([]);
 
   // Mouse position motion values
   const cursorX = useMotionValue(-100);
@@ -30,21 +28,6 @@ export default function CustomCursor() {
       cursorY.set(e.clientY);
     };
 
-    const handleMouseDown = (e) => {
-      setIsClicking(true);
-      const newRipple = {
-        id: Date.now(),
-        x: e.clientX,
-        y: e.clientY
-      };
-      setRipples((prev) => [...prev.slice(-4), newRipple]);
-      setTimeout(() => {
-        setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
-      }, 700);
-    };
-
-    const handleMouseUp = () => setIsClicking(false);
-
     // Hover target listener
     const handleMouseOver = (e) => {
       const target = e.target;
@@ -53,14 +36,10 @@ export default function CustomCursor() {
     };
 
     window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
     window.addEventListener('mouseover', handleMouseOver);
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('mouseover', handleMouseOver);
     };
   }, [cursorX, cursorY]);
@@ -87,7 +66,6 @@ export default function CustomCursor() {
           y: smoothY,
           translateX: '-50%',
           translateY: '-50%',
-          scale: isClicking ? 0.8 : 1
         }}
         transition={{ type: 'spring', stiffness: 400, damping: 28 }}
       />
@@ -111,30 +89,6 @@ export default function CustomCursor() {
           translateY: '-50%'
         }}
       />
-
-      {/* Click Ripple Effects */}
-      {ripples.map((r) => (
-        <motion.div
-          key={r.id}
-          initial={{ scale: 0.2, opacity: 0.8 }}
-          animate={{ scale: 2.5, opacity: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          style={{
-            position: 'fixed',
-            top: r.y,
-            left: r.x,
-            width: '30px',
-            height: '30px',
-            borderRadius: '50%',
-            border: '2px solid #60A5FA',
-            boxShadow: '0 0 15px #3B82F6',
-            pointerEvents: 'none',
-            zIndex: 9999998,
-            translateX: '-50%',
-            translateY: '-50%'
-          }}
-        />
-      ))}
     </>
   );
 }
