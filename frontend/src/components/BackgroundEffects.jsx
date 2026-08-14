@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 export default function BackgroundEffects() {
   return (
@@ -7,14 +6,8 @@ export default function BackgroundEffects() {
       {/* Grid Overlay */}
       <div id="grid-ol" />
 
-      {/* Floating Aurora Color Orbs */}
-      <motion.div
-        animate={{
-          x: [0, 40, -20, 0],
-          y: [0, -30, 30, 0],
-          scale: [1, 1.2, 0.9, 1]
-        }}
-        transition={{ repeat: Infinity, duration: 12, ease: 'easeInOut' }}
+      {/* Static Aurora Color Orbs — gentle CSS opacity breathe only */}
+      <div
         className="orb-bg"
         style={{
           width: '600px',
@@ -25,13 +18,7 @@ export default function BackgroundEffects() {
         }}
       />
 
-      <motion.div
-        animate={{
-          x: [0, -50, 30, 0],
-          y: [0, 40, -20, 0],
-          scale: [1, 0.95, 1.15, 1]
-        }}
-        transition={{ repeat: Infinity, duration: 15, ease: 'easeInOut', delay: 2 }}
+      <div
         className="orb-bg"
         style={{
           width: '500px',
@@ -42,13 +29,7 @@ export default function BackgroundEffects() {
         }}
       />
 
-      <motion.div
-        animate={{
-          x: [0, 30, -40, 0],
-          y: [0, -40, 20, 0],
-          scale: [1, 1.1, 0.9, 1]
-        }}
-        transition={{ repeat: Infinity, duration: 10, ease: 'easeInOut', delay: 1 }}
+      <div
         className="orb-bg"
         style={{
           width: '350px',
