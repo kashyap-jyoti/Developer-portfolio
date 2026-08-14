@@ -136,12 +136,8 @@ function ServiceCard({ service, index }) {
         {/* Icon box */}
         <motion.div
           aria-hidden="true"
-          animate={
-            hovered
-              ? { rotate: [0, -10, 10, 0], scale: [1, 1.14, 1] }
-              : { rotate: 0, scale: 1 }
-          }
-          transition={{ duration: 0.45, ease: 'easeInOut' }}
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
           style={{
             width: '52px',
             height: '52px',
