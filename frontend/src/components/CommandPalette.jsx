@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, FolderGit2, Cpu, Download, Github, Linkedin, Mail, ArrowRight, Sun, Moon, Bug } from 'lucide-react';
+import { Search, FolderGit2, Cpu, Download, Github, Linkedin, Mail, ArrowRight, Sun, Moon, Bug, Award } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
 export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
@@ -38,10 +38,11 @@ export default function CommandPalette({ isOpen, onClose, onOpenResume }) {
     {
       group: 'Navigation',
       items: [
-        { id: 'projects',   label: 'View Projects',        icon: FolderGit2, href: '#projects' },
-        { id: 'github-sec', label: 'View GitHub Activity', icon: Github,     href: '#github'   },
-        { id: 'skills',     label: 'View Skills',          icon: Cpu,        href: '#skills'   },
-        { id: 'contact',    label: 'Contact Jyoti',        icon: Mail,       href: '#contact'  },
+        { id: 'achievements', label: 'View Achievements & Social Proof', icon: Award,      href: '#achievements' },
+        { id: 'projects',     label: 'View Projects',                   icon: FolderGit2, href: '#projects'     },
+        { id: 'github-sec',   label: 'View GitHub Activity',            icon: Github,     href: '#github'       },
+        { id: 'skills',       label: 'View Skills',                     icon: Cpu,        href: '#skills'       },
+        { id: 'contact',      label: 'Contact Jyoti',                   icon: Mail,       href: '#contact'      },
       ],
     },
     {
