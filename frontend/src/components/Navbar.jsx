@@ -18,18 +18,19 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
   const isHidden = scrollDirection === 'down' && scrollY > 180 && !mobileOpen;
   const showHamburger = isMobile || isTablet;
 
-  // Close mobile menu when switching to desktop
+  // Automatically close mobile menu when resizing to desktop
   useEffect(() => {
     if (!showHamburger) setMobileOpen(false);
   }, [showHamburger]);
 
+  // Essential, balanced navigation links for clean desktop & mobile display
   const navLinks = [
+    { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
+    { label: 'Proof', href: '#achievements' },
     { label: 'Skills', href: '#skills' },
     { label: 'Services', href: '#services' },
     { label: 'Projects', href: '#projects' },
-    { label: 'GitHub', href: '#github' },
-    { label: 'DSA', href: '#dsa' },
     { label: 'Experience', href: '#experience' },
     { label: 'Contact', href: '#contact' },
   ];
@@ -37,7 +38,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
   // Active section tracker on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'services', 'projects', 'github', 'dsa', 'experience', 'contact'];
+      const sections = ['home', 'about', 'achievements', 'skills', 'services', 'projects', 'github', 'dsa', 'experience', 'contact'];
       const scrollPosition = window.scrollY + 200;
       for (const section of sections) {
         const el = document.getElementById(section);
@@ -58,7 +59,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
   return (
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
-      animate={{ y: isHidden ? -100 : 0, opacity: isHidden ? 0 : 1 }}
+      animate={{ y: isHidden ? -100 : 0, opacity: 1 }}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       aria-label="Main Navigation"
       style={{
@@ -67,32 +68,33 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
         left: 0,
         right: 0,
         zIndex: 9990,
-        padding: '0 clamp(16px, 4vw, 32px)',
+        padding: '0 clamp(16px, 3vw, 28px)',
         background: scrolled
           ? 'var(--nav-bg)'
-          : (theme === 'dark' ? 'rgba(15, 23, 42, 0.75)' : 'rgba(255, 255, 255, 0.8)'),
-        backdropFilter: 'blur(18px)',
-        WebkitBackdropFilter: 'blur(18px)',
+          : (theme === 'dark' ? 'rgba(15, 23, 42, 0.82)' : 'rgba(255, 255, 255, 0.85)'),
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
         borderBottom: scrolled ? '1px solid var(--bor)' : '1px solid transparent',
-        boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.15)' : 'none',
+        boxShadow: scrolled ? '0 10px 30px rgba(0, 0, 0, 0.12)' : 'none',
         transition: 'background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease'
       }}
     >
+      {/* Centered Constrained Container (1240px max width) */}
       <div style={{
-        maxWidth: '1160px',
+        maxWidth: '1240px',
         margin: '0 auto',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        height: scrolled ? '60px' : '68px',
+        justify: 'space-between',
+        height: scrolled ? '64px' : '72px',
         transition: 'height 0.3s ease',
-        gap: '16px'
+        gap: '20px'
       }}>
-        {/* Brand Logo: [JK] Jyoti Kashyap */}
+        {/* BRAND LOGO (LEFT): Circular [JK] Badge + Name */}
         <motion.a
           href="#home"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.96 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
           aria-label="Jyoti Kashyap - Home"
           style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', flexShrink: 0 }}
         >
@@ -101,7 +103,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
             background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontWeight: 800, fontSize: '0.9rem', color: '#ffffff',
-            boxShadow: '0 0 18px rgba(59, 130, 246, 0.5), 0 0 8px rgba(96, 165, 250, 0.4)',
+            boxShadow: '0 0 16px rgba(59, 130, 246, 0.45), 0 0 6px rgba(96, 165, 250, 0.3)',
             border: '2px solid rgba(96, 165, 250, 0.7)', flexShrink: 0
           }}>
             JK
@@ -117,7 +119,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
           </span>
         </motion.a>
 
-        {/* Desktop Navigation Links — Clean text with subtle bottom active indicator */}
+        {/* DESKTOP NAVIGATION LINKS (CENTER/RIGHT): Clean, spacious, readable */}
         <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }} className="desktop-links">
           {navLinks.map((link) => {
             const sectionId = link.href.substring(1);
@@ -132,33 +134,35 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
                 style={{
                   position: 'relative',
                   color: isActive ? '#3B82F6' : (isHovered ? 'var(--t1)' : 'var(--t2)'),
-                  fontSize: '0.86rem', fontWeight: isActive ? 600 : 500,
-                  textDecoration: 'none', padding: '8px 12px',
-                  transition: 'color 0.2s ease',
+                  fontSize: '0.9rem', fontWeight: isActive ? 600 : 500,
+                  textDecoration: 'none', padding: '8px 13px', borderRadius: '8px',
+                  transition: 'color 0.2s ease, background 0.2s ease',
                   display: 'inline-block'
                 }}
               >
                 {link.label}
-                {/* Active Section Indicator: Small subtle bottom underline bar */}
+
+                {/* Subtle Active Indicator Line */}
                 {isActive && (
                   <motion.div
                     layoutId="activeNavIndicator"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     style={{
-                      position: 'absolute', bottom: '2px', left: '12px', right: '12px',
+                      position: 'absolute', bottom: '0px', left: '12px', right: '12px',
                       height: '2px', background: '#3B82F6', borderRadius: '999px',
                       boxShadow: '0 0 8px rgba(59, 130, 246, 0.6)'
                     }}
                   />
                 )}
-                {/* Hover subtle line indicator */}
+
+                {/* Hover Subtle Underline */}
                 {isHovered && !isActive && (
                   <motion.div
                     layoutId="hoverNavLine"
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.15 }}
                     style={{
-                      position: 'absolute', bottom: '2px', left: '12px', right: '12px',
-                      height: '2px', background: 'rgba(59, 130, 246, 0.4)', borderRadius: '999px'
+                      position: 'absolute', bottom: '0px', left: '12px', right: '12px',
+                      height: '2px', background: 'rgba(59, 130, 246, 0.35)', borderRadius: '999px'
                     }}
                   />
                 )}
@@ -167,9 +171,9 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
           })}
         </div>
 
-        {/* Action Controls: Search, Theme Switcher Icon, Resume CTA Button */}
+        {/* CONTROLS & PRIMARY CTA (RIGHT): Single CTA + Theme Toggle + Search */}
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexShrink: 0 }}>
-          {/* Search Button — [ 🔍 Search  Ctrl+K ] */}
+          {/* Search Button (Ctrl+K) */}
           <RippleButton
             onClick={onOpenCmd}
             aria-label="Search portfolio (Ctrl+K)"
@@ -185,18 +189,16 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
           >
             <Search size={14} color="#3B82F6" />
             <span className="search-text">Search</span>
-            {!isTablet && (
-              <kbd className="search-kbd" style={{
-                background: 'rgba(128,128,128,0.14)', border: '1px solid var(--bor)',
-                padding: '2px 5px', borderRadius: '5px', fontSize: '0.65rem',
-                color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace"
-              }}>
-                Ctrl+K
-              </kbd>
-            )}
+            <kbd style={{
+              background: 'rgba(128,128,128,0.14)', border: '1px solid var(--bor)',
+              padding: '2px 5px', borderRadius: '5px', fontSize: '0.65rem',
+              color: 'var(--t3)', fontFamily: "'JetBrains Mono', monospace"
+            }}>
+              Ctrl+K
+            </kbd>
           </RippleButton>
 
-          {/* Theme Switcher — Single 38px Circular Icon Button */}
+          {/* Theme Toggle Button */}
           <motion.button
             onClick={toggleTheme}
             whileHover={{ scale: 1.08 }}
@@ -214,24 +216,22 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </motion.button>
 
-          {/* Resume Button — Primary CTA */}
-          {!showHamburger && (
-            <RippleButton
-              onClick={onOpenResume}
-              aria-label="View Resume"
-              className="btn-p desktop-resume-btn"
-              style={{
-                padding: '8px 18px', fontSize: '0.84rem', borderRadius: '10px',
-                boxShadow: '0 4px 14px rgba(59, 130, 246, 0.35)',
-                display: 'inline-flex', alignItems: 'center', gap: '6px'
-              }}
-            >
-              <FileText size={15} />
-              <span>Resume</span>
-            </RippleButton>
-          )}
+          {/* Primary CTA: Resume Button */}
+          <RippleButton
+            onClick={onOpenResume}
+            aria-label="View Resume"
+            className="btn-p desktop-resume-btn"
+            style={{
+              padding: '8px 18px', fontSize: '0.84rem', borderRadius: '10px',
+              boxShadow: '0 4px 14px rgba(59, 130, 246, 0.35)',
+              display: 'inline-flex', alignItems: 'center', gap: '6px'
+            }}
+          >
+            <FileText size={15} />
+            <span>Resume</span>
+          </RippleButton>
 
-          {/* Mobile Hamburger Menu Toggle */}
+          {/* Mobile / Tablet Hamburger Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
@@ -239,7 +239,8 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
             style={{
               background: 'var(--btn-s-bg)', border: '1px solid var(--bor)',
               borderRadius: '10px', color: 'var(--t1)', cursor: 'pointer',
-              display: 'none', padding: '7px 9px', alignItems: 'center', justifyContent: 'center'
+              display: 'none', padding: '8px 10px', alignItems: 'center', justifyContent: 'center',
+              transition: 'all 0.2s ease'
             }}
             className="mobile-toggle"
           >
@@ -248,7 +249,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
         </div>
       </div>
 
-      {/* Mobile / Tablet Navigation Drawer */}
+      {/* MOBILE & TABLET NAVIGATION DRAWER */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -262,7 +263,8 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
               WebkitBackdropFilter: 'blur(20px)',
               borderTop: '1px solid var(--bor)',
               padding: '16px clamp(16px, 4vw, 24px) 24px',
-              overflow: 'hidden'
+              overflowY: 'auto',
+              maxHeight: 'calc(100vh - 72px)'
             }}
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -276,18 +278,20 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
                     onClick={() => setMobileOpen(false)}
                     style={{
                       color: isActive ? '#3B82F6' : 'var(--t1)',
-                      fontSize: '0.98rem', fontWeight: isActive ? 600 : 500,
-                      textDecoration: 'none', padding: '12px 8px',
+                      fontSize: '0.96rem', fontWeight: isActive ? 600 : 500,
+                      textDecoration: 'none', padding: '12px 10px',
+                      borderRadius: '8px',
+                      background: isActive ? 'rgba(59, 130, 246, 0.08)' : 'transparent',
                       borderBottom: '1px solid var(--bor)', display: 'flex',
                       alignItems: 'center', justifyContent: 'space-between',
-                      transition: 'color 0.2s ease'
+                      transition: 'all 0.2s ease'
                     }}
                   >
                     <span>{link.label}</span>
                     {isActive && (
                       <span style={{
-                        width: '6px', height: '6px', borderRadius: '50%',
-                        background: '#3B82F6', boxShadow: '0 0 8px #3B82F6'
+                        width: '7px', height: '7px', borderRadius: '50%',
+                        background: '#3B82F6', boxShadow: '0 0 10px #3B82F6'
                       }} />
                     )}
                   </a>
@@ -301,7 +305,7 @@ export default function Navbar({ onOpenCmd, onOpenResume }) {
                   style={{ width: '100%', justifyContent: 'center', gap: '8px', padding: '11px 16px' }}
                 >
                   <Search size={16} color="#3B82F6" />
-                  <span>Search Portfolio</span>
+                  <span>Search Portfolio (Ctrl+K)</span>
                 </RippleButton>
 
                 <RippleButton

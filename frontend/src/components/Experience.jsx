@@ -78,6 +78,14 @@ export default function Experience() {
       tags: ['Java 21', 'Spring Boot', 'React', 'Node.js', 'Express', 'MongoDB', 'Kafka']
     },
     {
+      role: 'Artificial Intelligence & Machine Learning Minor',
+      company: 'IIT Mandi (Executive Program)',
+      period: '2023 — 2024',
+      location: 'IIT Mandi, India',
+      description: 'Completed specialized Minor/Executive Program in AI & ML from Indian Institute of Technology (IIT) Mandi, focusing on Neural Networks, Deep Learning architectures, Natural Language Processing, and Applied Machine Learning.',
+      tags: ['IIT Mandi', 'AI & Machine Learning', 'Deep Learning', 'Neural Networks', 'Python', 'Predictive Analytics']
+    },
+    {
       role: 'Computer Science & Software Engineering Student',
       company: 'BCA Degree Program',
       period: '2022 — Present',

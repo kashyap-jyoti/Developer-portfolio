@@ -178,12 +178,12 @@ export default function About() {
                   <Award size={24} />
                 </div>
                 <div>
-                  <h4 style={{ color: 'var(--t1)', fontWeight: 700, fontSize: '1.05rem' }}>Certifications & Achievements</h4>
-                  <p style={{ color: 'var(--t3)', fontSize: '0.82rem', fontFamily: "'JetBrains Mono', monospace" }}>Java & Full-Stack Verified</p>
+                  <h4 style={{ color: 'var(--t1)', fontWeight: 700, fontSize: '1.05rem' }}>Social Proof & Achievements</h4>
+                  <p style={{ color: 'var(--t3)', fontSize: '0.82rem', fontFamily: "'JetBrains Mono', monospace" }}>100% Verifiable Credentials</p>
                 </div>
               </div>
               <p style={{ color: 'var(--t2)', fontSize: '0.9rem', lineHeight: 1.65 }}>
-                Oracle Certified Java Professional Candidate, Hackathon Winner, top scorer in Data Structures & Object-Oriented Analysis.
+                IIT Mandi AI & ML Minor, Hackathon Participant, BCA Academic Honors, and 500+ Solved DSA Milestones.
               </p>
             </div>
           </motion.div>
